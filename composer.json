@@ -1,0 +1,20 @@
+{
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Omatech\\Editora\\": "src\\Omatech\\Editora"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Omatech\\": "tests/src/Omatech"
+    }
+  },
+  "scripts": {
+    "testwindows": "vendor\\bin\\phpunit.bat",
+    "test": "vendor/bin/phpunit"
+  }
+}
