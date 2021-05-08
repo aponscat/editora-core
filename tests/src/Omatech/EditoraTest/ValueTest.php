@@ -32,9 +32,4 @@ class ValueTest extends TestCase
         $value=new BaseValue($atri, $textValue);
         $this->assertTrue($value->getData()==[$key=>$textValue]);
     }
-
-    public function testDummy(): void
-    {
-        $this->assertTrue(true);
-    }
 }
