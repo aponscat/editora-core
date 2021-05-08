@@ -1,4 +1,12 @@
 {
+  "name": "omatech/editora-core",
+  "description": "eCMS core Classes",
+  "keywords": [
+      "omatech",
+      "eCMS",
+      "headless CMS",
+      "editora"
+  ],  
   "require": {},
   "autoload": {
     "psr-4": {
