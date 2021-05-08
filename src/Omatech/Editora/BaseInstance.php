@@ -42,7 +42,8 @@ class BaseInstance
                 foreach ($singleValue as $attributeKey=>$value) {
                     if ($class->existsAttribute($attributeKey)) {
                         $atri=$class->createAttributeFromKey($attributeKey);
-                        $valuesArray[]=new BaseValue($atri, $value);
+                        //$valuesArray[]=new BaseValue($atri, $value);
+                        $valuesArray[]=$atri->createValue($value);
                     } else {
                         throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
                     }

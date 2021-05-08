@@ -28,20 +28,26 @@ class BaseValue
         return $this->attribute->getKey();
     }
 
+    public function getKeyVal()
+    {
+        return [$this->getKey()=>$this->getValue()];
+    }
+
     public function getData($language='ALL')
     {
         $attributeLanguage=$this->attribute->getLanguage();
         if ($attributeLanguage=='ALL') {
-            return [$this->getKey()=>$this->value];
+            return $this->getKeyVal();
         } else {
             if ($language!='ALL') {
                 if ($attributeLanguage==$language) {
-                    return [$this->getKey()=>$this->value];
+                    return $this->getKeyVal();
                 }
             } else {
-                return [$this->getKey()=>$this->value];
+                return $this->getKeyVal();
             }
         }
+        return null;
     }
 
     public function validate()

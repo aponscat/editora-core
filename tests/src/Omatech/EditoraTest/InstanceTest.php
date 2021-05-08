@@ -230,4 +230,79 @@ class InstanceTest extends TestCase
           ]
         );
     }
+
+
+
+
+    public function testGetLanguageDataDifferentAttributesFromJSON(): void
+    {
+        $jsonAttributes=json_encode([
+        ['key'=>'english-title'
+        , 'type'=>'\Omatech\Editora\ReverseAttribute'
+        , 'config'=>['language'=>'en', 'mandatory'=>true, 'valueType'=>'\Omatech\Editora\ReverseValue']]
+        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>['language'=>'en', 'valueType'=>'\Omatech\Editora\ReverseValue']]
+        , ['key'=>'spanish-title', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>['language'=>'es', 'valueType'=>'\Omatech\Editora\ReverseValue']]
+        , ['key'=>'spanish-text', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>['language'=>'es', 'valueType'=>'\Omatech\Editora\ReverseValue']]
+        , ['key'=>'multilang-attribute', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>[]]
+      ]);
+        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+
+        $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+            [
+              ['english-title'=>'Hello World Title!']
+              ,["english-text" => "Hello World Text!"]
+              ,["spanish-title" => "Hola Mundo!"]
+              ,["spanish-text" => "Hola Mundo Text!"]
+              ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
+        ]
+        ));
+
+        $this->assertTrue(
+            $instance->getData('en')==
+        [
+          "key" => "news-item-instance"
+          ,"english-title" => "!eltiT dlroW olleH"
+          ,"english-text" => "!txeT dlroW olleH"
+          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        ]
+        );
+
+        $this->assertTrue(
+            $instance->getData('en', true)==
+          [
+            "key" => "news-item-instance"
+            ,"status" => "O"
+            ,"startPublishingDate" => null
+            ,"endPublishingDate" => null
+            ,"externalID" => null
+            ,"english-title" => "!eltiT dlroW olleH"
+            ,"english-text" => "!txeT dlroW olleH"
+            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            ]
+        );
+
+        $this->assertTrue(
+            $instance->getData('es')==
+      [
+        "key" => "news-item-instance"
+        ,"spanish-title" => "!odnuM aloH"
+        ,"spanish-text" => "!txeT odnuM aloH"
+        , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+      ]
+        );
+
+        $this->assertTrue(
+            $instance->getData('es', true)==
+        [
+          "key" => "news-item-instance"
+          ,"status" => "O"
+          ,"startPublishingDate" => null
+          ,"endPublishingDate" => null
+          ,"externalID" => null
+          ,"spanish-title" => "!odnuM aloH"
+          ,"spanish-text" => "!txeT odnuM aloH"
+            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          ]
+        );
+    }
 }
