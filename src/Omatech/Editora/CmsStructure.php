@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora;
 
-class ECMS
+class CmsStructure
 {
     private $attributes;
     private $classes;
@@ -15,7 +15,12 @@ class ECMS
         $this->classes=$classes;
     }
 
-    public static function loadFromJSON($jsonStructure)
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    public static function loadStructureFromJSON($jsonStructure)
     {
         $structure=json_decode($jsonStructure, true);
 
@@ -31,6 +36,58 @@ class ECMS
             }
         }
 
+        $attributes=self::getAllAttributes($structure, $languages);
+
+        $relationsClasses=[];
+        foreach ($structure['relations'] as $id=>$relation_parent_and_children) {
+            $ids_array=explode(',', $relation_parent_and_children);
+            $relationsClasses[(int)$id]=['parent'=>array_shift($ids_array), 'children'=>$ids_array];
+        }
+
+        $relationsList=[];
+        foreach ($structure['relation_names'] as $id=>$relation_array) {
+            $relation_name=$relation_array[0];
+            $relation_key=$relation_array[1];
+            $relationsList[(int)$id]=['name'=>$relation_name, 'key'=>$relation_key]+$relationsClasses[$id];
+        }
+
+
+        // TBD
+        // groups
+        // relations
+        // mandatory class_attributes
+
+        $classes=[];
+        foreach ($classes_list as $id=>$className) {
+            $classAttris=[];
+            $attributesInClass=self::getAttributesInClass($structure, $id);
+            foreach ($attributesInClass as $attributeId) {
+                $classAttris+=self::getAttributesFromId($attributes, $languages, $attributeId);
+            }
+            //echo "Creating $className with class_id=$id\n";
+            $classInstance=BaseClass::createFromAttributesArray($className, $classAttris);
+            //var_dump($classInstance);
+            $classes[$id]=$classInstance;
+        }
+
+        foreach ($relationsList as $id=>$relation) {
+            $children=[];
+            foreach ($relation['children'] as $childrenClassId) {
+                $children[]=$classes[$childrenClassId];
+            }
+
+            $classes[$relation['parent']]->addRelation(new BaseRelation($relation['key'], $relation['name'], $children));
+        }
+        
+        return new self($languages, $attributes, $classes);
+    }
+
+    private function getAllAttributes($structure, $languages)
+    {
+
+                // TBD
+        // lookups
+        // images and multilang_images
         $attributes=[];
         $attributes+=self::loadAttributes($structure, 'attributes_string');
         $attributes+=self::loadAttributes($structure, 'attributes_textarea');
@@ -45,21 +102,7 @@ class ECMS
         $attributes+=self::loadAttributes($structure, 'attributes_multi_lang_string', $languages);
         $attributes+=self::loadAttributes($structure, 'attributes_multi_lang_textarea', $languages);
         $attributes+=self::loadAttributes($structure, 'attributes_multi_lang_file', $languages);
-
-        $classes=[];
-        foreach ($classes_list as $id=>$className) {
-            $classAttris=[];
-            $attributesInClass=self::getAttributesInClass($structure, $id);
-            foreach ($attributesInClass as $attributeId) {
-                $classAttris+=self::getAttributesFromId($attributes, $languages, $attributeId);
-            }
-            //echo "Creating $className with class_id=$id\n";
-            $classInstance=BaseClass::createFromAttributesArray($className, $classAttris);
-            //var_dump($classInstance);
-            $classes[$className]=$classInstance;
-        }
-        
-        return new self($languages, $attributes, $classes);
+        return $attributes;
     }
 
     
@@ -70,8 +113,8 @@ class ECMS
             $res[$attributeId]=$atris[$attributeId];
         }
         foreach ($languages as $languageId=>$language) {
-            if (isset($atris[$languageId+$attributeId])) {
-                $res[$languageId+$attributeId]=$atris[$languageId+$attributeId];
+            if (isset($atris[(int)$languageId+(int)$attributeId])) {
+                $res[(int)$languageId+(int)$attributeId]=$atris[(int)$languageId+(int)$attributeId];
             }
         }
         return $res;

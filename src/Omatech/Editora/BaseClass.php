@@ -8,6 +8,7 @@ class BaseClass
 {
     private $key;
     private $attributes;
+    private $relations;
 
     private function __construct($key)
     {
@@ -36,6 +37,21 @@ class BaseClass
             $attributesInstances[$id]=new $attribute['type']($attribute['key'], $config);
         }
         return self::createFromAttributesArray($key, $attributesInstances);
+    }
+
+    public function addRelation(BaseRelation $relation)
+    {
+        $this->relations[$relation->getKey()]=$relation;
+    }
+
+    public function existRelations()
+    {
+        return (!empty($this->relations));
+    }
+
+    public function getRelations()
+    {
+        return $this->relations;
     }
 
     private function setAttributes(array $attributes)
