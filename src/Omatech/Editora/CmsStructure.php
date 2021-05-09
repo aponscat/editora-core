@@ -54,7 +54,6 @@ class CmsStructure
 
         // TBD
         // groups
-        // relations
         // mandatory class_attributes
 
         $classes=[];
@@ -64,9 +63,8 @@ class CmsStructure
             foreach ($attributesInClass as $attributeId) {
                 $classAttris+=self::getAttributesFromId($attributes, $languages, $attributeId);
             }
-            //echo "Creating $className with class_id=$id\n";
+            
             $classInstance=BaseClass::createFromAttributesArray($className, $classAttris);
-            //var_dump($classInstance);
             $classes[$id]=$classInstance;
         }
 
@@ -123,6 +121,9 @@ class CmsStructure
     private static function getAttributesInClass($structure, $id)
     {
         $res=[];
+        if (!isset($structure['attributes_classes'][(string)$id])) {
+            return $res;
+        }
         $attributes=$structure['attributes_classes'][(string)$id];
         $attributesArray=explode(',', $attributes);
         foreach ($attributesArray as $oneAttributeExpression) {

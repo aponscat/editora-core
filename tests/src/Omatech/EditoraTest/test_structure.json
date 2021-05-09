@@ -1,0 +1,2305 @@
+{
+    "truncate_users": false,
+    "users": {
+        "1": [
+            "omatech",
+            "Omatech",
+            "es",
+            "1",
+            "O"
+        ],
+        "2": [
+            "admin",
+            "Admin",
+            "es",
+            "2",
+            "U"
+        ],
+        "4": [
+            "bemobile",
+            "Be Mobile",
+            "ca",
+            "2",
+            "U"
+        ],
+        "5": [
+            "usuario_recetas",
+            "Recetas",
+            "es",
+            "5",
+            "U"
+        ],
+        "6": [
+            "usuario_recomendaciones",
+            "Recomendaciones",
+            "es",
+            "6",
+            "U"
+        ],
+        "7": [
+            "usuario_actividad_fisica",
+            "Actividad Fisica",
+            "es",
+            "7",
+            "U"
+        ],
+        "8": [
+            "usuario_coaching",
+            "Coaching",
+            "es",
+            "8",
+            "U"
+        ],
+        "9": [
+            "harnau",
+            "harnau",
+            "es",
+            "1",
+            "O"
+        ]
+    },
+    "languages": {
+        "10000": "es",
+        "20000": "en",
+        "30000": "it",
+        "40000": "fr",
+        "50000": "de",
+        "60000": "tr",
+        "70000": "pt",
+        "80000": "nl",
+        "90000": "la",
+        "100000": "br"
+    },
+    "groups": {
+        "Principal": "1",
+        "Tips": "2",
+        "ElementsTips": "3",
+        "Coaching": "4",
+        "Exercices": "5",
+        "Methods": "6",
+        "Recipes": "7",
+        "ElementsRecipes": "8",
+        "Elements": "9",
+        "Repositories": "10",
+        "Products": "11",
+        "Hercules": "12",
+        "Webviews": "13",
+        "App": "14"
+    },
+    "classes": {
+        "Principal": {
+            "1": [
+                "Global",
+                "Global"
+            ],
+            "10": [
+                "Home",
+                "Home"
+            ],
+            "11": [
+                "Countries",
+                "Pais"
+            ],
+            "12": [
+                "Languages",
+                "Idioma"
+            ],
+            "13": [
+                "Pages",
+                "P\u00e0gina"
+            ]
+        },
+        "Tips": {
+            "23": [
+                "MotivationalTips",
+                "Tips Motivacionals"
+            ],
+            "22": [
+                "Tips",
+                "Tips"
+            ],
+            "24": [
+                "Consejos",
+                "Recomanacions"
+            ]
+        },
+        "ElementsTips": {
+            "27": [
+                "TypeTip",
+                "Tipus Recomanacions"
+            ],
+            "29": [
+                "DailyTimeSlot",
+                "Daily Time Slot"
+            ]
+        },
+        "Coaching": {
+            "25": [
+                "Coaching",
+                "Coaching"
+            ],
+            "40": [
+                "CoachingObjective",
+                "Coaching Objetiu"
+            ]
+        },
+        "Exercices": {
+            "20": [
+                "ExercicesGroup",
+                "Grup Exercicis"
+            ],
+            "21": [
+                "Exercices",
+                "Exercicis"
+            ],
+            "45": [
+                "TypeExercise",
+                "Tipus Exercici"
+            ],
+            "126": [
+                "PlaylistExercices",
+                "Playlist Exercicis"
+            ]
+        },
+        "Methods": {
+            "14": [
+                "Methods",
+                "M\u00e8todes"
+            ],
+            "15": [
+                "Steps",
+                "Passos"
+            ],
+            "50": [
+                "PageInfoStep",
+                "P\u00e0gina Info Pas"
+            ],
+            "28": [
+                "BlockStep",
+                "Bloc Info Pas"
+            ]
+        },
+        "Recipes": {
+            "26": [
+                "Recipes",
+                "Receptes"
+            ]
+        },
+        "ElementsRecipes": {
+            "49": [
+                "Difficulty",
+                "Dificultad"
+            ],
+            "41": [
+                "CatgegoryRecipe",
+                "Categoria Recepta"
+            ],
+            "42": [
+                "FlavorRecipe",
+                "Sabor Recepta"
+            ],
+            "43": [
+                "IngredientMeasures",
+                "Mida Ingredient"
+            ],
+            "51": [
+                "IngredientPronokal",
+                "Pronokal Ingredient"
+            ],
+            "46": [
+                "Quantity",
+                "Cantitat"
+            ],
+            "47": [
+                "Units",
+                "Unitats"
+            ],
+            "48": [
+                "Ingredient",
+                "Ingredient"
+            ]
+        },
+        "Elements": {
+            "30": [
+                "Faqs",
+                "FAQs"
+            ],
+            "31": [
+                "MultimediaBlock",
+                "Bloc Multimedia"
+            ],
+            "32": [
+                "IngredientsListBlock",
+                "Bloc Llista Ingredients"
+            ],
+            "33": [
+                "IngredientElement",
+                "Element Ingredient"
+            ],
+            "34": [
+                "TipListBlock",
+                "Bloc Llista Consells"
+            ],
+            "35": [
+                "TipElement",
+                "Element Consell"
+            ],
+            "36": [
+                "TextsListBlock",
+                "Bloc Llista Textos"
+            ],
+            "37": [
+                "TextElement",
+                "Element Text"
+            ],
+            "111": [
+                "Symptom",
+                "S\u00edmptoma"
+            ],
+            "127": [
+                "Notification",
+                "Notificaci\u00f3"
+            ]
+        },
+        "Repositories": {
+            "60": [
+                "RepositoryVideo",
+                "Repositori Video"
+            ],
+            "61": [
+                "RepositoryDocument",
+                "Repositori Document"
+            ],
+            "62": [
+                "RepositoryLink",
+                "Repositori Link"
+            ],
+            "63": [
+                "RepositoryGallery",
+                "Repositori Galeria"
+            ],
+            "64": [
+                "RepositoryImage",
+                "Repositori Imagen"
+            ]
+        },
+        "Products": {
+            "100": [
+                "Products",
+                "Productes"
+            ],
+            "128": [
+                "ComponentPack",
+                "Component Pack"
+            ],
+            "101": [
+                "Brands",
+                "Marcas"
+            ],
+            "102": [
+                "Allergens",
+                "Al\u00b7l\u00e8rgens"
+            ],
+            "103": [
+                "PreparationMethod",
+                "Praparaci\u00f3"
+            ],
+            "104": [
+                "Texture",
+                "Textura"
+            ],
+            "105": [
+                "Flavor",
+                "Sabor"
+            ],
+            "106": [
+                "TimeOfDay",
+                "Moment Del Dia"
+            ],
+            "107": [
+                "CategoryProduct",
+                "Categoria"
+            ],
+            "108": [
+                "TypeProduct",
+                "Tipus Producte"
+            ],
+            "109": [
+                "UnitType",
+                "Tipus Unitat"
+            ],
+            "110": [
+                "ProteinOrigin",
+                "Origen Prote\u00efna"
+            ]
+        },
+        "Hercules": {
+            "112": [
+                "Question",
+                "Pregunta"
+            ],
+            "113": [
+                "Option",
+                "Respuesta"
+            ],
+            "44": [
+                "BlockMuscularGroup",
+                "Grup Muscular"
+            ],
+            "115": [
+                "Equipment",
+                "Equipament"
+            ],
+            "116": [
+                "Place",
+                "Lloc"
+            ]
+        },
+        "Webviews": {
+            "117": [
+                "Herculeswebview",
+                "Webview"
+            ],
+            "118": [
+                "BlockText",
+                "Bloc Text"
+            ],
+            "119": [
+                "BlockImage",
+                "Bloc Imatge"
+            ],
+            "125": [
+                "BlockVideoEmbed",
+                "Bloc Video Embed"
+            ],
+            "120": [
+                "BlockVideo",
+                "Bloc Video"
+            ],
+            "121": [
+                "BlockAudio",
+                "Bloc Audio"
+            ],
+            "122": [
+                "BlockFile",
+                "Bloc Arxiu"
+            ],
+            "123": [
+                "BlockButton",
+                "Bloc Bot\u00f3"
+            ],
+            "124": [
+                "BlockOffer",
+                "Bloc Oferta"
+            ]
+        },
+        "App": {
+            "65": [
+                "Onboarding",
+                "Onboarding"
+            ],
+            "66": [
+                "OnboardingCard",
+                "Onboarding Card"
+            ],
+            "67": [
+                "Questionary",
+                "Q\u00fcestionari"
+            ],
+            "68": [
+                "QuestionaryQuiz",
+                "Q\u00fcestionari Pregunta"
+            ],
+            "69": [
+                "EcommerceBox",
+                "Ecommerce Box"
+            ],
+            "70": [
+                "GraphicApp",
+                "Gr\u00e0fic App"
+            ],
+            "71": [
+                "ActionGroup",
+                "Action Group"
+            ],
+            "72": [
+                "ActionCard",
+                "Action Card"
+            ],
+            "73": [
+                "AppButton",
+                "App Button"
+            ]
+        }
+    },
+    "attributes_order_string": [],
+    "attributes_order_date": [],
+    "attributes_string": {
+        "100": [
+            "country_code",
+            "Codi pais",
+            "C\u00f3digo Pa\u00eds",
+            "Country Code"
+        ],
+        "101": [
+            "code",
+            "code",
+            "Code",
+            "Code"
+        ],
+        "102": [
+            "starttime",
+            "Hora inici (00:00)",
+            "Hora Inicio (00:00)",
+            "Start Time (00:00)"
+        ],
+        "103": [
+            "endtime",
+            "Hora final (00:00)",
+            "Hora Final (00:00)",
+            "End Time (00:00)"
+        ],
+        "104": [
+            "quantity",
+            "Cantitat",
+            "Cantidad",
+            "Quantity"
+        ],
+        "105": [
+            "time_exercise",
+            "Temps exercici",
+            "Tiempo Ejercicio",
+            "Time Exercise"
+        ],
+        "106": [
+            "num_rep",
+            "Nombre repeticions",
+            "N\u00famero De Repeticiones",
+            "Number Of Repetitions"
+        ],
+        "107": [
+            "num_series",
+            "Nombre de series",
+            "N\u00famero De Series",
+            "Number Of Series"
+        ],
+        "108": [
+            "icon_class",
+            "Clase icona",
+            "Clase Icono",
+            "Icon Class"
+        ],
+        "109": [
+            "duration",
+            "Durada",
+            "Duraci\u00f3n",
+            "Duration"
+        ],
+        "401": [
+            "units_kit",
+            "Unitats per kit",
+            "Unidades Por Kit",
+            "Units Per Kit"
+        ],
+        "402": [
+            "grams_unit",
+            "Grams per unitat",
+            "Gramos Por Unidad",
+            "Grams Per Unit"
+        ],
+        "403": [
+            "net_weight_unit",
+            "Pes net per unitat",
+            "Peso Neto Por Unidad",
+            "Net Weight Per Unit"
+        ],
+        "404": [
+            "gross_weight_kit",
+            "Pes brut kit",
+            "Peso Bruto Kit",
+            "Gross Weight Per Kit"
+        ],
+        "405": [
+            "net_weight_kit",
+            "Pes net kit",
+            "Peso Neto Kit",
+            "Net Weight Per Kit"
+        ],
+        "406": [
+            "gross_weight_pack",
+            "Pes brut bulto",
+            "Peso Bruto Bulto",
+            "Gross Weight Per Package"
+        ],
+        "407": [
+            "net_weight_pack",
+            "Pes net bulto",
+            "Peso Neto Bulto",
+            "Net Weight Per Package"
+        ],
+        "408": [
+            "KJ_x_100",
+            "KJ per 100gr",
+            "KJ Por 100gr",
+            "KJ Per 100gr"
+        ],
+        "409": [
+            "Kcalories_x_100",
+            "Kcalories per 100gr",
+            "Kcalories Por 100gr",
+            "Kcalories Per 100gr"
+        ],
+        "410": [
+            "hydrates_x_100",
+            "Hidrats per 100gr",
+            "Hidratos Per 100gr",
+            "Hydrates Per 100gr"
+        ],
+        "411": [
+            "sugar_x_100",
+            "Sucres per 100gr",
+            "Az\u00facares Por 100gr",
+            "Sugar Per 100gr"
+        ],
+        "412": [
+            "protein_x_100",
+            "Proteines per 100gr",
+            "Proteinas Por 100gr",
+            "Protein Per 100gr"
+        ],
+        "413": [
+            "fat_x_100",
+            "Greixos per 100gr",
+            "Grasas Por 100gr",
+            "Fat Per 100gr"
+        ],
+        "414": [
+            "saturated_fats_x_100",
+            "Greixos saturats per 100gr",
+            "Grasas Saturadas Por 100gr",
+            "Saturated Fats Per 100gr"
+        ],
+        "415": [
+            "fiber_x_100",
+            "Fibra per 100gr",
+            "Fibra Por 100gr",
+            "Fiber Per 100gr"
+        ],
+        "416": [
+            "salt_x_100",
+            "Sal per 100gr",
+            "Sal  Por 100gr",
+            "Salt Per 100gr"
+        ],
+        "417": [
+            "DHA_x_100",
+            "DHA per 100gr",
+            "DHA Por 100gr",
+            "DHA Per 100gr"
+        ],
+        "418": [
+            "KJ_x_unit",
+            "KJ per unitat",
+            "KJ Por Unidad",
+            "KJ Per Unit"
+        ],
+        "419": [
+            "Kcalories_x_unit",
+            "Kcalories per unitat",
+            "Kcalorias Por Unidad",
+            "Kcalories Per Unit"
+        ],
+        "420": [
+            "hydrates_x_unit",
+            "Hidrats  per unitat",
+            "Hidratos Por Unidad",
+            "Hydrates Per Unit"
+        ],
+        "421": [
+            "sugar_x_unit",
+            "Sucre per unitat",
+            "Az\u00facares Por Unidad",
+            "Sugar Per Unit"
+        ],
+        "422": [
+            "protein_x_unit",
+            "Proteines per unitat",
+            "Proteinas Por Unidad",
+            "Protein Per Unit"
+        ],
+        "423": [
+            "fat_x_unit",
+            "Greixos per unitat",
+            "Grasas Por Unidad",
+            "Fat Per Unit"
+        ],
+        "424": [
+            "saturated_fats_x_unit",
+            "Greixos saturats per unitat",
+            "Grasas Saturadas Por Unidad",
+            "Saturated Fats Per Unit"
+        ],
+        "425": [
+            "fiber_x_unit",
+            "Fibra per unitat",
+            "Fibra Por Unidad",
+            "Fiber Per Unit"
+        ],
+        "426": [
+            "salt_x_unit",
+            "Sal per unitat",
+            "Sal Por Unidad",
+            "Salt Per Unit"
+        ],
+        "427": [
+            "DHA_x_unit",
+            "DHA per unitat",
+            "DHA Por Unidad",
+            "DHA Per Unit"
+        ],
+        "428": [
+            "shots_kit",
+            "Tomas per kit",
+            "Tomas Por Kit",
+            "Shots Per Kit"
+        ],
+        "429": [
+            "Polioles_x_unit",
+            "Polioles per unitat",
+            "Polioles Por Unidad",
+            "Polioles Per Unit"
+        ],
+        "430": [
+            "app_code",
+            "App Code",
+            "App Code",
+            "App Code"
+        ],
+        "431": [
+            "stock_security",
+            "Stock seguritat",
+            "Stock Seguridad",
+            "Security Stock"
+        ],
+        "432": [
+            "data_first_login",
+            "Hores primer login",
+            "Horas Primer Login",
+            "Data First Login"
+        ],
+        "433": [
+            "data_begin_method",
+            "Horas inici m\u00e8tode",
+            "Horas Inicio M\u00e9todo",
+            "Data Begin Method"
+        ],
+        "434": [
+            "only_step",
+            "Only step",
+            "Only Step",
+            "Only Step"
+        ]
+    },
+    "attributes_textarea": [],
+    "attributes_text": [],
+    "attributes_date": [],
+    "attributes_num": [],
+    "attributes_geolocation": [],
+    "attributes_url": {
+        "450": [
+            "url",
+            "Url",
+            "Url",
+            "Url"
+        ],
+        "451": [
+            "url_video",
+            "URL video",
+            "URL Video",
+            "URL Video"
+        ]
+    },
+    "attributes_file": {
+        "500": [
+            "file",
+            "Document",
+            "Documento",
+            "File"
+        ],
+        "501": [
+            "audio",
+            "Audio mp3",
+            "Audio Mp3",
+            "Audio Mp3"
+        ]
+    },
+    "attributes_video": {
+        "530": [
+            "youtube",
+            "URL video",
+            "URL Video",
+            "URL Video"
+        ]
+    },
+    "attributes_image": {
+        "600": [
+            "little_page_picture",
+            "Imatge petita",
+            "Imagen Peque\u00f1a",
+            "Little Picture"
+        ],
+        "601": [
+            "thumbnail",
+            "Thumbnail",
+            "Thumbnail",
+            "Thumbnail"
+        ],
+        "602": [
+            "exercise_picture",
+            "Imatge",
+            "Imagen",
+            "Picture"
+        ],
+        "603": [
+            "page_picture",
+            "Imatge",
+            "Imagen",
+            "Picture"
+        ],
+        "604": [
+            "retina_page_picture",
+            "Imatge retina",
+            "Imagen Retina",
+            "Retina Picture"
+        ],
+        "605": [
+            "ingredient_picture",
+            "Imatge",
+            "Imagen",
+            "Picture"
+        ],
+        "606": [
+            "tip_block_picture",
+            "Imatge",
+            "Imagen",
+            "Picture"
+        ],
+        "607": [
+            "retina_ingredient_picture",
+            "Imatge retina",
+            "Imagen Retina",
+            "Retina Picture"
+        ],
+        "608": [
+            "retina_exercise_picture",
+            "Imatge retina",
+            "Imagen Retina",
+            "Retina Picture"
+        ],
+        "609": [
+            "icon_picture",
+            "Icona",
+            "Icono",
+            "Icon"
+        ],
+        "610": [
+            "icon_time_picture",
+            "Icona temps exercici",
+            "Icono Tiempo Ejercicio",
+            "Icon Time Exercise"
+        ],
+        "611": [
+            "product_pnk_main_picture",
+            "Imatge productes PNK principal",
+            "Imagen Productos PNK Principal",
+            "Main Picture PNK Products"
+        ],
+        "612": [
+            "product_pnk_top_left_picture",
+            "Imatge productes PNK superior esquerra",
+            "Imagen Productos PNK Superior Izquierda",
+            "Main Picture PNK Top Left"
+        ],
+        "613": [
+            "product_pnk_top_right_picture",
+            "Imatge productes PNK superior dreta",
+            "Imagen Productos PNK Superior Derecha",
+            "Main Picture PNK Top Right"
+        ],
+        "614": [
+            "product_pnk_bottom_left_picture",
+            "Imatge productes PNK inferior esquerra",
+            "Imagen Productos PNK Inferior Izquierda",
+            "Main Picture PNK Bottom Left"
+        ],
+        "615": [
+            "product_pnk_bottom_right_picture",
+            "Imatge productes PNK inferior dreta",
+            "Imagen Productos PNK Inferior Derecha",
+            "Main Picture PNK Bottom Right"
+        ],
+        "616": [
+            "img_repository_image",
+            "Imatge",
+            "Imagen",
+            "Image"
+        ],
+        "617": [
+            "img_thumb_repository_video",
+            "Imatge petita",
+            "Imagen Peque\u00f1a",
+            "Image Little"
+        ],
+        "618": [
+            "img_thumb_repository_document",
+            "Imatge petita",
+            "Imagen Peque\u00f1a",
+            "Imagen Little"
+        ],
+        "619": [
+            "img_thumb_repository_gallery",
+            "Imatge petita",
+            "Imagen Peque\u00f1a",
+            "Imagen Little"
+        ],
+        "620": [
+            "product_image_list",
+            "Imatge Llistat",
+            "Imagen Listado",
+            "Product Image List"
+        ],
+        "621": [
+            "product_image_detail",
+            "Imatge producte",
+            "Imagen Producto",
+            "Product Image"
+        ],
+        "622": [
+            "category_image",
+            "Imatge categoria",
+            "Imagen Categor\u00eda",
+            "Category Image"
+        ],
+        "623": [
+            "product_image_big",
+            "Imatge producte gran",
+            "Imagen Producto Grande",
+            "Product Big Image"
+        ],
+        "624": [
+            "question_img",
+            "Imatge",
+            "Imagen",
+            "Image"
+        ],
+        "625": [
+            "video_thumbnail",
+            "Imatge video",
+            "Imagen Video",
+            "Video Thumbnail"
+        ],
+        "626": [
+            "thumbnail_physical_activity",
+            "Thumbnail activitat fisica",
+            "Thumbnail Actividad F\u00edsica",
+            "Thumbnailphysical Activity"
+        ],
+        "627": [
+            "img_icon_1",
+            "Icona 1",
+            "Icono 1",
+            "Icon 1"
+        ],
+        "628": [
+            "img_icon_2",
+            "Icona 2",
+            "Icono 2",
+            "Icon 2"
+        ],
+        "629": [
+            "img_icon_3",
+            "Icona 3",
+            "Icono 3",
+            "Icon 3"
+        ],
+        "630": [
+            "img_icon_4",
+            "Icona 4",
+            "Icono 4",
+            "Icon 4"
+        ],
+        "631": [
+            "img_big_icon",
+            "Icona gran",
+            "Icono Grande",
+            "Icon Big"
+        ],
+        "632": [
+            "img_questionaryquiz",
+            "Icona",
+            "Icono",
+            "Icon"
+        ],
+        "633": [
+            "img_graphicapp",
+            "Icona",
+            "Icono",
+            "Icon"
+        ],
+        "634": [
+            "img_actioncard",
+            "Icona",
+            "Icono",
+            "Icon"
+        ]
+    },
+    "attributes_lookup": {
+        "770": [
+            "language,70",
+            "Codi idioma",
+            "C\u00f3digo Idioma",
+            "Language Code"
+        ],
+        "771": [
+            "difficulty,71",
+            "Dificultad",
+            "Dificultad",
+            "Difficulty Recipe"
+        ],
+        "772": [
+            "level,72",
+            "Nivell",
+            "Nivel",
+            "Level"
+        ],
+        "773": [
+            "title_icon,73",
+            "Icona T\u00edtol",
+            "Icono T\u00edtulo",
+            "Title Icon"
+        ],
+        "774": [
+            "color_title,74",
+            "Color T\u00edtol",
+            "Color T\u00edtulo",
+            "Title Color"
+        ],
+        "775": [
+            "level_repository,75",
+            "Nivell",
+            "Nivel",
+            "Level"
+        ],
+        "776": [
+            "vegetarian,76",
+            "Ovo-lactic Vegetari\u00e0",
+            "Ovo Lacteo Vegetariano",
+            "Vegetarian Ovo Dairy"
+        ],
+        "777": [
+            "vegan,77",
+            "Vegano",
+            "Vegano",
+            "Vegan"
+        ],
+        "778": [
+            "type_onboarding,78",
+            "Tipus onbarding",
+            "Tipo Onboarding",
+            "Type Onboarding"
+        ],
+        "779": [
+            "type_action,79",
+            "Tipus acci\u00f3",
+            "Tipo Acci\u00f3n",
+            "Type Action"
+        ]
+    },
+    "lookups": {
+        "70,language": {
+            "7001": [
+                "ES",
+                "ES",
+                "ES",
+                "ES"
+            ],
+            "7002": [
+                "EN",
+                "EN",
+                "EN",
+                "EN"
+            ],
+            "7003": [
+                "FR",
+                "FR",
+                "FR",
+                "FR"
+            ]
+        },
+        "71,difficulty": {
+            "7101": [
+                "1",
+                "F\u00e0cil",
+                "F\u00e1cil",
+                "Easy"
+            ],
+            "7102": [
+                "2",
+                "Intermig",
+                "Intermedio",
+                "Intermediate"
+            ],
+            "7103": [
+                "3",
+                "Avan\u00e7at",
+                "Avanzado",
+                "Advanced"
+            ]
+        },
+        "72,level": {
+            "7201": [
+                "1",
+                "1",
+                "1",
+                "1"
+            ],
+            "7202": [
+                "2",
+                "2",
+                "2",
+                "2"
+            ],
+            "7203": [
+                "3",
+                "3",
+                "3",
+                "3"
+            ],
+            "7204": [
+                "4",
+                "4",
+                "4",
+                "4"
+            ],
+            "7205": [
+                "5",
+                "5",
+                "5",
+                "5"
+            ]
+        },
+        "73,title_icon": {
+            "7301": [
+                "1",
+                "Titol",
+                "T\u00edtulo",
+                "Title"
+            ],
+            "7302": [
+                "2",
+                "Tareas",
+                "Tareas",
+                "Tareas"
+            ],
+            "7303": [
+                "3",
+                "Alimentaci\u00f3",
+                "Alimentaci\u00f3n",
+                "Alimentaci\u00f3n"
+            ],
+            "7304": [
+                "4",
+                "Activitat fisica",
+                "Actividad f\u00edsica",
+                "Actividad f\u00edsica"
+            ],
+            "7305": [
+                "5",
+                "Coaching",
+                "Coaching",
+                "Coaching"
+            ]
+        },
+        "74,color_title": {
+            "7401": [
+                "motivation",
+                "Vermell",
+                "Rojo",
+                "Red"
+            ],
+            "7402": [
+                "exercise",
+                "Blau",
+                "Azul",
+                "Blue"
+            ],
+            "7403": [
+                "pnk",
+                "Gold",
+                "Dorado",
+                "Gold"
+            ],
+            "7404": [
+                "advice",
+                "Verd",
+                "Verde",
+                "Green"
+            ],
+            "7405": [
+                "coaching",
+                "Groc",
+                "Amarillo",
+                "Yellow"
+            ]
+        },
+        "75,level_repository": {
+            "7501": [
+                "public",
+                "P\u00fablic",
+                "P\u00fablico",
+                "Public"
+            ],
+            "7502": [
+                "doctor",
+                "Metge",
+                "M\u00e9dico",
+                "Doctor"
+            ],
+            "7503": [
+                "pronokal",
+                "Pronokal",
+                "Pronokal",
+                "Pronokal"
+            ]
+        },
+        "76,vegetarian": {
+            "7601": [
+                "0",
+                "NO",
+                "NO",
+                "NO"
+            ],
+            "7602": [
+                "1",
+                "SI",
+                "SI",
+                "YES"
+            ]
+        },
+        "77,vegan": {
+            "7701": [
+                "0",
+                "NO",
+                "NO",
+                "NO"
+            ],
+            "7702": [
+                "1",
+                "SI",
+                "SI",
+                "YES"
+            ]
+        },
+        "78,type_onboarding": {
+            "7801": [
+                "0",
+                "--",
+                "--",
+                "--"
+            ],
+            "7802": [
+                "bascula",
+                "Bascula",
+                "Bascula",
+                "Weighting machine"
+            ],
+            "7803": [
+                "1_big_icon",
+                "Icona gran",
+                "Icono grande",
+                "Big icon"
+            ],
+            "7804": [
+                "2_small_icons",
+                "2 icones petitas",
+                "2 iconos peque\u00f1os",
+                "2 small icons"
+            ],
+            "7805": [
+                "3_small_icons",
+                "3 icones petitas",
+                "3 iconos peque\u00f1os",
+                "3 small icons"
+            ],
+            "7806": [
+                "4_small_icons",
+                "4 icones petitas",
+                "4 iconos peque\u00f1os",
+                "4 small icons"
+            ]
+        },
+        "79,type_action": {
+            "7901": [
+                "mail",
+                "Mail",
+                "Mail",
+                "Mail"
+            ],
+            "7902": [
+                "call",
+                "Call",
+                "Call",
+                "Call"
+            ],
+            "7903": [
+                "later",
+                "M\u00e9s tard",
+                "M\u00e1s tarde",
+                "Later"
+            ],
+            "7904": [
+                "weight",
+                "Persar-se",
+                "Pesarse",
+                "Weight"
+            ],
+            "7905": [
+                "calendar",
+                "Calendari",
+                "Calendario",
+                "Calendar"
+            ]
+        }
+    },
+    "attributes_multi_lang_string": {
+        "200": [
+            "title",
+            "T\u00edtol",
+            "T\u00edtulo",
+            "Title"
+        ],
+        "201": [
+            "question",
+            "Pregunta",
+            "Pregunta",
+            "Question"
+        ],
+        "202": [
+            "answer",
+            "Resposta",
+            "Respuesta",
+            "Answer"
+        ],
+        "203": [
+            "text_calltoaction",
+            "Text enlla\u00e7",
+            "Texto Enlace",
+            "Text Link"
+        ],
+        "204": [
+            "subtitle",
+            "Subt\u00edtol",
+            "Subt\u00edtulo",
+            "Subtitle"
+        ],
+        "205": [
+            "singular_name",
+            "Nom singular",
+            "Nombre Singular",
+            "Singular Name"
+        ],
+        "206": [
+            "plural_name",
+            "Nom plural",
+            "Nombre Plural",
+            "Plural Name"
+        ],
+        "207": [
+            "prefix",
+            "Prefixe",
+            "Prefijo",
+            "Prefix"
+        ],
+        "208": [
+            "quote",
+            "Cita",
+            "Cita",
+            "Quote"
+        ],
+        "209": [
+            "title_rep",
+            "T\u00edtol repeticions",
+            "T\u00edtulo Repeticiones",
+            "Title Repetitions"
+        ],
+        "210": [
+            "title_series",
+            "T\u00edtol series",
+            "T\u00edtulo Series",
+            "Title Series"
+        ],
+        "211": [
+            "title_material",
+            "T\u00edtol material",
+            "T\u00edtulo Material",
+            "Title Material"
+        ],
+        "212": [
+            "title_description",
+            "T\u00edtol description",
+            "T\u00edtulo Description",
+            "Title Description"
+        ],
+        "213": [
+            "title_free_series",
+            "T\u00edtol lliure series",
+            "T\u00edtulo Libre Series",
+            "Title Free Series"
+        ],
+        "214": [
+            "title_document_products_pnk",
+            "T\u00edtol document productes PNK",
+            "T\u00edtulo Documento Productos PNK",
+            "Title Document PNK Products"
+        ],
+        "215": [
+            "sub_title_intern",
+            "T\u00edtol en llista",
+            "T\u00edtulo En Lista",
+            "List Title"
+        ],
+        "216": [
+            "alt_image",
+            "Alt imatge",
+            "Alt Imagen",
+            "Alt Image"
+        ],
+        "217": [
+            "col_100gr",
+            "Titol columna 100gr",
+            "Titulo Columna 100gr",
+            "Title 100gr Column"
+        ],
+        "218": [
+            "col_unit",
+            "Titol columna unitat",
+            "Titulo Columna Unidad",
+            "Title Unit Column"
+        ],
+        "219": [
+            "presentation",
+            "Presentaci\u00f3",
+            "Presentaci\u00f3n",
+            "Presentation"
+        ],
+        "220": [
+            "text_info",
+            "Informaci\u00f3",
+            "Informaci\u00f3n",
+            "Information"
+        ],
+        "221": [
+            "active_ingredient",
+            "Ingredient actiu",
+            "Ingrediente Activo",
+            "Active Ingredient"
+        ],
+        "222": [
+            "feedback_title",
+            "Feedback titol",
+            "Feedback Titulo",
+            "Feedback Title"
+        ],
+        "223": [
+            "feedback_subtitle",
+            "Feedback subtitol",
+            "Feedback Subtitulo",
+            "Feedback Subtitle"
+        ],
+        "224": [
+            "not_found_subtitle",
+            "Not found subtitol",
+            "Not Found Subtitulo",
+            "Not Found Subtitle"
+        ],
+        "225": [
+            "short_description",
+            "Descripci\u00f3",
+            "Descripci\u00f3n",
+            "Description"
+        ],
+        "226": [
+            "subtitle_1",
+            "Subt\u00edtol 1",
+            "Subt\u00edtulo 1",
+            "Subtitle 1"
+        ],
+        "227": [
+            "subtitle_2",
+            "Subt\u00edtol 2",
+            "Subt\u00edtulo 2",
+            "Subtitle 2"
+        ],
+        "228": [
+            "subtitle_3",
+            "Subt\u00edtol 3",
+            "Subt\u00edtulo 3",
+            "Subtitle 3"
+        ],
+        "229": [
+            "subtitle_4",
+            "Subt\u00edtol 4",
+            "Subt\u00edtulo 4",
+            "Subtitle 4"
+        ],
+        "230": [
+            "top_title",
+            "Top t\u00edtol",
+            "Top T\u00edtulo",
+            "Top Title"
+        ],
+        "231": [
+            "step_title",
+            "Step t\u00edtol",
+            "Step T\u00edtulo",
+            "Step Title"
+        ]
+    },
+    "attributes_multi_lang_textarea": {
+        "300": [
+            "text",
+            "Text",
+            "Texto",
+            "Text"
+        ],
+        "301": [
+            "info_general",
+            "Info genereal",
+            "Info General",
+            "General Info"
+        ],
+        "302": [
+            "text_intro_recipes",
+            "Text intro receptes",
+            "Texto Intro Recetas",
+            "Text Intro Recipes"
+        ],
+        "303": [
+            "text_intro_coaching",
+            "Text intro coaching",
+            "Texto Intro Coaching",
+            "Text Intro Coaching"
+        ],
+        "304": [
+            "text_intro_physical_activity",
+            "Text intro activitat fisica",
+            "Texto Intro Actividad F\u00edsica",
+            "Text Intro Physical Activity"
+        ],
+        "305": [
+            "text_intro_tips",
+            "Text intro consells",
+            "Texto Intro Consejos",
+            "Text Intro Tips"
+        ],
+        "306": [
+            "text_intro_coaching_tips",
+            "Text intro consells i coaching",
+            "Texto Intro Consejos Y Coaching",
+            "Text Intro Tips And Coaching"
+        ],
+        "307": [
+            "size",
+            "Tamany",
+            "Tama\u00f1o",
+            "Size"
+        ],
+        "308": [
+            "measure",
+            "Mesura",
+            "Medida",
+            "Measure"
+        ],
+        "309": [
+            "typemeasure",
+            "Tipus de mesura",
+            "Tipo De Medida",
+            "Type Of Measure"
+        ],
+        "310": [
+            "total_block_time",
+            "Temps total bloc",
+            "Tiempo Total Bloque",
+            "Total Block Time"
+        ],
+        "311": [
+            "number_of_cycles",
+            "Nombre de cicles bloc",
+            "N\u00famero De Ciclos Bloque",
+            "Nombre De Cicles Bloc"
+        ],
+        "312": [
+            "rest_time_between_exercises",
+            "Temps entre exercicis recomanats",
+            "Tiempo Entre Ejercicios Recomendados",
+            "Rest Time Between Exercises"
+        ],
+        "313": [
+            "block_recomendation",
+            "Recomanaci\u00f3 de cad\u00e8ncia (vegades per setmana)",
+            "Recomendaci\u00f3n De Cadencia (veces Por Semana)",
+            "Cadence Recommendation (times Per Week)"
+        ],
+        "314": [
+            "material",
+            "Material",
+            "Material",
+            "Material"
+        ],
+        "315": [
+            "description",
+            "Description",
+            "Description",
+            "Description"
+        ],
+        "316": [
+            "series",
+            "Nombre de series",
+            "N\u00famero De Series",
+            "Number Of Series"
+        ],
+        "317": [
+            "reps",
+            "Nombre de repeticions",
+            "N\u00famero De Repeticiones",
+            "Number Of Repetitions"
+        ],
+        "318": [
+            "time_per_rep",
+            "Temps per repetici\u00f3",
+            "Tiempo Por Repetici\u00f3n",
+            "Time Per Repetition"
+        ],
+        "319": [
+            "time_total",
+            "Temps total del exercici",
+            "Tiempo Total Del Ejercicio",
+            "Total Time For Exercise"
+        ],
+        "320": [
+            "preparation_mode",
+            "Mode de preparaci\u00f3 (cada l\u00ednia un punt)",
+            "Modo De Preparaci\u00f3n (cada Linea Un Punto)",
+            "Preparation Mode (each Line One Point)"
+        ],
+        "321": [
+            "text_intro_products_pnk",
+            "Text intro productes PNK",
+            "Texto Intro Productos PNK",
+            "Text Intro PNK Products"
+        ],
+        "322": [
+            "ingredients",
+            "Ingredients",
+            "Ingredientes",
+            "Ingredients"
+        ],
+        "323": [
+            "instructions",
+            "Instruccions",
+            "Instrucciones",
+            "Instructions"
+        ],
+        "324": [
+            "funcionality",
+            "Funcionalitat",
+            "Funcionalidad",
+            "Funcionality"
+        ],
+        "325": [
+            "conservation_recommendations",
+            "Recomanacions de conservaci\u00f3",
+            "Recomendaciones De Conservacion",
+            "Conservation Recommendations"
+        ],
+        "326": [
+            "units_per_day",
+            "Unitats recomanades per dia",
+            "Unidades Recomendadas Por Dia",
+            "Recommended Units Per Day"
+        ],
+        "327": [
+            "info_extra",
+            "Informaci\u00f3 extra",
+            "Informaci\u00f3n Extra",
+            "Extra Information"
+        ]
+    },
+    "attributes_multi_lang_file": {
+        "510": [
+            "file",
+            "Document",
+            "Documento",
+            "File"
+        ],
+        "511": [
+            "file_product_pnk",
+            "Document productes PNK",
+            "Documento Productos PNK",
+            "File PNK Products"
+        ],
+        "512": [
+            "audio",
+            "Audio",
+            "Audio",
+            "Audio"
+        ]
+    },
+    "attributes_multi_lang_image": [],
+    "images_sizes": {
+        "600": "300x300",
+        "601": "300x300",
+        "602": "512x362",
+        "603": "563x375",
+        "604": "1125x750",
+        "605": "103x103",
+        "606": "150x150",
+        "607": "206x206",
+        "608": "1024x724",
+        "609": "150x150",
+        "610": "150x150",
+        "611": "354x280",
+        "612": "166x140",
+        "613": "166x140",
+        "614": "166x140",
+        "615": "166x140",
+        "617": "650x430",
+        "618": "650x430",
+        "619": "650x430",
+        "620": "350x203",
+        "621": "380x380",
+        "622": "280x180",
+        "623": "980x",
+        "625": "360x360",
+        "626": "300x300"
+    },
+    "relations": {
+        "1001": "1,106",
+        "1002": "1,107",
+        "10002": "10,30",
+        "11001": "11,12",
+        "11002": "11,13",
+        "11003": "11,13",
+        "11004": "11,14",
+        "11005": "11,60,61,62,63",
+        "11006": "11,111",
+        "11007": "11,117",
+        "13001": "13,37",
+        "14001": "14,15",
+        "14002": "14,60,61,62,63",
+        "14003": "14,127",
+        "14004": "14,65",
+        "14005": "14,67",
+        "14006": "14,69",
+        "14007": "14,71",
+        "15001": "15,20",
+        "15002": "15,24,25",
+        "15004": "15,26",
+        "15005": "15,30",
+        "15006": "15,28",
+        "15007": "15,23",
+        "15008": "15,22",
+        "15009": "15,22,25,117",
+        "15010": "15,60,61,62,63",
+        "15011": "15,100",
+        "15012": "15,112",
+        "15013": "15,112",
+        "15014": "15,44",
+        "15015": "15,115",
+        "15016": "15,116",
+        "15017": "15,117",
+        "15018": "15,126",
+        "20001": "20,21",
+        "20002": "20,11",
+        "21001": "21,31",
+        "21002": "21,45",
+        "21003": "21,49",
+        "21004": "21,44",
+        "21005": "21,115",
+        "21006": "21,116",
+        "22001": "22,24,25,26",
+        "22002": "22,31",
+        "22003": "22,27",
+        "22004": "22,11",
+        "22005": "22,29",
+        "23001": "23,11",
+        "23002": "23,29",
+        "24001": "24,31",
+        "24002": "24,27",
+        "24003": "24,11",
+        "24004": "24,29",
+        "25001": "25,31",
+        "25002": "25,27",
+        "25003": "25,11",
+        "25004": "25,40",
+        "26001": "26,49",
+        "26002": "26,11",
+        "26003": "26,41",
+        "26004": "26,42",
+        "26005": "26,43",
+        "26006": "26,51",
+        "26007": "26,100",
+        "28001": "28,50",
+        "30001": "30,11",
+        "32001": "32,33",
+        "34001": "34,35",
+        "36001": "36,37",
+        "36002": "36,37",
+        "43001": "43,46",
+        "43002": "43,47",
+        "43003": "43,48",
+        "50001": "50,32,34,36",
+        "63001": "63,64",
+        "65001": "65,11",
+        "65002": "65,66",
+        "66001": "66,11",
+        "66002": "66,73",
+        "67001": "67,68",
+        "67002": "67,11",
+        "68001": "68,111",
+        "71001": "71,72",
+        "71002": "71,11",
+        "72001": "72,73",
+        "72002": "72,11",
+        "100001": "100,101",
+        "100002": "100,102",
+        "100003": "100,103",
+        "100004": "100,104",
+        "100005": "100,105",
+        "100006": "100,106",
+        "100007": "100,107",
+        "100008": "100,108",
+        "100009": "100,109",
+        "100010": "100,110",
+        "100011": "100,100",
+        "100012": "100,128",
+        "107001": "107,100",
+        "111001": "111,34",
+        "112001": "112,113",
+        "113001": "113,49",
+        "117001": "117,118,119,120,121,122,123,124,125",
+        "126001": "126,21",
+        "127001": "127,13,21,22,24,25,26,50,117",
+        "128001": "128,100"
+    },
+    "relation_names": {
+        "1001": [
+            "Sugested time of day e-commerce",
+            "time_of_day_ecommerce"
+        ],
+        "1002": [
+            "Categories e-commerce",
+            "categories_ecommerce"
+        ],
+        "10002": [
+            "FAQs",
+            "faqs"
+        ],
+        "11001": [
+            "Languages",
+            "languages"
+        ],
+        "11002": [
+            "Terms and conditions",
+            "terms_and_conditions"
+        ],
+        "11003": [
+            "Privacy policy",
+            "privacy_policy"
+        ],
+        "11004": [
+            "Methods",
+            "methods"
+        ],
+        "11005": [
+            "Repositories",
+            "repositories"
+        ],
+        "11006": [
+            "Symptoms",
+            "symptoms"
+        ],
+        "11007": [
+            "Webviews",
+            "webviews"
+        ],
+        "13001": [
+            "Blocks",
+            "blocks"
+        ],
+        "14001": [
+            "Steps",
+            "steps"
+        ],
+        "14002": [
+            "Repositories",
+            "repositories"
+        ],
+        "14003": [
+            "Notifications",
+            "notifications"
+        ],
+        "14004": [
+            "Onboardings",
+            "onboardings"
+        ],
+        "14005": [
+            "Questionnaires",
+            "questionnaires"
+        ],
+        "14006": [
+            "Ecommerce boxs",
+            "ecommerce_boxs"
+        ],
+        "14007": [
+            "Action groups",
+            "action_groups"
+        ],
+        "15001": [
+            "Physical activities",
+            "exercices_groups"
+        ],
+        "15002": [
+            "Recommendations",
+            "coaching_and_tips"
+        ],
+        "15004": [
+            "Recetas",
+            "recipes"
+        ],
+        "15005": [
+            "FAQs",
+            "faqs"
+        ],
+        "15006": [
+            "Blocks info step",
+            "blocksstep"
+        ],
+        "15007": [
+            "Tips Motivational",
+            "tipsmotivational"
+        ],
+        "15008": [
+            "Tips",
+            "tips"
+        ],
+        "15009": [
+            "Coaching",
+            "coaching"
+        ],
+        "15010": [
+            "Repositories",
+            "repositories"
+        ],
+        "15011": [
+            "Products",
+            "products"
+        ],
+        "15012": [
+            "First Question",
+            "first_question"
+        ],
+        "15013": [
+            "Recurring Question",
+            "recurring_question"
+        ],
+        "15014": [
+            "Filters muscular group",
+            "filters_muscular_group"
+        ],
+        "15015": [
+            "Filters equipment",
+            "filters_equipment"
+        ],
+        "15016": [
+            "Filters place",
+            "filters_place"
+        ],
+        "15017": [
+            "Webviews Physical activities",
+            "webviews_physical_activities"
+        ],
+        "15018": [
+            "Playlists Exercices",
+            "playlist_exercices"
+        ],
+        "20001": [
+            "Exercises",
+            "exercices"
+        ],
+        "20002": [
+            "Countries",
+            "countries"
+        ],
+        "21001": [
+            "Blocks",
+            "blocks"
+        ],
+        "21002": [
+            "Types of exercises",
+            "typeexercise"
+        ],
+        "21003": [
+            "Difficulty",
+            "difficulty"
+        ],
+        "21004": [
+            "Filters muscular group",
+            "filters_muscular_group"
+        ],
+        "21005": [
+            "Filters equipment",
+            "filters_equipment"
+        ],
+        "21006": [
+            "Filters place",
+            "filters_place"
+        ],
+        "22001": [
+            "Link",
+            "link"
+        ],
+        "22002": [
+            "Blocks",
+            "blocks"
+        ],
+        "22003": [
+            "Types Recommendations",
+            "typestip"
+        ],
+        "22004": [
+            "Countries",
+            "countries"
+        ],
+        "22005": [
+            "Daily Time Slot",
+            "dailytimeslot"
+        ],
+        "23001": [
+            "Countries",
+            "countries"
+        ],
+        "23002": [
+            "Daily Time Slot",
+            "dailytimeslot"
+        ],
+        "24001": [
+            "Blocks",
+            "blocks"
+        ],
+        "24002": [
+            "Types Recommendations",
+            "typestip"
+        ],
+        "24003": [
+            "Countries",
+            "countries"
+        ],
+        "24004": [
+            "Daily Time Slot",
+            "dailytimeslot"
+        ],
+        "25001": [
+            "Blocks",
+            "blocks"
+        ],
+        "25002": [
+            "Types Recommendations",
+            "typestip"
+        ],
+        "25003": [
+            "Countries",
+            "countries"
+        ],
+        "25004": [
+            "Coaching Objetive",
+            "coachingobjective"
+        ],
+        "26001": [
+            "Difficulty",
+            "difficulty"
+        ],
+        "26002": [
+            "Countries",
+            "countries"
+        ],
+        "26003": [
+            "Recipe Category",
+            "categoryrecipes"
+        ],
+        "26004": [
+            "Sabors Recipe",
+            "flavorrecipes"
+        ],
+        "26005": [
+            "Ingredient Measures",
+            "ingredient_measures"
+        ],
+        "26006": [
+            "Ingredient Pronokal",
+            "ingredient_pronokal"
+        ],
+        "26007": [
+            "Products",
+            "products"
+        ],
+        "28001": [
+            "Page info",
+            "page_info"
+        ],
+        "30001": [
+            "Countries",
+            "countries"
+        ],
+        "32001": [
+            "Ingredient Element",
+            "ingredientelement"
+        ],
+        "34001": [
+            "Tip element",
+            "tipelement"
+        ],
+        "36001": [
+            "Supplements",
+            "supplements"
+        ],
+        "36002": [
+            "Diet",
+            "diet"
+        ],
+        "43001": [
+            "Quantity",
+            "quantity"
+        ],
+        "43002": [
+            "Units",
+            "units"
+        ],
+        "43003": [
+            "Ingredients",
+            "ingredients"
+        ],
+        "50001": [
+            "Blocks",
+            "blocks"
+        ],
+        "63001": [
+            "RepositoriesImages",
+            "repositories_images"
+        ],
+        "65001": [
+            "Countries",
+            "countries"
+        ],
+        "65002": [
+            "Onboardings Cards",
+            "onboardings_cards"
+        ],
+        "66001": [
+            "Countries",
+            "countries"
+        ],
+        "66002": [
+            "App buttons",
+            "app_buttons"
+        ],
+        "67001": [
+            "Questionnaires Quiz",
+            "questionnaires_quiz"
+        ],
+        "67002": [
+            "Countries",
+            "countries"
+        ],
+        "68001": [
+            "Symptoms",
+            "symptoms"
+        ],
+        "71001": [
+            "Action cards",
+            "action_cards"
+        ],
+        "71002": [
+            "Countries",
+            "countries"
+        ],
+        "72001": [
+            "App buttons",
+            "app_buttons"
+        ],
+        "72002": [
+            "Countries",
+            "countries"
+        ],
+        "100001": [
+            "Brands",
+            "brands"
+        ],
+        "100002": [
+            "Allergens",
+            "allergens"
+        ],
+        "100003": [
+            "Type of preparation method",
+            "preparation_method"
+        ],
+        "100004": [
+            "Texture",
+            "texture"
+        ],
+        "100005": [
+            "Flavor",
+            "flavor"
+        ],
+        "100006": [
+            "Sugested time of day",
+            "time_of_day"
+        ],
+        "100007": [
+            "Category",
+            "category_product"
+        ],
+        "100008": [
+            "Product Type",
+            "type_product"
+        ],
+        "100009": [
+            "Unit Type",
+            "type_unit"
+        ],
+        "100010": [
+            "Protein Origin",
+            "protein_origin"
+        ],
+        "100011": [
+            "Similar products",
+            "similar_products"
+        ],
+        "100012": [
+            "Components packs",
+            "components_packs"
+        ],
+        "107001": [
+            "Products",
+            "products_category"
+        ],
+        "111001": [
+            "Tip list blocks",
+            "tiplistblocks"
+        ],
+        "112001": [
+            "Answers",
+            "answers"
+        ],
+        "113001": [
+            "Exercises Level",
+            "exercises_level"
+        ],
+        "117001": [
+            "Blocks",
+            "hercules_blocks"
+        ],
+        "126001": [
+            "Exercises",
+            "exercices"
+        ],
+        "127001": [
+            "Webviews",
+            "webviews"
+        ],
+        "128001": [
+            "Products",
+            "products"
+        ]
+    },
+    "attributes_classes": {
+        "1": "200",
+        "10": "2,200",
+        "11": "100,611,612,613,614,615,200,321,214,511",
+        "12": "770",
+        "13": "2,200,300",
+        "14": "200",
+        "15": "773,626,200,301,304,306,302,303",
+        "20": "601,772,200,204,300,310,311,312,313",
+        "21": "600,602,608,106,107,530,105,610,2,200,213,211,314,212,315",
+        "22": "600,603,604,774,2,200,300",
+        "23": "200,300",
+        "24": "600,603,604,774,2,200,300",
+        "25": "600,603,604,530,774,2,200,215,300",
+        "26": "600,603,604,2,200,320",
+        "27": "101,200",
+        "28": "773,200,300",
+        "29": "102,103",
+        "30": "201,202,203",
+        "31": "200,300,208",
+        "32": "200",
+        "33": "605,607,200",
+        "34": "200",
+        "35": "606,200,300",
+        "36": "200,300,204",
+        "37": "200,300",
+        "40": "101,200",
+        "41": "200",
+        "42": "200",
+        "44": "101,200,204",
+        "45": "609,200",
+        "46": "104",
+        "47": "205,205-206",
+        "48": "205,205-206,207",
+        "49": "609,101,200,204,224",
+        "50": "2,200,300",
+        "51": "300",
+        "60": "775,530,617,200,315",
+        "61": "775,500,618,200,315,510",
+        "62": "775,450,200,315,460",
+        "63": "775,619,200,315",
+        "64": "775,616,200,315,216",
+        "65": "430",
+        "66": "434,778,627,628,629,630,631,200,315,204,226,227,228,229",
+        "67": "430",
+        "68": "430,632,200,230,231,204",
+        "69": "627,628,629,630,200,460",
+        "70": "430,633",
+        "71": "200",
+        "72": "430,634,200,204,315",
+        "73": "779,200",
+        "100": "431,401,431,401-428,402,431,401,431,401-428,402-403,404,431,401,431,401-428,402,431,401,431,401-428,402-403,404-405,406,431,401,431,401-428,402,431,401,431,401-428,402-403,404,431,401,431,401-428,402,431,401,431,401-428,402-403,404-405,406-407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,429,776,431,401,431,401-428,402,431,401,431,401-428,402-403,404,431,401,431,401-428,402,431,401,431,401-428,402-403,404-405,406,431,401,431,401-428,402,431,401,431,401-428,402-403,404,431,401,431,401-428,402,431,401,431,401-428,402-403,404-405,406-407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,429,776-777,620,621,623,2,200,219,220,315,322,221,323,324,325,326,217,218,327",
+        "101": "2,200",
+        "102": "108,2,200",
+        "103": "108,2,200",
+        "104": "108,2,200",
+        "105": "108,2,200",
+        "106": "108,2,200",
+        "107": "108,622,2,200",
+        "108": "2,200",
+        "109": "2,200",
+        "110": "101,2,200",
+        "111": "200",
+        "112": "624,200,204,300",
+        "113": "200,204,222,223",
+        "115": "101,200,204",
+        "116": "101,200,204",
+        "117": "430,601,603,604,2,200,204,215,300,216",
+        "118": "200,300",
+        "119": "603,604,216",
+        "120": "625,530,109,200",
+        "121": "501,109,200,512",
+        "122": "200,225,510",
+        "123": "200,460",
+        "124": "200,300",
+        "125": "530",
+        "126": "600,200",
+        "127": "432,433,200,300,460",
+        "128": "104"
+    }
+}
