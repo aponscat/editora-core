@@ -26,23 +26,23 @@ class BaseClass
         $attributes=json_decode($jsonAttributes, true);
         assert(json_last_error() == JSON_ERROR_NONE);
         $attributesInstances=[];
-        foreach ($attributes as $attribute) {
+        foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
             assert(isset($attribute['type']));
             $config=null;
             if (isset($attribute['config'])) {
                 $config=$attribute['config'];
             }
-            $attributesInstances[]=new $attribute['type']($attribute['key'], $config);
+            $attributesInstances[$id]=new $attribute['type']($attribute['key'], $config);
         }
         return self::createFromAttributesArray($key, $attributesInstances);
     }
 
     private function setAttributes(array $attributes)
     {
-        foreach ($attributes as $attribute) {
+        foreach ($attributes as $id=>$attribute) {
             assert($attribute instanceof BaseAttribute);
-            $this->attributes[]=$attribute;
+            $this->attributes[$id]=$attribute;
         }
     }
 
