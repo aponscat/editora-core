@@ -27,12 +27,31 @@ class BaseClass
         $attributesInstances=[];
         foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
-            assert(isset($attribute['type']));
+
+            $attributeType='\Omatech\Editora\BaseAttribute';
+            if (isset($attribute['type'])) {
+                if (class_exists($attribute['type'])) {
+                    $attributeType=$attribute['type'];
+                } else {
+                    throw new \Exception("Invalid attribute type $attributeType class not found!");
+                }
+            }
+
+
+            $ValueType='\Omatech\Editora\BaseValue';
+            if (isset($attribute['valueType'])) {
+                if (class_exists($attribute['valueType'])) {
+                    $ValueType=$attribute['valueType'];
+                } else {
+                    throw new \Exception("Invalid value type $ValueType, class not found!");
+                }
+            }
+
             $config=null;
             if (isset($attribute['config'])) {
                 $config=$attribute['config'];
             }
-            $attributesInstances[$id]=new $attribute['type']($attribute['key'], $config);
+            $attributesInstances[$id]=new $attributeType($attribute['key'], $config, $ValueType);
         }
         return self::createFromAttributesArray($key, $attributesInstances);
     }
@@ -71,16 +90,18 @@ class BaseClass
     {
         assert($this->existsAttribute($attributeKey));
         foreach ($this->attributes as $attribute) {
-            if ($attribute->getKey()==$attributeKey) {
+            if ($attribute->getFullyQualifiedKey()==$attributeKey) {
                 return $attribute;
             }
         }
     }
 
+
+
     public function existsAttribute($attributeKey): bool
     {
         foreach ($this->attributes as $attribute) {
-            if ($attribute->getKey()==$attributeKey) {
+            if ($attribute->getFullyQualifiedKey()==$attributeKey) {
                 return true;
             }
         }

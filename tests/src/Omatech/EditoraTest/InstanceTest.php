@@ -28,14 +28,17 @@ class InstanceTest extends TestCase
         ]
         );
 
+
         $this->assertTrue(
             $instance->getData('ALL', true)==
           [
             "key" => "news-item-instance"
-            ,"status" => "O"
-            ,"startPublishingDate" => null
-            ,"endPublishingDate" => null
-            ,"externalID" => null
+            , 'metadata' => [
+                'status' => 'O'
+                ,'startPublishingDate' => null
+                ,'endPublishingDate' => null
+                ,'externalID' => null
+            ]
             ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
           ]
@@ -46,13 +49,13 @@ class InstanceTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en']]
+        , ['key'=>'english-text', 'config'=>['language'=>'en']]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-            ['english-title'=>'Hello World Title!']
-            ,["english-text" => "Hello World Text!"]
+            ['english-title:en'=>'Hello World Title!']
+            ,["english-text:en" => "Hello World Text!"]
       ]
         ));
         $this->assertTrue(
@@ -68,11 +71,13 @@ class InstanceTest extends TestCase
             $instance->getData('ALL', true)==
           [
             "key" => "news-item-instance"
-            ,"status" => "O"
-            ,"startPublishingDate" => null
-            ,"endPublishingDate" => null
-            ,"externalID" => null
-            ,"english-title" => "Hello World Title!"
+            , 'metadata' => [
+              'status' => 'O'
+              ,'startPublishingDate' => null
+              ,'endPublishingDate' => null
+              ,'externalID' => null
+          ]
+          ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
           ]
         );
@@ -81,13 +86,13 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSONWithMissingOptionalValue(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en']]
+        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'config'=>['language'=>'en']]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-            ['english-title'=>'Hello World Title!']
+            ['english-title:en'=>'Hello World Title!']
       ]
         ));
         $this->assertTrue(
@@ -102,11 +107,13 @@ class InstanceTest extends TestCase
             $instance->getData('ALL', true)==
           [
             "key" => "news-item-instance"
-            ,"status" => "O"
-            ,"startPublishingDate" => null
-            ,"endPublishingDate" => null
-            ,"externalID" => null
-            ,"english-title" => "Hello World Title!"
+            , 'metadata' => [
+              'status' => 'O'
+              ,'startPublishingDate' => null
+              ,'endPublishingDate' => null
+              ,'externalID' => null
+          ]
+          ,"english-title" => "Hello World Title!"
           ]
         );
     }
@@ -137,9 +144,9 @@ class InstanceTest extends TestCase
         $this->expectException(\Exception::class);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-            ['english-title'=>'Hello World Title!']
-            ,["english-text" => "Hello World Text!"]
-            ,["english-nonexistent" => "Hello World Text!"]
+            ['english-title:en'=>'Hello World Title!']
+            ,["english-text:en" => "Hello World Text!"]
+            ,["english-nonexistent:en" => "Hello World Text!"]
       ]
         ));
     }
@@ -154,30 +161,29 @@ class InstanceTest extends TestCase
         $this->expectException(\Exception::class);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-            ["english-text" => "Hello World Text!"]
+            ["english-text:en" => "Hello World Text!"]
       ]
         ));
-        var_dump($instance);
     }
 
 
     public function testGetLanguageDataOnlyAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en']]
-        , ['key'=>'spanish-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'es']]
-        , ['key'=>'spanish-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'es']]
-        , ['key'=>'multilang-attribute', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>[]]
+        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'config'=>['language'=>'en']]
+        , ['key'=>'spanish-title', 'config'=>['language'=>'es']]
+        , ['key'=>'spanish-text', 'config'=>['language'=>'es']]
+        , ['key'=>'multilang-attribute', 'config'=>[]]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
 
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-            ['english-title'=>'Hello World Title!']
-            ,["english-text" => "Hello World Text!"]
-            ,["spanish-title" => "Hola Mundo!"]
-            ,["spanish-text" => "Hola Mundo Text!"]
+            ['english-title:en'=>'Hello World Title!']
+            ,["english-text:en" => "Hello World Text!"]
+            ,["spanish-title:es" => "Hola Mundo!"]
+            ,["spanish-text:es" => "Hola Mundo Text!"]
             ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
       ]
         ));
@@ -195,11 +201,13 @@ class InstanceTest extends TestCase
             $instance->getData('en', true)==
           [
             "key" => "news-item-instance"
-            ,"status" => "O"
-            ,"startPublishingDate" => null
-            ,"endPublishingDate" => null
-            ,"externalID" => null
-            ,"english-title" => "Hello World Title!"
+            , 'metadata' => [
+              'status' => 'O'
+              ,'startPublishingDate' => null
+              ,'endPublishingDate' => null
+              ,'externalID' => null
+          ]
+          ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
@@ -219,11 +227,13 @@ class InstanceTest extends TestCase
             $instance->getData('es', true)==
         [
           "key" => "news-item-instance"
-          ,"status" => "O"
-          ,"startPublishingDate" => null
-          ,"endPublishingDate" => null
-          ,"externalID" => null
-          ,"spanish-title" => "Hola Mundo!"
+          , 'metadata' => [
+            'status' => 'O'
+            ,'startPublishingDate' => null
+            ,'endPublishingDate' => null
+            ,'externalID' => null
+        ]
+      ,"spanish-title" => "Hola Mundo!"
           ,"spanish-text" => "Hola Mundo Text!"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
@@ -231,30 +241,29 @@ class InstanceTest extends TestCase
     }
 
 
-
-
     public function testGetLanguageDataDifferentAttributesFromJSON(): void
     {
         $jsonAttributes=json_encode([
         ['key'=>'english-title'
-        , 'type'=>'\Omatech\Editora\ReverseAttribute'
-        , 'config'=>['language'=>'en', 'mandatory'=>true, 'valueType'=>'\Omatech\Editora\ReverseValue']]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>['language'=>'en', 'valueType'=>'\Omatech\Editora\ReverseValue']]
-        , ['key'=>'spanish-title', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>['language'=>'es', 'valueType'=>'\Omatech\Editora\ReverseValue']]
-        , ['key'=>'spanish-text', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>['language'=>'es', 'valueType'=>'\Omatech\Editora\ReverseValue']]
-        , ['key'=>'multilang-attribute', 'type'=>'\Omatech\Editora\ReverseAttribute', 'config'=>[]]
+        , 'valueType'=>'\Omatech\Editora\ReverseValue'
+        , 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'valueType'=>'\Omatech\Editora\ReverseValue', 'config'=>['language'=>'en']]
+        , ['key'=>'spanish-title', 'valueType'=>'\Omatech\Editora\ReverseValue', 'config'=>['language'=>'es']]
+        , ['key'=>'spanish-text', 'valueType'=>'\Omatech\Editora\ReverseValue', 'config'=>['language'=>'es']]
+        , ['key'=>'multilang-attribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
 
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-              ['english-title'=>'Hello World Title!']
-              ,["english-text" => "Hello World Text!"]
-              ,["spanish-title" => "Hola Mundo!"]
-              ,["spanish-text" => "Hola Mundo Text!"]
+              ['english-title:en'=>'Hello World Title!']
+              ,["english-text:en" => "Hello World Text!"]
+              ,["spanish-title:es" => "Hola Mundo!"]
+              ,["spanish-text:es" => "Hola Mundo Text!"]
               ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
         ]
         ));
+
 
         $this->assertTrue(
             $instance->getData('en')==
@@ -270,11 +279,13 @@ class InstanceTest extends TestCase
             $instance->getData('en', true)==
           [
             "key" => "news-item-instance"
-            ,"status" => "O"
-            ,"startPublishingDate" => null
-            ,"endPublishingDate" => null
-            ,"externalID" => null
-            ,"english-title" => "!eltiT dlroW olleH"
+            , 'metadata' => [
+              'status' => 'O'
+              ,'startPublishingDate' => null
+              ,'endPublishingDate' => null
+              ,'externalID' => null
+          ]
+          ,"english-title" => "!eltiT dlroW olleH"
             ,"english-text" => "!txeT dlroW olleH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
@@ -294,14 +305,136 @@ class InstanceTest extends TestCase
             $instance->getData('es', true)==
         [
           "key" => "news-item-instance"
-          ,"status" => "O"
-          ,"startPublishingDate" => null
-          ,"endPublishingDate" => null
-          ,"externalID" => null
-          ,"spanish-title" => "!odnuM aloH"
+          , 'metadata' => [
+            'status' => 'O'
+            ,'startPublishingDate' => null
+            ,'endPublishingDate' => null
+            ,'externalID' => null
+        ]
+      ,"spanish-title" => "!odnuM aloH"
           ,"spanish-text" => "!txeT odnuM aloH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
+        );
+    }
+
+
+
+    public function testGetMultilanguageDataAfterCreateFromJSON(): void
+    {
+        $jsonAttributes=json_encode([
+        ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'text', 'config'=>['language'=>'en']]
+        , ['key'=>'title', 'config'=>['language'=>'es']]
+        , ['key'=>'text', 'config'=>['language'=>'es']]
+        , ['key'=>'multilang-attribute', 'config'=>[]]
+      ]);
+        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+
+        $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+            [
+            ['title:en'=>'Hello World Title!']
+            ,["text:en" => "Hello World Text!"]
+            ,["title:es" => "Hola Mundo!"]
+            ,["text:es" => "Hola Mundo Text!"]
+            ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
+      ]
+        ));
+        $this->assertTrue(
+            $instance->getMultilanguageData()==
+        [
+          "key" => "news-item-instance"
+          ,"title:en" => "Hello World Title!"
+          ,"text:en" => "Hello World Text!"
+          ,"title:es" => "Hola Mundo!"
+          ,"text:es" => "Hola Mundo Text!"
+          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        ]
+        );
+
+        $this->assertTrue(
+            $instance->getMultilanguageData(true)==
+          [
+            "key" => "news-item-instance"
+            , 'metadata' => [
+              'status' => 'O'
+              ,'startPublishingDate' => null
+              ,'endPublishingDate' => null
+              ,'externalID' => null
+          ]
+          ,"title:en" => "Hello World Title!"
+            ,"text:en" => "Hello World Text!"
+            ,"title:es" => "Hola Mundo!"
+            ,"text:es" => "Hola Mundo Text!"
+            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            ]
+        );
+    }
+
+    public function testSetNumericValueFromJSON(): void
+    {
+        $jsonAttributes=json_encode([
+        ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'times', 'valueType'=>'\Omatech\Editora\NumberValue']
+      ]);
+        $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
+        $instance=BaseInstance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
+            [
+            ['title:en'=>'Numeric Hello World Title!']
+            ,["times" => 42]
+      ]
+        ));
+
+        $this->assertTrue(
+            $instance->getData()==
+        [
+          "key" => "numeric-item-instance"
+          ,"title" => "Numeric Hello World Title!"
+          ,"times" => 42
+        ]
+        );
+    }
+
+
+    public function testSetInvalidNumericValueFromJSON(): void
+    {
+        $jsonAttributes=json_encode([
+        ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'times', 'valueType'=>'\Omatech\Editora\NumberValue']
+      ]);
+        $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
+
+        $this->expectException(\Exception::class);
+        $instance=BaseInstance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
+            [
+            ['title:en'=>'Numeric Hello World Title!']
+            ,["times" => 'aaaa']
+      ]
+        ));
+    }
+
+
+    public function testGetDataAfterCreateFromJSONFromStrangeAttribute(): void
+    {
+        $jsonAttributes=json_encode([
+        ['key'=>'english-title', 'type'=>'\Omatech\Editora\StrangeAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\StrangeAttribute', 'config'=>['language'=>'en']]
+      ]);
+        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+        $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+            [
+            ['english-title-is-strange:en'=>'Hello World Title!']
+            ,["english-text-is-strange:en" => "Hello World Text!"]
+      ]
+        ));
+
+        $this->assertTrue(
+            $instance->getData()==
+        [
+          "key" => "news-item-instance"
+          ,"english-title-is-strange" => "Hello World Title!"
+          ,"english-text-is-strange" => "Hello World Text!"
+        ]
         );
     }
 }

@@ -82,7 +82,7 @@ class BaseInstance
     {
         assert(isset($values) && !empty($values) && is_array($values));
         foreach ($values as $value) {
-            $attributeKey=$value->getKey();
+            $attributeKey=$value->getFullyQualifiedKey();
             if ($this->class->existsAttribute($attributeKey)) {
                 $this->values[]=$value;
             } else {
@@ -100,7 +100,7 @@ class BaseInstance
     {
         $ret=$this->getInstanceData();
         if ($withMetadata) {
-            $ret=array_merge($ret, $this->getInstanceMetadata());
+            $ret=$ret+$this->getInstanceMetadata();
         }
         foreach ($this->values as $value) {
             assert($value instanceof BaseValue);
@@ -112,15 +112,32 @@ class BaseInstance
         return $ret;
     }
 
+    public function getMultilanguageData($withMetadata=false): array
+    {
+        $ret=$this->getInstanceData();
+        if ($withMetadata) {
+            $ret=$ret+$this->getInstanceMetadata();
+        }
+        foreach ($this->values as $value) {
+            assert($value instanceof BaseValue);
+            $data=$value->getMultilanguageData();
+            if ($data) {
+                $ret+=$data;
+            }
+        }
+        return $ret;
+    }
+    
+
     private function getInstanceMetadata(): array
     {
         return
-            [
+            ['metadata'=>[
       'status'=>$this->status
       ,'startPublishingDate'=>$this->startPublishingDate
       ,'endPublishingDate'=>$this->endPublishingDate
       ,'externalID'=>$this->externalID
-      ];
+            ]];
     }
 
     private function getInstanceData(): array

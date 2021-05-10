@@ -4,14 +4,23 @@ namespace Omatech\Editora;
 
 class BaseAttribute
 {
-    private string $key;
-    private string $language='ALL';
-    private bool $mandatory=false;
-    private string $valueType='\Omatech\Editora\BaseValue';
+    protected string $key;
+    protected string $language='ALL';
+    protected bool $mandatory=false;
+    protected string $valueType='\Omatech\Editora\BaseValue';
 
-    public function __construct($key, $config=null)
+    public function __construct($key, $config=null, $valueType=null)
     {
         $this->key=$key;
+
+        if ($valueType!==null) {
+            if (class_exists($valueType)) {
+                $this->valueType=$valueType;
+            } else {
+                throw new \Exception("Invalid value type $valueType class not found for attribute $key");
+            }
+        }
+
         if ($config==null) {
             $language='ALL';
             $mandatory=false;
@@ -26,15 +35,11 @@ class BaseAttribute
             assert(is_bool($config['mandatory']));
             $this->mandatory=$config['mandatory'];
         }
-
-        if (isset($config['valueType'])) {
-            $this->valueType=$config['valueType'];
-        }
     }
 
     public function getData(): array
     {
-        return [$this->key=>
+        return [$this->getKey()=>
         ['language'=>$this->language
         ,'mandatory'=>$this->mandatory
         ]];
@@ -54,6 +59,14 @@ class BaseAttribute
     public function getKey(): string
     {
         return $this->key;
+    }
+
+    public function getFullyQualifiedKey(): string
+    {
+        if ($this->language!='ALL') {
+            return $this->getKey().":".$this->language;
+        }
+        return $this->getKey();
     }
 
     public function getLanguage(): string

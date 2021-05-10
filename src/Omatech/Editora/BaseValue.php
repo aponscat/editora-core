@@ -4,13 +4,14 @@ namespace Omatech\Editora;
 
 class BaseValue
 {
-    private $attribute;
-    private $value;
+    protected $attribute;
+    protected $value;
 
     public function __construct(BaseAttribute $attribute, $value=null)
     {
         $this->attribute=$attribute;
-        $this->value=$value;
+        $this->setValue($value);
+        $this->validate();
     }
 
     public function setValue($value)
@@ -26,6 +27,11 @@ class BaseValue
     public function getKey(): string
     {
         return $this->attribute->getKey();
+    }
+
+    public function getFullyQualifiedKey(): string
+    {
+        return $this->attribute->getFullyQualifiedKey();
     }
 
     public function getKeyVal(): array
@@ -48,6 +54,11 @@ class BaseValue
             }
         }
         return null;
+    }
+
+    public function getMultilanguageData(): ?array
+    {
+        return [$this->getFullyQualifiedKey()=>$this->getValue()];
     }
 
     public function validate(): bool
