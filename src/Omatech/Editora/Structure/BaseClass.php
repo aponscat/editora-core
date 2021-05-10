@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Structure;
 
 class BaseClass
 {
@@ -28,22 +28,22 @@ class BaseClass
         foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
 
-            $attributeType='\Omatech\Editora\BaseAttribute';
+            $attributeType='Omatech\Editora\Structure\BaseAttribute';
             if (isset($attribute['type'])) {
                 if (class_exists($attribute['type'])) {
                     $attributeType=$attribute['type'];
                 } else {
-                    throw new \Exception("Invalid attribute type $attributeType class not found!");
+                    throw new \Exception("Invalid attribute type ".$attribute['type']." class not found!");
                 }
             }
 
 
-            $ValueType='\Omatech\Editora\BaseValue';
+            $ValueType='Omatech\Editora\Values\BaseValue';
             if (isset($attribute['valueType'])) {
                 if (class_exists($attribute['valueType'])) {
                     $ValueType=$attribute['valueType'];
                 } else {
-                    throw new \Exception("Invalid value type $ValueType, class not found!");
+                    throw new \Exception("Invalid value type ".$attribute['valueType'].", class not found!");
                 }
             }
 

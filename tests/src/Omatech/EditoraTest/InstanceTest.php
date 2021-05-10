@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\BaseValue;
-use Omatech\Editora\BaseAttribute;
-use Omatech\Editora\BaseInstance;
-use Omatech\Editora\BaseClass;
+use Omatech\Editora\Structure\BaseClass;
+use Omatech\Editora\Structure\BaseAttribute;
+use Omatech\Editora\Data\BaseInstance;
+use Omatech\Editora\Values\BaseValue;
 
 class InstanceTest extends TestCase
 {
@@ -48,7 +48,7 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        ['key'=>'english-title', 'type'=>'Omatech\Editora\Structure\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
         , ['key'=>'english-text', 'config'=>['language'=>'en']]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -136,8 +136,8 @@ class InstanceTest extends TestCase
     public function testSetDataInNonExistingAttributeFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en']]
+        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'config'=>['language'=>'en']]
       ]);
 
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -154,8 +154,8 @@ class InstanceTest extends TestCase
     public function testMissingMandatoryAttributeFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en']]
+        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'config'=>['language'=>'en']]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
@@ -245,11 +245,11 @@ class InstanceTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'english-title'
-        , 'valueType'=>'\Omatech\Editora\ReverseValue'
+        , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
         , 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'valueType'=>'\Omatech\Editora\ReverseValue', 'config'=>['language'=>'en']]
-        , ['key'=>'spanish-title', 'valueType'=>'\Omatech\Editora\ReverseValue', 'config'=>['language'=>'es']]
-        , ['key'=>'spanish-text', 'valueType'=>'\Omatech\Editora\ReverseValue', 'config'=>['language'=>'es']]
+        , ['key'=>'english-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
+        , ['key'=>'spanish-title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+        , ['key'=>'spanish-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
         , ['key'=>'multilang-attribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -375,7 +375,7 @@ class InstanceTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'times', 'valueType'=>'\Omatech\Editora\NumberValue']
+        , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
       ]);
         $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
@@ -400,7 +400,7 @@ class InstanceTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'times', 'valueType'=>'\Omatech\Editora\NumberValue']
+        , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
       ]);
         $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
 
@@ -417,8 +417,8 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSONFromStrangeAttribute(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\StrangeAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\StrangeAttribute', 'config'=>['language'=>'en']]
+        ['key'=>'english-title', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute', 'config'=>['language'=>'en']]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(

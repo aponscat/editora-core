@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\BaseValue;
-use Omatech\Editora\BaseAttribute;
+use Omatech\Editora\Structure\BaseAttribute;
+use Omatech\Editora\Values\BaseValue;
 
 class ValueTest extends TestCase
 {

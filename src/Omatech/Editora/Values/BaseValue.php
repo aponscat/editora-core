@@ -1,6 +1,8 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Values;
+
+use Omatech\Editora\Structure\BaseAttribute;
 
 class BaseValue
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Values;
 
 class NumberValue extends BaseValue
 {

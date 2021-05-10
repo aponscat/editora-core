@@ -3,7 +3,8 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\CmsStructure;
+
+use Omatech\Editora\Structure\CmsStructure;
 
 class CmsStructureTest extends TestCase
 {

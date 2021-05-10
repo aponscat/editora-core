@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Structure;
 
 class CmsStructure
 {
@@ -83,7 +83,7 @@ class CmsStructure
     private function getAllAttributes($structure, $languages)
     {
 
-                // TBD
+        // TBD
         // lookups
         // images and multilang_images
         $attributes=[];

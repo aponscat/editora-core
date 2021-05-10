@@ -1,6 +1,9 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Data;
+
+use Omatech\Editora\Structure\BaseClass;
+use Omatech\Editora\Structure\BaseAttribute;
 
 class BaseInstance
 {

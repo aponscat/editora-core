@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Data;
 
 class BaseRelationInstances
 {

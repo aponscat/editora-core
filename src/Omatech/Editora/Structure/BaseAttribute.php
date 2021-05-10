@@ -1,13 +1,15 @@
 <?php
 
-namespace Omatech\Editora;
+namespace Omatech\Editora\Structure;
+
+use Omatech\Editora\Values\BaseValue;
 
 class BaseAttribute
 {
     protected string $key;
     protected string $language='ALL';
     protected bool $mandatory=false;
-    protected string $valueType='\Omatech\Editora\BaseValue';
+    protected string $valueType='Omatech\Editora\Values\BaseValue';
 
     public function __construct($key, $config=null, $valueType=null)
     {
