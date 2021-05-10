@@ -13,7 +13,7 @@ class BaseInstance
     private $values;
     private $relations;
 
-    private function __construct(BaseClass $class, $key, $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
+    private function __construct(BaseClass $class, string $key, string $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
     {
         $this->class=$class;
         $this->key=$key;
@@ -22,14 +22,17 @@ class BaseInstance
         $this->endPublishingDate=$endPublishingDate;
         $this->externalID=$externalID;
 
-        foreach ($class->getRelations() as $key=>$relation)
-        {
-            $this->relations[$key]=new BaseRelationInstances($relation);
+        if ($class->existRelations()) {
+            $classRelations=$class->getRelations();
+            if ($classRelations) {
+                foreach ($classRelations as $key=>$relation) {
+                    $this->relations[$key]=new BaseRelationInstances($relation);
+                }
+            }
         }
-
     }
 
-    public static function createFromValuesArray(BaseClass $class, $key, $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
+    public static function createFromValuesArray(BaseClass $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
     {
         $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID);
         if ($values) {
@@ -38,7 +41,7 @@ class BaseInstance
         return $inst->validate();
     }
 
-    public static function createFromJSON(BaseClass $class, $key, $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
+    public static function createFromJSON(BaseClass $class, string $key, string $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
     {
         $valuesArray=[];
         if ($jsonValues) {
@@ -60,36 +63,22 @@ class BaseInstance
         return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID);
     }
 
-    private getRelationInstanceKey($relation)
-    {
-        foreach ($this->relations as $key=>$currentRelation)
-        {
-            if ($relation->getKey()==$currentRelation->getKey()
-        }
-    }
 
-    public function addToRelation (BaseRelation $relation, BaseInstance $childInstance)
+    public function addToRelation(BaseRelation $relation, BaseInstance $childInstance)
     {
         assert(!empty($relation) && !empty($childInstance));
-        if ($relation->isValid($childInstance))
-        {
-            if (isset($relations[$relation->getKey()]))
-            {
+        if ($relation->isValid($childInstance)) {
+            if (isset($relations[$relation->getKey()])) {
                 $relations[$relation->getKey()]->add($childInstance);
-            }
-            else
-            {
+            } else {
                 throw new \Exception("Trying to add a relation ".$relation->getKey()." to an instance that not have this relation!");
             }
-
-        }
-        else
-        {
+        } else {
             throw new \Exception("Trying to add child Instance ".$childInstance->getKey()." of class ".$childInstance->getClass()->getKey()." to relation ".$relation->getKey());
-        }     
+        }
     }
 
-    public function setValues($values)
+    public function setValues(array $values)
     {
         assert(isset($values) && !empty($values) && is_array($values));
         foreach ($values as $value) {
@@ -102,12 +91,12 @@ class BaseInstance
         }
     }
 
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
 
-    public function getData($language='ALL', $withMetadata=false)
+    public function getData($language='ALL', $withMetadata=false): array
     {
         $ret=$this->getInstanceData();
         if ($withMetadata) {
@@ -117,13 +106,13 @@ class BaseInstance
             assert($value instanceof BaseValue);
             $data=$value->getData($language);
             if ($data) {
-                $ret=array_merge($ret, $data);
+                $ret+=$data;
             }
         }
         return $ret;
     }
 
-    private function getInstanceMetadata()
+    private function getInstanceMetadata(): array
     {
         return
             [
@@ -134,12 +123,12 @@ class BaseInstance
       ];
     }
 
-    private function getInstanceData()
+    private function getInstanceData(): array
     {
         return ['key'=>$this->key];
     }
 
-    public function validate()
+    public function validate(): BaseInstance
     {
         foreach ($this->values as $value) {
             $value->validate();
@@ -154,7 +143,7 @@ class BaseInstance
         return $this;
     }
 
-    private function isEmptyValueForAttribute(BaseAttribute $attribute)
+    private function isEmptyValueForAttribute(BaseAttribute $attribute): bool
     {
         foreach ($this->values as $value) {
             if ($attribute->getKey()==$value->getKey()) {

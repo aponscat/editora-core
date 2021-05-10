@@ -28,8 +28,6 @@ class InstanceTest extends TestCase
         ]
         );
 
-
-
         $this->assertTrue(
             $instance->getData('ALL', true)==
           [
@@ -134,6 +132,7 @@ class InstanceTest extends TestCase
         ['key'=>'english-title', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
         , ['key'=>'english-text', 'type'=>'\Omatech\Editora\BaseAttribute', 'config'=>['language'=>'en']]
       ]);
+
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(

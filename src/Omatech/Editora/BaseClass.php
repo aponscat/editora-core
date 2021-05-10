@@ -2,8 +2,6 @@
 
 namespace Omatech\Editora;
 
-use Omatech\Editora\BaseAttribute;
-
 class BaseClass
 {
     private $key;
@@ -15,14 +13,14 @@ class BaseClass
         $this->setKey($key);
     }
 
-    public static function createFromAttributesArray(string $key, array $attributesInstances)
+    public static function createFromAttributesArray(string $key, array $attributesInstances): BaseClass
     {
         $class=new self($key);
         $class->setAttributes($attributesInstances);
         return $class;
     }
 
-    public static function createFromJSON(string $key, string $jsonAttributes)
+    public static function createFromJSON(string $key, string $jsonAttributes): BaseClass
     {
         $attributes=json_decode($jsonAttributes, true);
         assert(json_last_error() == JSON_ERROR_NONE);
@@ -39,22 +37,23 @@ class BaseClass
         return self::createFromAttributesArray($key, $attributesInstances);
     }
 
-    public function addRelation(BaseRelation $relation)
+    public function addRelation(BaseRelation $relation): void
     {
         $this->relations[$relation->getKey()]=$relation;
     }
 
-    public function existRelations()
+    public function existRelations(): bool
     {
         return (!empty($this->relations));
     }
 
-    public function getRelations()
+    public function getRelations(): array
     {
+        assert($this->relations);
         return $this->relations;
     }
 
-    private function setAttributes(array $attributes)
+    private function setAttributes(array $attributes): void
     {
         foreach ($attributes as $id=>$attribute) {
             assert($attribute instanceof BaseAttribute);
@@ -62,13 +61,13 @@ class BaseClass
         }
     }
 
-    private function setKey(string $key)
+    private function setKey(string $key): void
     {
         assert(isset($key) && !empty($key));
         $this->key=$key;
     }
 
-    private function getAttributeByKey($attributeKey)
+    private function getAttributeByKey($attributeKey): BaseAttribute
     {
         assert($this->existsAttribute($attributeKey));
         foreach ($this->attributes as $attribute) {
@@ -78,7 +77,7 @@ class BaseClass
         }
     }
 
-    public function existsAttribute($attributeKey)
+    public function existsAttribute($attributeKey): bool
     {
         foreach ($this->attributes as $attribute) {
             if ($attribute->getKey()==$attributeKey) {
@@ -88,12 +87,12 @@ class BaseClass
         return false;
     }
 
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
 
-    public function createAttributeFromKey($attributeKey)
+    public function createAttributeFromKey($attributeKey): BaseAttribute
     {
         if ($this->existsAttribute($attributeKey)) {
             return ($this->getAttributeByKey($attributeKey));
@@ -102,7 +101,7 @@ class BaseClass
         }
     }
 
-    public function getAttributesKeys()
+    public function getAttributesKeys(): array
     {
         $res=[];
         foreach ($this->attributes as $attribute) {
@@ -112,7 +111,7 @@ class BaseClass
     }
 
 
-    public function getAttributes()
+    public function getAttributes(): array
     {
         $res=[];
         foreach ($this->attributes as $attribute) {

@@ -32,7 +32,7 @@ class BaseAttribute
         }
     }
 
-    public function getData()
+    public function getData(): array
     {
         return [$this->key=>
         ['language'=>$this->language
@@ -40,23 +40,23 @@ class BaseAttribute
         ]];
     }
 
-    public function createValue($value)
+    public function createValue($value): BaseValue
     {
         $class=$this->valueType;
         return new $class($this, $value);
     }
 
-    public function isMandatory()
+    public function isMandatory(): bool
     {
         return $this->mandatory;
     }
 
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
 
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return $this->language;
     }

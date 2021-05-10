@@ -23,17 +23,17 @@ class BaseValue
         return $this->value;
     }
 
-    public function getKey()
+    public function getKey(): string
     {
         return $this->attribute->getKey();
     }
 
-    public function getKeyVal()
+    public function getKeyVal(): array
     {
         return [$this->getKey()=>$this->getValue()];
     }
 
-    public function getData($language='ALL')
+    public function getData($language='ALL'): ?array
     {
         $attributeLanguage=$this->attribute->getLanguage();
         if ($attributeLanguage=='ALL') {
@@ -50,7 +50,7 @@ class BaseValue
         return null;
     }
 
-    public function validate()
+    public function validate(): bool
     {
         return true;
     }

@@ -11,6 +11,7 @@ class BaseRelation
     public function __construct($key, $name, $children)
     {
         assert(!empty($key) && !empty($name));
+        assert(!empty($children) && \is_array($children));
         $this->key=$key;
         $this->name=$name;
 
@@ -20,12 +21,12 @@ class BaseRelation
         }
     }
 
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
 
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
