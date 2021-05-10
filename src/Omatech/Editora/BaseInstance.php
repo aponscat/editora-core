@@ -11,6 +11,7 @@ class BaseInstance
     private $endPublishingDate;
     private $externalID;
     private $values;
+    private $relations;
 
     private function __construct(BaseClass $class, $key, $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
     {
@@ -20,6 +21,12 @@ class BaseInstance
         $this->startPublishingDate=$startPublishingDate;
         $this->endPublishingDate=$endPublishingDate;
         $this->externalID=$externalID;
+
+        foreach ($class->getRelations() as $key=>$relation)
+        {
+            $this->relations[$key]=new BaseRelationInstances($relation);
+        }
+
     }
 
     public static function createFromValuesArray(BaseClass $class, $key, $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
@@ -51,6 +58,35 @@ class BaseInstance
             }
         }
         return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID);
+    }
+
+    private getRelationInstanceKey($relation)
+    {
+        foreach ($this->relations as $key=>$currentRelation)
+        {
+            if ($relation->getKey()==$currentRelation->getKey()
+        }
+    }
+
+    public function addToRelation (BaseRelation $relation, BaseInstance $childInstance)
+    {
+        assert(!empty($relation) && !empty($childInstance));
+        if ($relation->isValid($childInstance))
+        {
+            if (isset($relations[$relation->getKey()]))
+            {
+                $relations[$relation->getKey()]->add($childInstance);
+            }
+            else
+            {
+                throw new \Exception("Trying to add a relation ".$relation->getKey()." to an instance that not have this relation!");
+            }
+
+        }
+        else
+        {
+            throw new \Exception("Trying to add child Instance ".$childInstance->getKey()." of class ".$childInstance->getClass()->getKey()." to relation ".$relation->getKey());
+        }     
     }
 
     public function setValues($values)
