@@ -437,4 +437,48 @@ class InstanceTest extends TestCase
         ]
         );
     }
+
+
+
+    public function testGetDataAfterCreateFromJSONFromImageAttribute(): void
+    {
+        $jsonAttributes=json_encode([
+        ['key'=>'image-with-height'
+        , 'type'=>'Omatech\Editora\Structure\ImageAttribute'
+        , 'valueType'=>'Omatech\Editora\Values\ImageValue'
+          , 'config'=>
+          ['language'=>'en'
+          , 'mandatory'=>true
+          , 'dimensions'=>'x300'
+          , 'storage-path'=>dirname(__FILE__)
+          , 'public-path'=>'/images/'
+          ]]
+        , ['key'=>'image-with-width', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['language'=>'en', 'dimensions'=>'300x']]
+        , ['key'=>'image-with-width-and-height', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'100x200']]
+      ]);
+        $class=BaseClass::createFromJSON('image', $jsonAttributes);
+        $this->assertEquals($class->getAttributeByKey('image-with-height:en')->getDimensions(), 'x300');
+        $this->assertEquals($class->getAttributeByKey('image-with-width:en')->getDimensions(), '300x');
+        $this->assertEquals($class->getAttributeByKey('image-with-width-and-height')->getDimensions(), '100x200');
+
+        $this->assertEquals($class->getAttributeByKey('image-with-height:en')->getWidth(), null);
+        $this->assertEquals($class->getAttributeByKey('image-with-width:en')->getWidth(), 300);
+        $this->assertEquals($class->getAttributeByKey('image-with-width-and-height')->getWidth(), 100);
+
+        $this->assertEquals($class->getAttributeByKey('image-with-height:en')->getHeight(), 300);
+        $this->assertEquals($class->getAttributeByKey('image-with-width:en')->getHeight(), null);
+        $this->assertEquals($class->getAttributeByKey('image-with-width-and-height')->getHeight(), 200);
+
+        $instance=BaseInstance::createFromJSON($class, 'image-instance', 'O', json_encode(
+          [
+          ['image-with-height:en'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))]
+    ]
+      ));
+
+     //print_r($instance->getData());
+
+
+      }
+
+
 }

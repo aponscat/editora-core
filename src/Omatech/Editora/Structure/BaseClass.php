@@ -38,10 +38,10 @@ class BaseClass implements \JsonSerializable
             }
 
 
-            $ValueType='Omatech\Editora\Values\BaseValue';
+            $valueType='Omatech\Editora\Values\BaseValue';
             if (isset($attribute['valueType'])) {
                 if (class_exists($attribute['valueType'])) {
-                    $ValueType=$attribute['valueType'];
+                    $valueType=$attribute['valueType'];
                 } else {
                     throw new \Exception("Invalid value type ".$attribute['valueType'].", class not found!");
                 }
@@ -51,7 +51,7 @@ class BaseClass implements \JsonSerializable
             if (isset($attribute['config'])) {
                 $config=$attribute['config'];
             }
-            $attributesInstances[$id]=new $attributeType($attribute['key'], $config, $ValueType);
+            $attributesInstances[$id]=new $attributeType($attribute['key'], $config, $valueType);
         }
         return self::createFromAttributesArray($key, $attributesInstances);
     }
@@ -94,7 +94,7 @@ class BaseClass implements \JsonSerializable
         $this->key=$key;
     }
 
-    private function getAttributeByKey($attributeKey): BaseAttribute
+    public function getAttributeByKey($attributeKey): BaseAttribute
     {
         assert($this->existsAttribute($attributeKey));
         foreach ($this->attributes as $attribute) {
