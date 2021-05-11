@@ -101,7 +101,7 @@ class BaseInstance
 
     public function getData($language='ALL', $withMetadata=false): array
     {
-        $ret=$this->getInstanceData();
+        $ret=$this->getInstanceHeaderData();
         if ($withMetadata) {
             $ret=$ret+$this->getInstanceMetadata();
         }
@@ -116,7 +116,7 @@ class BaseInstance
 
     public function getMultilanguageData($withMetadata=false): array
     {
-        $ret=$this->getInstanceData();
+        $ret=$this->getInstanceHeaderData();
         if ($withMetadata) {
             $ret=$ret+$this->getInstanceMetadata();
         }
@@ -141,7 +141,7 @@ class BaseInstance
             ]];
     }
 
-    private function getInstanceData(): array
+    private function getInstanceHeaderData(): array
     {
         return ['key'=>$this->key];
     }
