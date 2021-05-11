@@ -4,7 +4,7 @@ namespace Omatech\Editora\Structure;
 
 use Omatech\Editora\Values\BaseValue;
 
-class BaseAttribute
+class BaseAttribute implements \JsonSerializable
 {
     protected string $key;
     protected string $language='ALL';
@@ -39,12 +39,19 @@ class BaseAttribute
         }
     }
 
-    public function getData(): array
+    public function jsonSerialize()
     {
-        return [$this->getKey()=>
+        $res=[$this->getKey()=>
         ['language'=>$this->language
         ,'mandatory'=>$this->mandatory
+        , 'valueType'=>$this->valueType
         ]];
+        return $res;
+    }
+
+    public function getData(): array
+    {
+        return $this->jsonSerialize();
     }
 
     public function createValue($value): BaseValue

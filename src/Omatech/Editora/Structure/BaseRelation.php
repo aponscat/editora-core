@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Structure;
 
-class BaseRelation
+class BaseRelation implements \JsonSerializable
 {
     private string $key;
     private string $name;
@@ -21,6 +21,15 @@ class BaseRelation
         }
     }
 
+    public function jsonSerialize()
+    {
+        $res=[$this->getKey()=>
+        ['name'=>$this->name
+        ,'children'=>$this->getChildrenKeys()
+        ]];
+        return $res;
+    }
+
     public function getKey(): string
     {
         return $this->key;
@@ -29,5 +38,13 @@ class BaseRelation
     public function getChildren(): array
     {
         return $this->children;
+    }
+
+    public function getChildrenKeys(): array
+    {
+        foreach ($this->children as $key=>$child) {
+            $res[]=$child->getKey();
+        }
+        return $res;
     }
 }

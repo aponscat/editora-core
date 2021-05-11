@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Structure;
 
-class CmsStructure
+class CmsStructure implements \JsonSerializable
 {
     private $attributes;
     private $classes;
@@ -15,9 +15,12 @@ class CmsStructure
         $this->classes=$classes;
     }
 
-    public function getClasses()
+    public function jsonSerialize()
     {
-        return $this->classes;
+        $res=['classes'=>$this->classes
+        , 'attributes'=>$this->attributes
+        , 'languages'=>$this->languages];
+        return $res;
     }
 
     public static function loadStructureFromJSON($jsonStructure)
@@ -36,7 +39,7 @@ class CmsStructure
             }
         }
 
-        $attributes=self::getAllAttributes($structure, $languages);
+        $attributes=self::getAllAttributesFromStructureArray($structure, $languages);
 
         $relationsClasses=[];
         foreach ($structure['relations'] as $id=>$relation_parent_and_children) {
@@ -80,7 +83,12 @@ class CmsStructure
         return new self($languages, $attributes, $classes);
     }
 
-    private function getAllAttributes($structure, $languages)
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    private function getAllAttributesFromStructureArray($structure, $languages)
     {
 
         // TBD

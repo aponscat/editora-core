@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Structure;
 
-class BaseClass
+class BaseClass implements \JsonSerializable
 {
     private $key;
     private $attributes;
@@ -54,6 +54,14 @@ class BaseClass
             $attributesInstances[$id]=new $attributeType($attribute['key'], $config, $ValueType);
         }
         return self::createFromAttributesArray($key, $attributesInstances);
+    }
+
+    public function jsonSerialize()
+    {
+        $res=[$this->getKey()=>
+        ['attributes'=>$this->attributes
+        , 'relations'=>$this->relations]];
+        return $res;
     }
 
     public function addRelation(BaseRelation $relation): void
