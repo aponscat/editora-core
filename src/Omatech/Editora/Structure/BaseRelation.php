@@ -4,9 +4,9 @@ namespace Omatech\Editora\Structure;
 
 class BaseRelation implements \JsonSerializable
 {
-    private string $key;
-    private string $name;
-    private array $children;
+    private $key;
+    private $name;
+    private $children;
 
     public function __construct($key, $name, $children)
     {

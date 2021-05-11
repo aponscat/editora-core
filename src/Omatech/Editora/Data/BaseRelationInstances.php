@@ -4,7 +4,7 @@ namespace Omatech\Editora\Data;
 
 class BaseRelationInstances
 {
-    private BaseRelation $relation;
+    private $relation;
     private $children;
 
     public function __construct(BaseRelation $relation)

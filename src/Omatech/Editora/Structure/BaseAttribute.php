@@ -6,10 +6,10 @@ use Omatech\Editora\Values\BaseValue;
 
 class BaseAttribute implements \JsonSerializable
 {
-    protected string $key;
-    protected string $language='ALL';
-    protected bool $mandatory=false;
-    protected string $valueType='Omatech\Editora\Values\BaseValue';
+    protected $key;
+    protected $language='ALL';
+    protected $mandatory=false;
+    protected $valueType='Omatech\Editora\Values\BaseValue';
 
     public function __construct($key, $config=null, $valueType=null)
     {
@@ -29,7 +29,7 @@ class BaseAttribute implements \JsonSerializable
         }
 
         if (isset($config['language'])) {
-            assert(strlen($config['language']==2));
+            assert(strlen($config['language'])==2||$config['language']=='ALL');
             $this->language=$config['language'];
         }
 

@@ -106,7 +106,6 @@ class BaseInstance
             $ret=$ret+$this->getInstanceMetadata();
         }
         foreach ($this->values as $value) {
-            assert($value instanceof BaseValue);
             $data=$value->getData($language);
             if ($data) {
                 $ret+=$data;
@@ -122,7 +121,6 @@ class BaseInstance
             $ret=$ret+$this->getInstanceMetadata();
         }
         foreach ($this->values as $value) {
-            assert($value instanceof BaseValue);
             $data=$value->getMultilanguageData();
             if ($data) {
                 $ret+=$data;
