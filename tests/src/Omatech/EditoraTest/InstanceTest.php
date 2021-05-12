@@ -442,6 +442,8 @@ class InstanceTest extends TestCase
 
     public function testGetDataAfterCreateFromJSONFromImageAttribute(): void
     {
+      $publicPath='/images';
+      $originalFilename='result.jpg';
         $jsonAttributes=json_encode([
         ['key'=>'image-with-height'
         , 'type'=>'Omatech\Editora\Structure\ImageAttribute'
@@ -451,7 +453,7 @@ class InstanceTest extends TestCase
           , 'mandatory'=>true
           , 'dimensions'=>'x300'
           , 'storage-path'=>dirname(__FILE__)
-          , 'public-path'=>'/images'
+          , 'public-path'=>$publicPath
           , 'adapters'=>['media'=>'Omatech\Editora\Adapters\TestMediaAdapter']
           ]]
         , ['key'=>'image-with-width', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['language'=>'en', 'dimensions'=>'300x']]
@@ -475,13 +477,16 @@ class InstanceTest extends TestCase
         $instance=BaseInstance::createFromJSON($class, 'image-instance', 'O', json_encode(
             [
               ['image-with-height:en'=>
-                ['original-filename'=>'result.jpg'
+                ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
                 ]
               ]
             ]
         ));
 
-        print_r($instance->getData());
+        $this->assertTrue($instance->getData()==
+        ['key' => 'image-instance'
+        ,'image-with-height' => "$publicPath".'/'.date_format(date_create(),'Ymd')."/$originalFilename"]);
+
     }
 }
