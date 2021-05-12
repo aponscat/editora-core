@@ -8,8 +8,8 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
 {
     protected $width=null;
     protected $height=null;
-    protected $storagePath='/tmp/';
-    protected $publicPath='/uploads/images/';
+    protected $storagePath='/tmp';
+    protected $publicPath='/uploads/images';
     protected $folderPattern='Ymd';
 
     public function __construct($key, $config=null, $valueType=null)
@@ -67,12 +67,12 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
 
     public function getStoragePath()
     {
-        return $this->storagePath;
+        return $this->storagePath.'/'.date_format(date_create(), $this->folderPattern);
     }
 
     public function getPublicPath()
     {
-        return $this->publicPath;
+        return $this->publicPath.'/'.date_format(date_create(), $this->folderPattern);
     }
 
     public function getDimensions()
