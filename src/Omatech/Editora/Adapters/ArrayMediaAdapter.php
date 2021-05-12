@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Adapters;
 
-class TestMediaAdapter implements MediaAdapterInterface
+class ArrayMediaAdapter implements MediaAdapterInterface
 {
     private static $files=[];
 
