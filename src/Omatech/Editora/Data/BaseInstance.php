@@ -20,7 +20,7 @@ class BaseInstance
     {
         $this->class=$class;
         $this->key=$key;
-        $this->status=$status;
+        $this->setStatus($status);
         $this->startPublishingDate=$startPublishingDate;
         $this->endPublishingDate=$endPublishingDate;
         $this->externalID=$externalID;
@@ -170,4 +170,88 @@ class BaseInstance
         }
         return true;
     }
+
+    private function validateStatus($status)
+    {
+        if ($status!='P' && $status!='V' && $status!='O')
+        {
+            throw new \Exception("Incorrect status $status for instance. Valid values are (O)k, (V)erified, (P)ending");           
+        }
+    }
+
+    public function setStatus($status)
+    {
+        $this->validateStatus($status);
+        $this->status=$status;
+    }
+
+    public function isPublished($time=null)
+    {
+        if ($this->status=='P'||$this->status=='V')
+        {
+            return false;
+        }
+
+        // Status==O
+        if ($time==null)
+        {
+            $time=time();
+        }
+
+        return ($this->getStartPublishingDateOr0()<=$time 
+        && $this->getEndPublishingDateOr3000()>=$time);
+    }
+
+    public function setStartPublishingDate($time=null)
+    {
+        if ($time!==null && $this->getEndPublishingDateOr3000()<=$time)
+        {
+            throw new \Exception("Cannot set start publication date after end publication date");           
+        }
+        $this->startPublishingDate=$time;
+    }
+
+    public function setEndPublishingDate($time=null)
+    {
+        if ($time!==null && $this->getStartPublishingDateOr0()>=$time)
+        {
+            throw new \Exception("Cannot set end publication date before start publication date");           
+        }
+        $this->endPublishingDate=$time;
+    }
+
+    public function setPublishingDates($startDate=null, $endDate=null)
+    {
+        if ($startDate!==null && $endDate!==null)
+        {
+            if ($startDate>$endDate)
+            {
+                throw new \Exception("Cannot set end publication date before start publication date");           
+            }
+        }
+        $this->startPublishingDate=$startDate;
+        $this->endPublishingDate=$endDate;
+
+    }
+
+    private function getEndPublishingDateOr3000()
+    {
+        $endDate=32512176000; // year 3.000
+        if ($this->endPublishingDate)
+        {
+            $endDate=$this->endPublishingDate;
+        }
+        return $endDate;
+    }
+
+    private function getStartPublishingDateOr0()
+    {
+        $startDate=0;
+        if ($this->startPublishingDate)
+        {
+            $startDate=$this->startPublishingDate;
+        }
+        return $startDate;
+    }
+
 }
