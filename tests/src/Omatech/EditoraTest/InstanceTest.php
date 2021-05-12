@@ -474,8 +474,12 @@ class InstanceTest extends TestCase
 
         $instance=BaseInstance::createFromJSON($class, 'image-instance', 'O', json_encode(
             [
-          ['image-with-height:en'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))]
-    ]
+              ['image-with-height:en'=>
+                ['original-filename'=>'result.jpg'
+                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
+                ]
+              ]
+            ]
         ));
 
         print_r($instance->getData());
