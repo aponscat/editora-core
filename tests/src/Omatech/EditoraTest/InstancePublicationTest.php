@@ -174,6 +174,18 @@ class InstancePublicationTest extends TestCase
   
         }
 
+
+        public function testInvalidPublishingDates4():void {
+
+            $jsonAttributes=json_encode([
+                ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+              ]);
+                $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+                $this->expectException(\Exception::class); 
+                $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O'
+                , json_encode([['english-title:en'=>'Hello World Title!']]), strtotime('+1 week'), strtotime('-1 week'));
+        }
+
     public function testSetInvalidStatusXInCreation(): void
     {
         $jsonAttributes=json_encode([
