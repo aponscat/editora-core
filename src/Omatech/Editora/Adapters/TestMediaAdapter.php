@@ -4,24 +4,24 @@ namespace Omatech\Editora\Adapters;
 
 class TestMediaAdapter implements MediaAdapterInterface
 {
-    private $files=[];
+    private static $files=[];
 
     public function __construct()
     {
     }
 
-    public function exists(string $path): bool
+    public static function exists(string $path): bool
     {
-        return array_key_exists($path, $this->files);
+        return array_key_exists($path, self::$files);
     }
 
-    public function put(string $path, $content)
+    public static function put(string $path, $content)
     {
-        $this->files[$path]=$content;
+        self::$files[$path]=$content;
     }
 
-    public function get(string $path)
+    public static function get(string $path)
     {
-        return $this->files[$path];
+        return self::$files[$path];
     }
 }

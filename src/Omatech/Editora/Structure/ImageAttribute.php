@@ -3,6 +3,7 @@
 namespace Omatech\Editora\Structure;
 
 use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Adapters\MediaAdapterInterface;
 
 class ImageAttribute extends BaseAttribute implements \JsonSerializable
 {
@@ -12,8 +13,10 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
     protected $publicPath='/uploads/images';
     protected $folderPattern='Ymd';
 
-    public function __construct($key, $config=null, $valueType=null)
+    public function __construct($key, $config, $valueType)
     {
+        assert(!empty($config) && !empty($valueType));
+
         parent::__construct($key, $config, $valueType);
         if (isset($config['storage-path'])) {
             $this->storagePath=$config['storage-path'];
@@ -28,21 +31,17 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
         }
 
         if (isset($config['dimensions'])) {
-            assert(stripos($config['dimensions'],'x')!==false);
+            assert(stripos($config['dimensions'], 'x')!==false);
             $dimensionsArray=explode('x', $config['dimensions']);
-            if (!empty($dimensionsArray[0]))
-            {
+            if (!empty($dimensionsArray[0])) {
                 assert(is_numeric($dimensionsArray[0]));
                 $this->width=$dimensionsArray[0];
             }
-            if (!empty($dimensionsArray[1]))
-            {
+            if (!empty($dimensionsArray[1])) {
                 assert(is_numeric($dimensionsArray[1]));
                 $this->height=$dimensionsArray[1];
             }
         }
-
-
     }
 
     public function jsonSerialize()
@@ -53,6 +52,11 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
         $res[$this->getKey()]['storagePath']=$this->storagePath;
         $res[$this->getKey()]['publicPath']=$this->publicPath;
         return $res;
+    }
+
+    public function getMediaAdapter(): MediaAdapterInterface
+    {
+        return new $this->adapters['media'];
     }
 
     public function getWidth()
@@ -79,5 +83,4 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
     {
         return $this->width.'x'.$this->height;
     }
-
 }

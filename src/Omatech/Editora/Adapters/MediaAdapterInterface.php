@@ -4,7 +4,7 @@ namespace Omatech\Editora\Adapters;
 
 interface MediaAdapterInterface
 {
-    public function exists(string $path): bool;
-    public function put(string $path, $content);
-    public function get(string $path);
+    public static function exists(string $path): bool;
+    public static function put(string $path, $content);
+    public static function get(string $path);
 }

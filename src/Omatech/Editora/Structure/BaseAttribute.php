@@ -10,6 +10,7 @@ class BaseAttribute implements \JsonSerializable
     protected $language='ALL';
     protected $mandatory=false;
     protected $valueType='Omatech\Editora\Values\BaseValue';
+    protected $adapters=null;
 
     public function __construct($key, $config=null, $valueType=null)
     {
@@ -36,6 +37,10 @@ class BaseAttribute implements \JsonSerializable
         if (isset($config['mandatory'])) {
             assert(is_bool($config['mandatory']));
             $this->mandatory=$config['mandatory'];
+        }
+
+        if (isset($config['adapters'])) {
+            $this->adapters=$config['adapters'];
         }
     }
 
