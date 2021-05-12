@@ -10,6 +10,7 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
     protected $height=null;
     protected $storagePath='/tmp/';
     protected $publicPath='/uploads/images/';
+    protected $folderPattern='Ymd';
 
     public function __construct($key, $config=null, $valueType=null)
     {
@@ -20,6 +21,10 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
 
         if (isset($config['public-path'])) {
             $this->publicPath=$config['public-path'];
+        }
+
+        if (isset($config['folder-pattern'])) {
+            $this->folderPattern=$config['folder-pattern'];
         }
 
         if (isset($config['dimensions'])) {
