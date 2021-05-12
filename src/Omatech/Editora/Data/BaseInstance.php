@@ -21,8 +21,7 @@ class BaseInstance
         $this->class=$class;
         $this->key=$key;
         $this->setStatus($status);
-        $this->startPublishingDate=$startPublishingDate;
-        $this->endPublishingDate=$endPublishingDate;
+        $this->setPublishingDates($startPublishingDate, $endPublishingDate);
         $this->externalID=$externalID;
 
         if ($class->existRelations()) {
