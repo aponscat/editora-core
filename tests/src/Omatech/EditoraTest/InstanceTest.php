@@ -475,7 +475,7 @@ class InstanceTest extends TestCase
     ]
       ));
 
-     //print_r($instance->getData());
+     print_r($instance->getData());
 
 
       }
