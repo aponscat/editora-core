@@ -2,12 +2,12 @@
 
 namespace Omatech\Editora\Data;
 
-class TranslatableKey
+class TranslatableKey implements \JsonSerializable
 {
     private $key;
     private $translations;
 
-    private function __construct ($key, $translations)
+    private function __construct($key, $translations)
     {
         $this->key=$key;
         $this->translations=$translations;
@@ -29,22 +29,35 @@ class TranslatableKey
 
     public static function validateTranslationArray($translations)
     {
-        foreach ($translations as $language=>$translation)
-        {
+        foreach ($translations as $language=>$translation) {
             assert(strlen($language)==2);
         }
     }
 
-    public function get ($language)
+    public function get($language)
     {
         assert(!empty($language));
-        foreach ($this->translations as $languageKey=>$translation)
-        {
-            if ($language==$languageKey){
+        foreach ($this->translations as $languageKey=>$translation) {
+            if ($language==$languageKey) {
                 return $translation;
             }
         }
         return $this->key;
     }
 
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    public function jsonSerialize()
+    {
+        $res=[$this->key=>$this->translations];
+        return $res;
+    }
 }
