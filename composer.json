@@ -10,7 +10,7 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Omatech\\Editora\\": "src\\Omatech\\Editora"
+      "Omatech\\Editora\\": "src"
     }
   },
   "require-dev": {
@@ -18,7 +18,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Omatech\\": "tests/src/Omatech"
+      "Omatech\\": "tests/src"
     }
   },
   "scripts": {
