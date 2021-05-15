@@ -10,7 +10,6 @@ use Omatech\Editora\Values\BaseValue;
 
 class InstanceWithNonStandardAttributesTest extends TestCase
 {
-
     public function testGetLanguageDataDifferentAttributesFromJSON(): void
     {
         $jsonAttributes=json_encode([
@@ -227,8 +226,5 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertTrue($secondInstance->getData()['key']=='second-image-instance');
         $this->assertStringStartsWith("$publicPath".'/'.date_format(date_create(), 'Ymd')."/", $secondInstance->getData()['image-with-height']);
         $this->assertStringEndsWith($originalFilename, $secondInstance->getData()['image-with-height']);
-
     }
-
-
 }

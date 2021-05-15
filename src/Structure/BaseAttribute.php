@@ -11,6 +11,7 @@ class BaseAttribute implements \JsonSerializable
     protected $mandatory=false;
     protected $valueType='Omatech\Editora\Values\BaseValue';
     protected $adapters=null;
+    protected $subattributes=null;
 
     public function __construct($key, $config=null, $valueType=null)
     {
@@ -42,6 +43,52 @@ class BaseAttribute implements \JsonSerializable
         if (isset($config['adapters'])) {
             $this->adapters=$config['adapters'];
         }
+
+        if (isset($config['subattributes'])) {
+            foreach ($config['subattributes'] as $subattribute) {
+                assert(!empty($subattribute['key']));
+                $subattributeConfig=null;
+                if (isset($subattribute['config'])) {
+                    $subattributeConfig=$subattribute['config'];
+                }
+                $subattributeValueType=null;
+                if (isset($subattribute['valueType'])) {
+                    $subattributeValueType=$subattribute['valueType'];
+                }
+                $this->subattributes[]=new self($subattribute['key'], $subattributeConfig, $subattributeValueType);
+            }
+        }
+    }
+
+    public function getSubAttributes()
+    {
+        return $this->subattributes;
+    }
+
+    public function existsSubAttribute($attributeKey): bool
+    {
+        if ($this->subattributes) {
+            foreach ($this->subattributes as $subattribute) {
+                echo $this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()." compared to $attributeKey\n";
+                if ($this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()==$attributeKey) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function getSubAttribute($attributeKey)
+    {
+        if ($this->subattributes) {
+            foreach ($this->subattributes as $subattribute) {
+                echo $this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()." compared to $attributeKey\n";
+                if ($this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()==$attributeKey) {
+                    return $subattribute;
+                }
+            }
+        }
+        return null;
     }
 
     public function jsonSerialize()
