@@ -17,7 +17,7 @@ class InstanceWithSubAttributesTest extends TestCase
         $jsonAttributes=json_encode([
         ['key'=>'image-with-alt-and-title'
         , 'type'=>'Omatech\Editora\Structure\ImageAttribute'
-        , 'valueType'=>'Omatech\Editora\Values\ImageValueWithAltAndTitle'
+        , 'valueType'=>'Omatech\Editora\Values\ImageValue'
           , 'config'=>
           ['language'=>'ALL'
           , 'mandatory'=>true
