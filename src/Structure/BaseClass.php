@@ -56,12 +56,30 @@ class BaseClass implements \JsonSerializable
         return self::createFromAttributesArray($key, $attributesInstances);
     }
 
+    private function mapSerialize($var)
+    {
+        if (isset($this->$var)) {
+            $res=[];
+            foreach ($this->$var as $obj) {
+                $res+=$obj->jsonSerialize();
+            }
+            return $res;
+        }
+        return null;
+    }
+
     public function jsonSerialize()
     {
         $res=[$this->getKey()=>
-        ['attributes'=>$this->attributes
-        , 'relations'=>$this->relations]];
+        ['attributes'=>$this->mapSerialize('attributes')
+        , 'relations'=>$this->mapSerialize('relations')
+        ]];
         return $res;
+    }
+
+    public function getData(): array
+    {
+        return $this->jsonSerialize();
     }
 
     public function addRelation(BaseRelation $relation): void

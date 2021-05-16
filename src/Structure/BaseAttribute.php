@@ -12,10 +12,12 @@ class BaseAttribute implements \JsonSerializable
     protected $valueType='Omatech\Editora\Values\BaseValue';
     protected $adapters=null;
     protected $subattributes=null;
+    private $config;
 
     public function __construct($key, $config=null, $valueType=null)
     {
         $this->key=$key;
+        $this->config=$config;
 
         if ($valueType!==null) {
             if (class_exists($valueType)) {
@@ -62,12 +64,9 @@ class BaseAttribute implements \JsonSerializable
 
     public function hasSubAttributes($language='ALL')
     {
-        if ($this->subattributes)
-        {
-            foreach ($this->subattributes as $subattribute)
-            {
-                if ($language==$subattribute->getLanguage())
-                {
+        if ($this->subattributes) {
+            foreach ($this->subattributes as $subattribute) {
+                if ($subattribute->availableInLanguage($language)) {
                     return true;
                 }
             }
@@ -94,13 +93,10 @@ class BaseAttribute implements \JsonSerializable
 
     public function getSubAttributes($language='ALL')
     {
-        if ($this->subattributes)
-        {
+        if ($this->subattributes) {
             $res=[];
-            foreach ($this->subattributes as $subattribute)
-            {
-                if ($subattribute->availableInLanguage($language))
-                {
+            foreach ($this->subattributes as $subattribute) {
+                if ($subattribute->availableInLanguage($language)) {
                     $res[]=$subattribute;
                 }
             }
@@ -136,9 +132,8 @@ class BaseAttribute implements \JsonSerializable
     public function jsonSerialize()
     {
         $res=[$this->getKey()=>
-        ['language'=>$this->language
-        ,'mandatory'=>$this->mandatory
-        , 'valueType'=>$this->valueType
+        ['valueType'=>$this->valueType
+        , 'config'=>$this->config
         ]];
         return $res;
     }
