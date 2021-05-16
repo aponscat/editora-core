@@ -46,6 +46,7 @@ CmsStructure "1" *-- "*" BaseClass
 BaseClass -- BaseInstance
 BaseClass "1" *-- "*" BaseAttribute
 BaseClass "1" *-- "*"   BaseRelation : children
+BaseAttribute "1" *-- "*subattributes" BaseAttribute
 
 BaseRelation "0..1" -- BaseRelationInstances
 
@@ -58,6 +59,8 @@ BaseInstance "1" *-- "*"  BaseRelationInstances : children
 ImageAttribute -- MediaAdapterInterface
 
 TranslationsStorageAdapterInterface "1" *.. "*" TranslatableKey
+
+BaseValue *-- BaseValue
 
 BaseValue <|-- ImageValue
 BaseValue <|-- NumberValue
