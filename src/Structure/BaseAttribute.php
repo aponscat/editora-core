@@ -60,16 +60,59 @@ class BaseAttribute implements \JsonSerializable
         }
     }
 
-    public function getSubAttributes()
+    public function hasSubAttributes($language='ALL')
     {
-        return $this->subattributes;
+        if ($this->subattributes)
+        {
+            foreach ($this->subattributes as $subattribute)
+            {
+                if ($language==$subattribute->getLanguage())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function availableInLanguage($language='ALL')
+    {
+        $attributeLanguage=$this->getLanguage();
+        if ($attributeLanguage=='ALL') {
+            return true;
+        } else {
+            if ($language!='ALL') {
+                if ($attributeLanguage==$language) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getSubAttributes($language='ALL')
+    {
+        if ($this->subattributes)
+        {
+            $res=[];
+            foreach ($this->subattributes as $subattribute)
+            {
+                if ($subattribute->availableInLanguage($language))
+                {
+                    $res[]=$subattribute;
+                }
+            }
+            return $res;
+        }
+        return null;
     }
 
     public function existsSubAttribute($attributeKey): bool
     {
         if ($this->subattributes) {
             foreach ($this->subattributes as $subattribute) {
-                echo $this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()." compared to $attributeKey\n";
                 if ($this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()==$attributeKey) {
                     return true;
                 }
@@ -82,7 +125,6 @@ class BaseAttribute implements \JsonSerializable
     {
         if ($this->subattributes) {
             foreach ($this->subattributes as $subattribute) {
-                echo $this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()." compared to $attributeKey\n";
                 if ($this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()==$attributeKey) {
                     return $subattribute;
                 }

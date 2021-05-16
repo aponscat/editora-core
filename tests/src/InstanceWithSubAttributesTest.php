@@ -48,14 +48,14 @@ class InstanceWithSubAttributesTest extends TestCase
               ]
             ]
         ));
-        
+
         $res=$instance->getData('en');
         $this->assertTrue($res['key']=='image-instance');
         $this->assertTrue($res['image-with-alt-and-title.alt']=='English alt text');
         $this->assertTrue($res['image-with-alt-and-title.title']=='English title');
         $this->assertTrue($res['image-with-alt-and-title.code']=='CodeTextValue');
 
-        $res=$instance->getData('es');
+        $res=$instance->getData('es', true);
         $this->assertTrue($res['key']=='image-instance');
         $this->assertTrue($res['image-with-alt-and-title.alt']=='Texto alternativo en Español');
         $this->assertTrue($res['image-with-alt-and-title.title']=='Título en Español');

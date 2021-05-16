@@ -49,7 +49,5 @@ class CmsStructureTest extends TestCase
         $this->assertTrue($classes[71]['relations']['action_cards'][0]=='ActionCard');
 
         $resultJSON=json_encode($cms, JSON_PRETTY_PRINT);
-        //echo json_last_error_msg();
-        //echo $resultJSON;
     }
 }

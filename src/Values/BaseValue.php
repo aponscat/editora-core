@@ -23,29 +23,41 @@ class BaseValue
     {
         if (isset($value) && is_array($value)) {
             foreach ($value as $key=>$val) {
-                //echo "comparando $key con ".$this->attribute->getKey()."\n";
-                if (Strings::startsWith($key.'.', $this->attribute->getKey())) {
-                    //echo "Subvalue: $key\n";
+                if ($this->attribute->existsSubAttribute($key)) {
                     $this->subValues[Strings::substringAfter($key, '.')]=$val;
                 }
             }
         }
     }
 
+    public function getSubValue($key)
+    {
+        if ($this->subValues && isset($this->subValues[$key]))
+        {
+            return $this->subValues[$key];
+        }
+        return null;
+    }
+
+    public function hasSubValue($key): bool
+    {
+        return ($this->subValues && isset($this->subValues[$key]));
+    }
+
     public function getSubValuesData($language='ALL'): ?array
     {
-        if ($this->subValues) {
+        if ($this->attribute->hasSubAttributes($language))
+        {
+            $atriKey=$this->attribute->getKey();
             $res=[];
-            foreach ($this->subValues as $key=>$val) {
-                if ($language!='ALL') {
-                    if (stripos($key, ':')!==false) {// per idioma
-                        $valueLanguage=Strings::substringAfter($key, ':');
-                        if ($valueLanguage==$language) {
-                            $res+=[Strings::substringBefore($key, ':')=>$val];
-                        }
-                    } else {
-                        $res+=[$key=>$val];
-                    }
+            foreach ($this->attribute->getSubAttributes($language) as $subattribute)
+            {
+                $subFullKey=$subattribute->getFullyQualifiedKey();
+                $subkey=$subattribute->getKey();
+                if ($this->hasSubValue($subFullKey))
+                {
+                    $subval=$this->getSubValue($subFullKey);
+                    $res+=[$subkey=>$subval];
                 }
             }
             return $res;
@@ -92,17 +104,9 @@ class BaseValue
 
     public function getSingleData($language='ALL'): ?array
     {
-        $attributeLanguage=$this->attribute->getLanguage();
-        if ($attributeLanguage=='ALL') {
+        if ($this->attribute->availableInLanguage($language))
+        {
             return $this->getKeyVal();
-        } else {
-            if ($language!='ALL') {
-                if ($attributeLanguage==$language) {
-                    return $this->getKeyVal();
-                }
-            } else {
-                return $this->getKeyVal();
-            }
         }
         return null;
     }
