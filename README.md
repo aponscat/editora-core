@@ -35,10 +35,28 @@ class NumberValue
 class ReverseValue
 }
 
-package "Adapters" {
-class ArrayMediaAdapter implements MediaAdapterInterface
-class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
+package "Ports" {
+class MediaAdapterInterface
+class TranslationsStorageAdapterInterface
 }
+
+package "Adapters" #DDDDDD {
+class ArrayMediaAdapter implements MediaAdapterInterface
+class S3MediaAdapter implements MediaAdapterInterface
+class MySQLMediaAdapter implements MediaAdapterInterface
+class LocalStorageMediaAdapter implements MediaAdapterInterface
+class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
+class MySQLTranslationsStorageManager implements TranslationsStorageAdapterInterface
+}
+
+package "Controllers"
+{
+class ClassController
+class CmsStructureController
+}
+
+ClassController -- BaseClass
+CmsStructureController -- CmsStructure
 
 CmsStructure "1" *-- "*" BaseAttribute
 CmsStructure "1" *-- "*" BaseClass
@@ -77,6 +95,18 @@ class BaseInstance {
   createFromValuesArray(class,values,...)
   createFromJson(class,json,...
   Json getJson(lang)
+}
+
+
+class CmsStructureController {
+  loadStructureFromJson()
+  listClasses()
+}
+
+class ClassController {
+  newInstance()
+  getInstance($id)
+  saveInstance()
 }
 @enduml
 ```
