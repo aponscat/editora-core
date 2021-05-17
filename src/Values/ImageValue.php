@@ -9,11 +9,6 @@ class ImageValue extends BaseValue
     private $internalPath;
     private $externalPath;
 
-    public function __construct(BaseAttribute $attribute, $value=null)
-    {
-        parent::__construct($attribute, $value);
-    }
-
     public function setValue($value)
     {
         $mediaAdapter=$this->attribute->getMediaAdapter();
