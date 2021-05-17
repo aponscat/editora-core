@@ -8,6 +8,8 @@ class ImageValue extends BaseValue
 {
     private $internalPath;
     private $externalPath;
+    private $fileName;
+    private $base64Data;
 
     public function setValue($value)
     {
@@ -21,7 +23,9 @@ class ImageValue extends BaseValue
 
         $this->internalPath="$storagePath/$fileName";
         $this->externalPath="$externalPath/$fileName";
-        $mediaAdapter::put($this->internalPath, base64_decode($value['data']));
+        $this->fileName=$fileName;
+        $this->base64Data=$value['data'];
+        $mediaAdapter::put($this->internalPath, base64_decode($this->base64Data));
         $this->value=$this->externalPath;
     }
 }
