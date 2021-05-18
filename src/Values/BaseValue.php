@@ -5,7 +5,7 @@ namespace Omatech\Editora\Values;
 use Omatech\Editora\Structure\BaseAttribute;
 use Omatech\Editora\Utils\Strings;
 
-class BaseValue
+class BaseValue implements \JsonSerializable
 {
     protected $attribute;
     protected $value;
@@ -17,6 +17,17 @@ class BaseValue
         $this->setSubValues($value);
         $this->setValue($value);
         $this->validate();
+    }
+
+    public function jsonSerialize()
+    {
+        $res=[$this->getKey()=>
+        [
+        'attribute'=>$this->attribute
+        ,'value'=>$this->value
+        ,'subValues'=>$this->subValues
+        ]];
+        return $res;
     }
 
     public function setSubValues($value=null)
@@ -120,4 +131,5 @@ class BaseValue
     {
         return true;
     }
+
 }

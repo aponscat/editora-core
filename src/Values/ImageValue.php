@@ -28,9 +28,4 @@ class ImageValue extends BaseValue
         //$mediaAdapter::put($this->internalPath, base64_decode($this->base64Data));
         $this->value=$this->externalPath;
     }
-
-    public function save (StorageInterface $storage)
-    {
-        $storage->save($this);
-    }
 }

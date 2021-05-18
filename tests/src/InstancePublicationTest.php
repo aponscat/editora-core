@@ -37,6 +37,7 @@ class InstancePublicationTest extends TestCase
                   ,'startPublishingDate' => null
                   ,'endPublishingDate' => null
                   ,'externalID' => null
+                  ,'class'=>'news-item'
               ]
               ,"english-title" => "Hello World Title!"
               ]

@@ -53,6 +53,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
+              ,'class'=>'news-item'
           ]
           ,"english-title" => "!eltiT dlroW olleH"
             ,"english-text" => "!txeT dlroW olleH"
@@ -79,7 +80,8 @@ class InstanceWithNonStandardAttributesTest extends TestCase
             ,'startPublishingDate' => null
             ,'endPublishingDate' => null
             ,'externalID' => null
-        ]
+            ,'class'=>'news-item'
+            ]
       ,"spanish-title" => "!odnuM aloH"
           ,"spanish-text" => "!txeT odnuM aloH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"

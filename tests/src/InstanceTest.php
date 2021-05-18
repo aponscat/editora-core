@@ -38,6 +38,7 @@ class InstanceTest extends TestCase
                 ,'startPublishingDate' => null
                 ,'endPublishingDate' => null
                 ,'externalID' => null
+                ,'class'=>'news-item'
             ]
             ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -76,7 +77,8 @@ class InstanceTest extends TestCase
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
-          ]
+              ,'class'=>'news-item'
+              ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
           ]
@@ -112,7 +114,8 @@ class InstanceTest extends TestCase
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
-          ]
+              ,'class'=>'news-item'
+              ]
           ,"english-title" => "Hello World Title!"
           ]
         );
@@ -206,7 +209,8 @@ class InstanceTest extends TestCase
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
-          ]
+              ,'class'=>'news-item'
+            ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
@@ -232,7 +236,8 @@ class InstanceTest extends TestCase
             ,'startPublishingDate' => null
             ,'endPublishingDate' => null
             ,'externalID' => null
-        ]
+            ,'class'=>'news-item'
+            ]
       ,"spanish-title" => "Hola Mundo!"
           ,"spanish-text" => "Hola Mundo Text!"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
@@ -281,6 +286,7 @@ class InstanceTest extends TestCase
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
+              ,'class'=>'news-item'
           ]
           ,"title:en" => "Hello World Title!"
             ,"text:en" => "Hello World Text!"

@@ -4,8 +4,10 @@ namespace Omatech\Editora\Data;
 
 use Omatech\Editora\Structure\BaseClass;
 use Omatech\Editora\Structure\BaseAttribute;
+use Omatech\Editora\Ports\CmsStorageInstanceInterface;
+use Omatech\Editora\Adapters\ArrayStorageAdapter;
 
-class BaseInstance
+class BaseInstance implements \JsonSerializable
 {
     private $class;
     private $key;
@@ -63,6 +65,60 @@ class BaseInstance
             }
         }
         return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID);
+    }
+
+    public static function createFromJSONWithMetadata (string $jsonInstance)
+    {
+        $json=json_decode($jsonInstance, true);
+        $class=$json['metadata']['class'];
+        $key=$json['key'];
+        $status=$json['metadata']['status'];
+        $startPublishingDate=$json['metadata']['startPublishingDate'];
+        $endPublishingDate=$json['metadata']['endPublishingDate'];
+        $externalID=$json['metadata']['externalID'];
+        unset($json['key']);
+        unset($json['metadata']);
+
+        print_r($json);
+
+        $jsonAttributes=json_encode([
+            ['key'=>'english-title'
+            , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
+            , 'config'=>['language'=>'en', 'mandatory'=>true]]
+            , ['key'=>'english-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
+            , ['key'=>'spanish-title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+            , ['key'=>'spanish-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+            , ['key'=>'multilang-attribute']
+          ]);
+        
+        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+
+        echo "--- $key, $status, $startPublishingDate, $endPublishingDate, $externalID\n";
+
+        return self::createFromJSON($class, $key, $status, json_encode([$json]), $startPublishingDate, $endPublishingDate, $externalID);
+    }
+
+    public function jsonSerialize()
+    {
+        $ret=$this->getInstanceHeaderData();
+        $ret=$ret+$this->getInstanceMetadata();
+        $ret['values']=$this->mapSerialize('values');
+        $ret['relations']=$this->mapSerialize('relations');
+
+        return $ret;
+        //return $this->getMultilanguageData(true);
+    }
+
+    private function mapSerialize(string $var)
+    {
+        if (isset($this->$var)) {
+            $res=[];
+            foreach ($this->$var as $obj) {
+                $res+=$obj->jsonSerialize();
+            }
+            return $res;
+        }
+        return null;
     }
 
 
@@ -133,10 +189,11 @@ class BaseInstance
     {
         return
             ['metadata'=>[
-      'status'=>$this->status
-      ,'startPublishingDate'=>$this->startPublishingDate
-      ,'endPublishingDate'=>$this->endPublishingDate
-      ,'externalID'=>$this->externalID
+            'status'=>$this->status
+            , 'startPublishingDate'=>$this->startPublishingDate
+            , 'endPublishingDate'=>$this->endPublishingDate
+            , 'externalID'=>$this->externalID
+            , 'class'=>$this->class->getKey()
             ]];
     }
 
@@ -251,6 +308,16 @@ class BaseInstance
             $startDate=$this->startPublishingDate;
         }
         return $startDate;
+    }
+
+    public function put (string $id, CmsStorageInstanceInterface $storage)
+    {
+        $storage::put($id, $this);
+    }
+
+    public static function get(string $id, CmsStorageInstanceInterface $storage): BaseInstance
+    {
+        return $storage::get($id);
     }
 
 }
