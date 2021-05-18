@@ -3,8 +3,9 @@
 namespace Omatech\Editora\Adapters;
 
 use Omatech\Editora\Data\TranslatableKey;
+use Omatech\Editora\Ports\TranslationsStorageInterface;
 
-class ArrayTranslationsStorageAdapter implements TranslationsStorageAdapterInterface, \JsonSerializable
+class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface, \JsonSerializable
 {
     private static $translations=[];
 

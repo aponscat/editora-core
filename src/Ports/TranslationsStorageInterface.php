@@ -1,10 +1,10 @@
 <?php
 
-namespace Omatech\Editora\Adapters;
+namespace Omatech\Editora\Ports;
 
 use Omatech\Editora\Data\TranslatableKey;
 
-interface TranslationsStorageAdapterInterface
+interface TranslationsStorageInterface
 {
     public static function exists(string $key): bool;
     public static function put(TranslatableKey $translation);

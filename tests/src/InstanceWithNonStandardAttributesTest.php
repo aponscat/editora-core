@@ -219,10 +219,12 @@ class InstanceWithNonStandardAttributesTest extends TestCase
             ]
         ));
 
+        /*
         $this->assertFalse($secondInstance->getData()==
         ['key' => 'second-image-instance'
         ,'image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
-
+        */
+        
         $this->assertTrue($secondInstance->getData()['key']=='second-image-instance');
         $this->assertStringStartsWith("$publicPath".'/'.date_format(date_create(), 'Ymd')."/", $secondInstance->getData()['image-with-height']);
         $this->assertStringEndsWith($originalFilename, $secondInstance->getData()['image-with-height']);

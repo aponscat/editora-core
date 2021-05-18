@@ -13,19 +13,24 @@ class ImageValue extends BaseValue
 
     public function setValue($value)
     {
-        $mediaAdapter=$this->attribute->getMediaAdapter();
+        //$mediaAdapter=$this->attribute->getMediaAdapter();
         $storagePath=$this->attribute->getStoragePath();
         $externalPath=$this->attribute->getPublicPath();
         $fileName=$value['original-filename'];
-        while ($mediaAdapter::exists("$storagePath/$fileName")) {
+        /*while ($mediaAdapter::exists("$storagePath/$fileName")) {
             $fileName=rand(0, 1000).$fileName;
-        }
+        }*/
 
         $this->internalPath="$storagePath/$fileName";
         $this->externalPath="$externalPath/$fileName";
         $this->fileName=$fileName;
         $this->base64Data=$value['data'];
-        $mediaAdapter::put($this->internalPath, base64_decode($this->base64Data));
+        //$mediaAdapter::put($this->internalPath, base64_decode($this->base64Data));
         $this->value=$this->externalPath;
+    }
+
+    public function save (StorageInterface $storage)
+    {
+        $storage->save($this);
     }
 }

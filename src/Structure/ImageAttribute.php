@@ -54,11 +54,13 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
         return $res;
     }
 
+    /*
     public function getMediaAdapter(): MediaAdapterInterface
     {
         return new $this->adapters['media'];
     }
-
+    */
+    
     public function getWidth()
     {
         return $this->width;
