@@ -9,28 +9,29 @@ use Omatech\Editora\Data\BaseInstance;
 use Omatech\Editora\Values\BaseValue;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
+use Omatech\Editora\Structure\CmsStructure;
 
 class InstancesStorageTest extends TestCase
 {
     public function testSaveAndRetrieve(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title'
+        ['key'=>'title'
         , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
         , 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
-        , ['key'=>'spanish-title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
-        , ['key'=>'spanish-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+        , ['key'=>'text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
+        , ['key'=>'title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+        , ['key'=>'text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
         , ['key'=>'multilang-attribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
 
         $instance1=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
-              ['english-title:en'=>'Hello World Title!']
-              ,["english-text:en" => "Hello World Text!"]
-              ,["spanish-title:es" => "Hola Mundo!"]
-              ,["spanish-text:es" => "Hola Mundo Text!"]
+              ['title:en'=>'Hello World Title!']
+              ,["text:en" => "Hello World Text!"]
+              ,["title:es" => "Hola Mundo!"]
+              ,["text:es" => "Hola Mundo Text!"]
               ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
         ]
         ));
@@ -39,8 +40,8 @@ class InstancesStorageTest extends TestCase
             $instance1->getData('en')==
         [
           "key" => "news-item-instance"
-          ,"english-title" => "!eltiT dlroW olleH"
-          ,"english-text" => "!txeT dlroW olleH"
+          ,"title" => "!eltiT dlroW olleH"
+          ,"text" => "!txeT dlroW olleH"
           , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
@@ -56,8 +57,8 @@ class InstancesStorageTest extends TestCase
               ,'externalID' => null
               ,'class'=>'news-item'
           ]
-          ,"english-title" => "!eltiT dlroW olleH"
-            ,"english-text" => "!txeT dlroW olleH"
+          ,"title" => "!eltiT dlroW olleH"
+            ,"text" => "!txeT dlroW olleH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
@@ -66,8 +67,8 @@ class InstancesStorageTest extends TestCase
             $instance1->getData('es')==
       [
         "key" => "news-item-instance"
-        ,"spanish-title" => "!odnuM aloH"
-        ,"spanish-text" => "!txeT odnuM aloH"
+        ,"title" => "!odnuM aloH"
+        ,"text" => "!txeT odnuM aloH"
         , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
         );
@@ -83,25 +84,28 @@ class InstancesStorageTest extends TestCase
             ,'externalID' => null
             ,'class'=>'news-item'
         ]
-      ,"spanish-title" => "!odnuM aloH"
-          ,"spanish-text" => "!txeT odnuM aloH"
+      ,"title" => "!odnuM aloH"
+          ,"text" => "!txeT odnuM aloH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
         );
 
 
         $id=uniqid();
-        echo "$id\n";
+        //echo "$id\n";
 
-        $storage=new ArrayStorageAdapter;
+       
+        $structure=CmsStructure::createEmptyStructure();
+        $structure->addLanguage('es');
+        $structure->addLanguage('en');
+        $structure->addClass($class);
+        $storage=new ArrayStorageAdapter($structure);
         $instance1->put($id, $storage);
-
-        var_dump($storage);
-        
+ 
         $instance2=$storage::get($id);
 
-        print_r($instance2->getData('es', true));
-        
+        //print_r($instance2->getData('es', true));die;
+
         $this->assertTrue(
             $instance2->getData('es', true)==
         [
@@ -113,10 +117,10 @@ class InstancesStorageTest extends TestCase
             ,'externalID' => null
             ,'class'=>'news-item'
         ]
-      ,"spanish-title" => "!odnuM aloH"
-          ,"spanish-text" => "!txeT odnuM aloH"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
-          ]
+        ,"title" => "!odnuM aloH"
+        ,"text" => "!txeT odnuM aloH"
+        , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        ]
         );
 
     }

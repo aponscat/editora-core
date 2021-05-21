@@ -131,7 +131,7 @@ class BaseAttribute implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $res=[$this->getKey()=>
+        $res=[$this->getFullyQualifiedKey()=>
         ['valueType'=>$this->valueType
         , 'config'=>$this->config
         ]];
@@ -146,6 +146,8 @@ class BaseAttribute implements \JsonSerializable
     public function createValue($value): BaseValue
     {
         $class=$this->valueType;
+        //echo "Creating Value\n";
+        //var_dump($value);
         return new $class($this, $value);
     }
 

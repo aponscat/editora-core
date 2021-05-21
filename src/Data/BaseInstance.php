@@ -6,6 +6,8 @@ use Omatech\Editora\Structure\BaseClass;
 use Omatech\Editora\Structure\BaseAttribute;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
+use Omatech\Editora\Structure\BaseRelation;
+use Omatech\Editora\Data\BaseRelationInstances;
 
 class BaseInstance implements \JsonSerializable
 {
@@ -56,7 +58,7 @@ class BaseInstance implements \JsonSerializable
                 foreach ($singleValue as $attributeKey=>$value) {
                     if ($class->existsAttribute($attributeKey)) {
                         $atri=$class->createAttributeFromKey($attributeKey);
-                        //$valuesArray[]=new BaseValue($atri, $value);
+                        //echo "Creating attribute value with value:\n";
                         $valuesArray[]=$atri->createValue($value);
                     } else {
                         throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
@@ -67,35 +69,26 @@ class BaseInstance implements \JsonSerializable
         return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID);
     }
 
-    public static function createFromJSONWithMetadata (string $jsonInstance)
+    public static function createFromJSONWithMetadata (BaseClass $class, string $jsonInstance): BaseInstance
     {
         $json=json_decode($jsonInstance, true);
-        $class=$json['metadata']['class'];
         $key=$json['key'];
         $status=$json['metadata']['status'];
         $startPublishingDate=$json['metadata']['startPublishingDate'];
         $endPublishingDate=$json['metadata']['endPublishingDate'];
         $externalID=$json['metadata']['externalID'];
-        unset($json['key']);
-        unset($json['metadata']);
 
-        print_r($json);
-
-        $jsonAttributes=json_encode([
-            ['key'=>'english-title'
-            , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
-            , 'config'=>['language'=>'en', 'mandatory'=>true]]
-            , ['key'=>'english-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
-            , ['key'=>'spanish-title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
-            , ['key'=>'spanish-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
-            , ['key'=>'multilang-attribute']
-          ]);
+        $values=[];
+        foreach ($json['values'] as $atrikey=>$oneValue)
+        {
+            //echo "Getting from storage $atrikey\n";
+            //print_r($oneValue);
+            $values[]=[$atrikey=>$oneValue['value']];
+        }
         
-        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+        //print_r($values);die;
 
-        echo "--- $key, $status, $startPublishingDate, $endPublishingDate, $externalID\n";
-
-        return self::createFromJSON($class, $key, $status, json_encode([$json]), $startPublishingDate, $endPublishingDate, $externalID);
+        return self::createFromJSON($class, $key, $status, json_encode($values), $startPublishingDate, $endPublishingDate, $externalID);
     }
 
     public function jsonSerialize()

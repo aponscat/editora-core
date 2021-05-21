@@ -12,6 +12,7 @@ class CmsStructureTest extends TestCase
     {
         $jsonStructure=file_get_contents(dirname(__FILE__).'/test_structure.json');
         $cms=CmsStructure::loadStructureFromJSON($jsonStructure);
+        
         $classes=[];
         foreach ($cms->getClasses() as $id=>$class) {
             $classes[$id]['key']=$class->getKey();

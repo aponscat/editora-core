@@ -2,6 +2,8 @@
 
 namespace Omatech\Editora\Data;
 
+use Omatech\Editora\Structure\BaseRelation;
+
 class BaseRelationInstances
 {
     private $relation;

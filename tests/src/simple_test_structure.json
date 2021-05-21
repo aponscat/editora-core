@@ -1,0 +1,57 @@
+{
+    "truncate_users": false,
+    "users": {
+        "1": [
+            "omatech",
+            "Omatech",
+            "es",
+            "1",
+            "O"
+        ]
+    },
+    "languages": {
+        "10000": "es",
+        "20000": "en"
+    },
+    "groups": {
+        "Principal": "1",
+    },
+    "classes": {
+        "Principal": {
+            "1": [
+                "news-item",
+                "news-item"
+            ]
+    },
+    "attributes_order_string": [],
+    "attributes_order_date": [],
+    "attributes_string": [],
+    "attributes_textarea": [],
+    "attributes_text": [],
+    "attributes_date": [],
+    "attributes_num": [],
+    "attributes_geolocation": [],
+    "attributes_url": [],
+    "attributes_file": [],
+    "attributes_video": [],
+    "attributes_image": [],
+    "attributes_lookup": [],
+    "lookups": [],
+    "attributes_multi_lang_string": {
+        "200": [
+            "title",
+            "T\u00edtol",
+            "T\u00edtulo",
+            "Title"
+        ]
+    },
+    "attributes_multi_lang_textarea": [],
+    "attributes_multi_lang_file": [],
+    "attributes_multi_lang_image": [],
+    "images_sizes": [],
+    "relations": [],
+    "relation_names": [],
+    "attributes_classes": {
+        "1": "200"
+   }
+}
