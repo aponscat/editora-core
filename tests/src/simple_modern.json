@@ -4,25 +4,12 @@
             "attributes": {
                 "title:en": {
                     "config": {
-                        "language": "en",
                         "mandatory": true
                     }
                 },
-                "text:en": {
-                    "config": {
-                        "language": "en"
-                    }
-                },
-                "title:es": {
-                    "config": {
-                        "language": "es"
-                    }
-                },
-                "text:es": {
-                    "config": {
-                        "language": "es"
-                    }
-                },
+                "text:en": null,
+                "title:es": null,
+                "text:es": null,
                 "multilang-attribute": null
             },
             "relations": null
@@ -31,15 +18,10 @@
             "attributes": {
                 "title:en": {
                     "config": {
-                        "language": "en",
                         "mandatory": true
                     }
                 },
-                "title:es": {
-                    "config": {
-                        "language": "es"
-                    }
-                },
+                "title:es": null,
                 "code": null
             },
             "relations": null

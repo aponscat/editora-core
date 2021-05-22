@@ -16,12 +16,12 @@ class InstancesStorageTest extends TestCase
     public function testSaveAndRetrieve(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'title'
+        ['key'=>'title:en'
         , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
-        , 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
-        , ['key'=>'title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
-        , ['key'=>'text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+        , 'config'=>['mandatory'=>true]]
+        , ['key'=>'text:en', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
+        , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
+        , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
         , ['key'=>'multilang-attribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -122,6 +122,5 @@ class InstancesStorageTest extends TestCase
         , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
-
     }
 }

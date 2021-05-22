@@ -13,12 +13,12 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     public function testGetLanguageDataDifferentAttributesFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title'
+        ['key'=>'english-title:en'
         , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
-        , 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'en']]
-        , ['key'=>'spanish-title', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
-        , ['key'=>'spanish-text', 'valueType'=>'Omatech\Editora\Values\ReverseValue', 'config'=>['language'=>'es']]
+        , 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
+        , ['key'=>'spanish-title:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
+        , ['key'=>'spanish-text:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
         , ['key'=>'multilang-attribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -95,7 +95,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     public function testSetNumericValueFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        ['key'=>'title:en', 'config'=>['mandatory'=>true]]
         , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
       ]);
         $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
@@ -120,7 +120,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     public function testSetInvalidNumericValueFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
+        ['key'=>'title:es', 'config'=>['mandatory'=>true]]
         , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
       ]);
         $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
@@ -138,8 +138,8 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     public function testGetDataAfterCreateFromJSONFromStrangeAttribute(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute', 'config'=>['language'=>'en']]
+        ['key'=>'english-title:en', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute', 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
@@ -166,18 +166,17 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $publicPath='/images';
         $originalFilename='result.jpg';
         $jsonAttributes=json_encode([
-        ['key'=>'image-with-height'
+        ['key'=>'image-with-height:en'
         , 'type'=>'Omatech\Editora\Structure\ImageAttribute'
         , 'valueType'=>'Omatech\Editora\Values\ImageValue'
           , 'config'=>
-          ['language'=>'en'
-          , 'mandatory'=>true
+          ['mandatory'=>true
           , 'dimensions'=>'x300'
           , 'storage-path'=>dirname(__FILE__)
           , 'public-path'=>$publicPath
           , 'adapters'=>['media'=>'Omatech\Editora\Adapters\ArrayMediaAdapter']
           ]]
-        , ['key'=>'image-with-width', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['language'=>'en', 'dimensions'=>'300x']]
+        , ['key'=>'image-with-width:en', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'300x']]
         , ['key'=>'image-with-width-and-height', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'100x200']]
       ]);
         $class=BaseClass::createFromJSON('image', $jsonAttributes);

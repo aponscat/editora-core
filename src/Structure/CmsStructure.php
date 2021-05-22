@@ -68,10 +68,11 @@ class CmsStructure implements \JsonSerializable
         foreach ($classes_list as $id=>$className) {
             $classAttris=[];
             $attributesInClass=self::getAttributesInClass($structure, $id);
+
             foreach ($attributesInClass as $attributeId) {
                 $classAttris+=self::getAttributesFromId($attributes, $languages, $attributeId);
             }
-            
+
             $classInstance=BaseClass::createFromAttributesArray($className, $classAttris);
             $classes[$id]=$classInstance;
         }
@@ -214,7 +215,7 @@ class CmsStructure implements \JsonSerializable
             foreach ($structure[$attributeType] as $id=>$stringAttribute) {
                 if ($languages) {
                     foreach ($languages as $languageId=>$language) {
-                        $atri=new BaseAttribute($stringAttribute[0]."_$language", ['language'=>$language]);
+                        $atri=new BaseAttribute($stringAttribute[0].":$language");
                         $atris[$languageId+$id]=$atri;
                     }
                 } else {

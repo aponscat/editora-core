@@ -12,8 +12,8 @@ class InstanceTest extends TestCase
 {
     public function testGetDataAfterCreate(): void
     {
-        $atriTitle=new BaseAttribute('english-title', ['language'=>'en', 'mandatory'=>true]);
-        $atriText=new BaseAttribute('english-text', ['language'=>'en']);
+        $atriTitle=new BaseAttribute('english-title:en', ['mandatory'=>true]);
+        $atriText=new BaseAttribute('english-text:en');
         $class=BaseClass::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
         $valTitle=new BaseValue($atriTitle, 'Hello World Title!');
         $valText=new BaseValue($atriText, 'Hello World Text!');
@@ -49,8 +49,8 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'type'=>'Omatech\Editora\Structure\BaseAttribute', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'config'=>['language'=>'en']]
+        ['key'=>'english-title:en', 'type'=>'Omatech\Editora\Structure\BaseAttribute', 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
@@ -88,8 +88,8 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSONWithMissingOptionalValue(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'config'=>['language'=>'en']]
+        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
@@ -123,11 +123,11 @@ class InstanceTest extends TestCase
 
     public function testSetDataInNonExistingAttribute(): void
     {
-        $atriTitle=new BaseAttribute('english-title', ['language'=>'en', 'mandatory'=>true]);
-        $atriText=new BaseAttribute('english-text', ['language'=>'en']);
+        $atriTitle=new BaseAttribute('english-title:en', ['mandatory'=>true]);
+        $atriText=new BaseAttribute('english-text:en');
         $class=BaseClass::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
 
-        $atriInexistentText=new BaseAttribute('english-nonexistent', ['language'=>'en']);
+        $atriInexistentText=new BaseAttribute('english-nonexistent:en');
 
         $valTitle=new BaseValue($atriTitle, 'Hello World Title!');
         $valText=new BaseValue($atriText, 'Hello World Text!');
@@ -139,8 +139,8 @@ class InstanceTest extends TestCase
     public function testSetDataInNonExistingAttributeFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'config'=>['language'=>'en']]
+        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en']
       ]);
 
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -157,8 +157,8 @@ class InstanceTest extends TestCase
     public function testMissingMandatoryAttributeFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'config'=>['language'=>'en']]
+        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
@@ -173,10 +173,10 @@ class InstanceTest extends TestCase
     public function testGetLanguageDataOnlyAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'english-text', 'config'=>['language'=>'en']]
-        , ['key'=>'spanish-title', 'config'=>['language'=>'es']]
-        , ['key'=>'spanish-text', 'config'=>['language'=>'es']]
+        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
+        , ['key'=>'english-text:en']
+        , ['key'=>'spanish-title:es']
+        , ['key'=>'spanish-text:es']
         , ['key'=>'multilang-attribute', 'config'=>[]]
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
@@ -248,11 +248,11 @@ class InstanceTest extends TestCase
     public function testGetMultilanguageDataAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-        , ['key'=>'text', 'config'=>['language'=>'en']]
-        , ['key'=>'title', 'config'=>['language'=>'es']]
-        , ['key'=>'text', 'config'=>['language'=>'es']]
-        , ['key'=>'multilang-attribute', 'config'=>[]]
+        ['key'=>'title:en', 'config'=>['mandatory'=>true]]
+        , ['key'=>'text:en']
+        , ['key'=>'title:es']
+        , ['key'=>'text:es']
+        , ['key'=>'multilang-attribute']
       ]);
         $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
 
@@ -296,5 +296,4 @@ class InstanceTest extends TestCase
             ]
         );
     }
-
 }

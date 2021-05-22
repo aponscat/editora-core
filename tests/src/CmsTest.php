@@ -20,19 +20,20 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         //echo json_encode($cms, JSON_PRETTY_PRINT);
         $countryClass=$cms->getClass('Countries');
-        //var_dump($country);
+        //var_dump($countryClass);
+        
         $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
             [
               ['country_code'=>'es'
-              , 'title_es:es'=>'España'
-              , 'title_en:en'=>'Spain'
+              , 'title:es'=>'España'
+              , 'title:en'=>'Spain'
               ]
             ]
         ));
         $this->assertTrue($instance->getData('es')==
         ['key' => 'country-es'
         ,'country_code' => 'es'
-        ,'title_es' => 'España']);
+        ,'title' => 'España']);
 
         $id=uniqid();
         $cms->putInstanceWithID($id, $instance);
@@ -44,18 +45,18 @@ class CmsTest extends TestCase
     public function testSaveStructureToSimpleModernJSON(): void
     {
         $jsonAttributes=json_encode([
-            ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-            , ['key'=>'text', 'config'=>['language'=>'en']]
-            , ['key'=>'title', 'config'=>['language'=>'es']]
-            , ['key'=>'text', 'config'=>['language'=>'es']]
+            ['key'=>'title:en', 'config'=>['mandatory'=>true]]
+            , ['key'=>'text:en']
+            , ['key'=>'title:es']
+            , ['key'=>'text:es']
             , ['key'=>'multilang-attribute']
           ]);
         $newsItem=BaseClass::createFromJSON('news-item', $jsonAttributes);
     
 
         $jsonAttributes=json_encode([
-            ['key'=>'title', 'config'=>['language'=>'en', 'mandatory'=>true]]
-            , ['key'=>'title', 'config'=>['language'=>'es']]
+            ['key'=>'title:en', 'config'=>['mandatory'=>true]]
+            , ['key'=>'title:es']
             , ['key'=>'code']
           ]);
         $category=BaseClass::createFromJSON('news-category', $jsonAttributes);

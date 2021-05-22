@@ -113,8 +113,6 @@ class BaseClass implements \JsonSerializable
         }
     }
 
-
-
     public function existsAttribute($attributeKey): bool
     {
         foreach ($this->attributes as $attribute) {

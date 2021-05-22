@@ -3,6 +3,7 @@
 namespace Omatech\Editora\Structure;
 
 use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Utils\Strings;
 
 class BaseAttribute implements \JsonSerializable
 {
@@ -12,10 +13,19 @@ class BaseAttribute implements \JsonSerializable
     protected $valueType='Omatech\Editora\Values\BaseValue';
     protected $adapters=null;
     protected $subattributes=null;
+    protected $langSeparator=':';
     private $config;
 
     public function __construct($key, $config=null, $valueType=null)
     {
+        $language='ALL';
+        if (stripos($key, $this->langSeparator)!==false) {// one lang
+            $language=Strings::substringAfter($key, $this->langSeparator);
+            $key=Strings::substringBefore($key, $this->langSeparator);
+        }
+        assert(strlen($language)==2||$language=='ALL');
+        $this->language=$language;
+
         $this->key=$key;
         $this->config=$config;
 
@@ -28,14 +38,15 @@ class BaseAttribute implements \JsonSerializable
         }
 
         if ($config==null) {
-            $language='ALL';
             $mandatory=false;
         }
 
+        /*
         if (isset($config['language'])) {
             assert(strlen($config['language'])==2||$config['language']=='ALL');
             $this->language=$config['language'];
         }
+        */
 
         if (isset($config['mandatory'])) {
             assert(is_bool($config['mandatory']));

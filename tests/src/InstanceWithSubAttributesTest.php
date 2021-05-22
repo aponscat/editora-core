@@ -19,17 +19,16 @@ class InstanceWithSubAttributesTest extends TestCase
         , 'type'=>'Omatech\Editora\Structure\ImageAttribute'
         , 'valueType'=>'Omatech\Editora\Values\ImageValue'
           , 'config'=>
-          ['language'=>'ALL'
-          , 'mandatory'=>true
+          ['mandatory'=>true
           , 'dimensions'=>'600x600'
           , 'storage-path'=>dirname(__FILE__)
           , 'public-path'=>$publicPath
           , 'adapters'=>['media'=>'Omatech\Editora\Adapters\ArrayMediaAdapter']
           , 'subattributes'=>[
-            ['key'=>'alt', 'config'=>['language'=>'en']]
-            , ['key'=>'alt', 'config'=>['language'=>'es']]
-            , ['key'=>'title', 'config'=>['language'=>'en']]
-            , ['key'=>'title', 'config'=>['language'=>'es']]
+            ['key'=>'alt:en']
+            , ['key'=>'alt:es']
+            , ['key'=>'title:en']
+            , ['key'=>'title:es']
             , ['key'=>'code']
           ]
       ]]]);
