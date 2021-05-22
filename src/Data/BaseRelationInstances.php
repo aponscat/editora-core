@@ -3,8 +3,9 @@
 namespace Omatech\Editora\Data;
 
 use Omatech\Editora\Structure\BaseRelation;
+use Omatech\Editora\Utils\Jsons;
 
-class BaseRelationInstances
+class BaseRelationInstances implements \JsonSerializable
 {
     private $relation;
     private $children;
@@ -19,5 +20,14 @@ class BaseRelationInstances
     {
         assert(!empty($child));
         $this->children[]=$child;
+    }
+
+    public function jsonSerialize()
+    {
+        $ret=[];
+        $ret['relation']=Jsons::mapSerialize($this->relation);
+        $ret['children']=Jsons::mapSerialize($this->children);
+
+        return $ret;
     }
 }

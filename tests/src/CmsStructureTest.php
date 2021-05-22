@@ -11,7 +11,7 @@ class CmsStructureTest extends TestCase
     public function testLoadStructureFromReverseEngineeredJSON(): void
     {
         $jsonStructure=file_get_contents(dirname(__FILE__).'/test_structure.json');
-        $cms=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $cms=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
         
         $classes=[];
         foreach ($cms->getClasses() as $id=>$class) {
@@ -34,7 +34,7 @@ class CmsStructureTest extends TestCase
     {
         require_once(dirname(__FILE__).'/editoradatabase.php');
         $jsonStructure=\json_encode($data);
-        $cms=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $cms=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
         $classes=[];
         foreach ($cms->getClasses() as $id=>$class) {
             $classes[$id]['key']=$class->getKey();

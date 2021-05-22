@@ -2,6 +2,8 @@
 
 namespace Omatech\Editora\Structure;
 
+use Omatech\Editora\Utils\Jsons;
+
 class BaseClass implements \JsonSerializable
 {
     private $key;
@@ -56,23 +58,12 @@ class BaseClass implements \JsonSerializable
         return self::createFromAttributesArray($key, $attributesInstances);
     }
 
-    private function mapSerialize($var)
-    {
-        if (isset($this->$var)) {
-            $res=[];
-            foreach ($this->$var as $obj) {
-                $res+=$obj->jsonSerialize();
-            }
-            return $res;
-        }
-        return null;
-    }
-
     public function jsonSerialize()
     {
         $res=[$this->getKey()=>
-        ['attributes'=>$this->mapSerialize('attributes')
-        , 'relations'=>$this->mapSerialize('relations')
+        [
+          'attributes'=>Jsons::mapSerialize($this->attributes)
+          ,'relations'=>Jsons::mapSerialize($this->relations)
         ]];
         return $res;
     }

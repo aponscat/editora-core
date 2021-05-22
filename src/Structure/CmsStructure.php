@@ -4,59 +4,53 @@ namespace Omatech\Editora\Structure;
 
 class CmsStructure implements \JsonSerializable
 {
-    private $attributes;
     private $classes;
     private $languages;
 
-    private function __construct($languages, $attributes, $classes)
+    private function __construct($languages, $classes)
     {
         $this->languages=$languages;
-        $this->attributes=$attributes;
         $this->classes=$classes;
     }
 
     public static function createEmptyStructure()
     {
-        return new self(null, null, null);
+        return new self(null, null);
     }
 
-    public static function loadStructureFromJSON($jsonStructure)
+    public static function loadStructureFromReverseEngineeredJSON($jsonStructure)
     {
         $structure=json_decode($jsonStructure, true);
         $languages=[];
-        if ($structure['languages'])
-        {
+        if ($structure['languages']) {
             foreach ($structure['languages'] as $id=>$language) {
                 //echo "language $id $language\n";
                 $languages[(int)$id]=$language;
-            }    
+            }
         }
 
         $classes_list=[];
-        if ($structure['classes'])
-        {
+        if ($structure['classes']) {
             foreach ($structure['classes'] as $group=>$classes_array) {
                 foreach ($classes_array as $id=>$labels) {
                     //echo "class $id ".$labels[0]."\n";
                     $classes_list[$id]=$labels[0];
                 }
-            }    
+            }
         }
 
         $attributes=self::getAllAttributesFromStructureArray($structure, $languages);
 
         $relationsClasses=[];
-        if ($structure['relations'])
-        {
+        if ($structure['relations']) {
             foreach ($structure['relations'] as $id=>$relation_parent_and_children) {
                 $ids_array=explode(',', $relation_parent_and_children);
                 $relationsClasses[(int)$id]=['parent'=>array_shift($ids_array), 'children'=>$ids_array];
-            }    
+            }
         }
 
         $relationsList=[];
-        if ($structure['relation_names'])
-        {
+        if ($structure['relation_names']) {
             foreach ($structure['relation_names'] as $id=>$relation_array) {
                 $relation_name=$relation_array[0];
                 $relation_key=$relation_array[1];
@@ -91,7 +85,14 @@ class CmsStructure implements \JsonSerializable
             $classes[$relation['parent']]->addRelation(new BaseRelation($relation['key'], $relation['name'], $children));
         }
         
-        return new self($languages, $attributes, $classes);
+        return new self($languages, $classes);
+    }
+
+
+    public static function loadStructureFromJSON($jsonStructure)
+    {
+        $structure=json_decode($jsonStructure, true);
+        print_r($structure);
     }
 
     public function getClasses()
@@ -102,16 +103,13 @@ class CmsStructure implements \JsonSerializable
     public function getClass(string $key): BaseClass
     {
         $parsedClassKeys='';
-        if ($this->classes)
-        {
-            foreach ($this->classes as $class)
-            {
+        if ($this->classes) {
+            foreach ($this->classes as $class) {
                 $parsedClassKeys.=' '.$class->getKey();
-                if ($class->getKey()==$key)
-                {
+                if ($class->getKey()==$key) {
                     return $class;
                 }
-            }            
+            }
         }
         throw new \Exception("$key class not found valid keys are: $parsedClassKeys!");
     }
@@ -119,7 +117,6 @@ class CmsStructure implements \JsonSerializable
     public function jsonSerialize()
     {
         $res=['classes'=>$this->serializeClasses()
-        , 'attributes'=>$this->attributes
         , 'languages'=>$this->languages];
         return $res;
     }
@@ -127,8 +124,7 @@ class CmsStructure implements \JsonSerializable
     public function serializeClasses()
     {
         $res=[];
-        foreach ($this->classes as $class)
-        {
+        foreach ($this->classes as $class) {
             $res[$class->getKey()]=$class->jsonSerialize()[$class->getKey()];
         }
         return $res;
@@ -142,8 +138,7 @@ class CmsStructure implements \JsonSerializable
     public function addClass(BaseClass $class)
     {
         $this->classes[]=$class;
-        foreach ($class->getAttributes() as $attribute)
-        {
+        foreach ($class->getAttributes() as $attribute) {
             $this->attributes[]=$attribute;
         }
     }

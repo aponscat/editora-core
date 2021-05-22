@@ -12,6 +12,11 @@ composer testwindows tests
 @startuml
 title Editora - Class Diagram
 
+package "Facades"
+{
+class Cms
+}
+
 package "Structure"
 {
 class BaseClass
@@ -38,6 +43,7 @@ class ReverseValue
 package "Ports" {
 class MediaAdapterInterface
 class TranslationsStorageAdapterInterface
+class CmsStorageInstanceInterface
 }
 
 package "Adapters" #DDDDDD {
@@ -47,18 +53,17 @@ class MySQLMediaAdapter implements MediaAdapterInterface
 class LocalStorageMediaAdapter implements MediaAdapterInterface
 class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
 class MySQLTranslationsStorageManager implements TranslationsStorageAdapterInterface
+class ArrayStorageAdapter implements CmsStorageInstanceInterface
 }
 
 package "Controllers"
 {
-class ClassController
-class CmsStructureController
+class BackOfficeController
 }
 
-ClassController -- BaseClass
-CmsStructureController -- CmsStructure
-
-CmsStructure "1" *-- "*" BaseAttribute
+BackOfficeController -- Cms
+Cms o-- CmsStructure
+Cms o-- CmsStorageInstanceInterface
 CmsStructure "1" *-- "*" BaseClass
 
 BaseClass -- BaseInstance
@@ -97,16 +102,17 @@ class BaseInstance {
   Json getJson(lang)
 }
 
-
-class CmsStructureController {
-  loadStructureFromJson()
+class BackOfficeController {
   listClasses()
-}
-
-class ClassController {
   newInstance()
   getInstance($id)
   saveInstance()
+}
+
+class Cms {
+  getClass($key): BaseClass
+  putInstanceWithID($id, $instance): string
+  getInstanceByID($id): BaseInstance
 }
 @enduml
 ```

@@ -8,6 +8,7 @@ use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
 use Omatech\Editora\Structure\BaseRelation;
 use Omatech\Editora\Data\BaseRelationInstances;
+use Omatech\Editora\Utils\Jsons;
 
 class BaseInstance implements \JsonSerializable
 {
@@ -69,7 +70,7 @@ class BaseInstance implements \JsonSerializable
         return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID);
     }
 
-    public static function createFromJSONWithMetadata (BaseClass $class, string $jsonInstance): BaseInstance
+    public static function createFromJSONWithMetadata(BaseClass $class, string $jsonInstance): BaseInstance
     {
         $json=json_decode($jsonInstance, true);
         $key=$json['key'];
@@ -79,8 +80,7 @@ class BaseInstance implements \JsonSerializable
         $externalID=$json['metadata']['externalID'];
 
         $values=[];
-        foreach ($json['values'] as $atrikey=>$oneValue)
-        {
+        foreach ($json['values'] as $atrikey=>$oneValue) {
             //echo "Getting from storage $atrikey\n";
             //print_r($oneValue);
             $values[]=[$atrikey=>$oneValue['value']];
@@ -95,25 +95,11 @@ class BaseInstance implements \JsonSerializable
     {
         $ret=$this->getInstanceHeaderData();
         $ret=$ret+$this->getInstanceMetadata();
-        $ret['values']=$this->mapSerialize('values');
-        $ret['relations']=$this->mapSerialize('relations');
+        $ret['values']=Jsons::mapSerialize($this->values);
+        $ret['relations']=Jsons::mapSerialize($this->relations);
 
         return $ret;
-        //return $this->getMultilanguageData(true);
     }
-
-    private function mapSerialize(string $var)
-    {
-        if (isset($this->$var)) {
-            $res=[];
-            foreach ($this->$var as $obj) {
-                $res+=$obj->jsonSerialize();
-            }
-            return $res;
-        }
-        return null;
-    }
-
 
     public function addToRelation(BaseRelation $relation, BaseInstance $childInstance)
     {
@@ -222,9 +208,8 @@ class BaseInstance implements \JsonSerializable
 
     private function validateStatus($status)
     {
-        if ($status!='P' && $status!='V' && $status!='O')
-        {
-            throw new \Exception("Incorrect status $status for instance. Valid values are (O)k, (V)erified, (P)ending");           
+        if ($status!='P' && $status!='V' && $status!='O') {
+            throw new \Exception("Incorrect status $status for instance. Valid values are (O)k, (V)erified, (P)ending");
         }
     }
 
@@ -236,58 +221,50 @@ class BaseInstance implements \JsonSerializable
 
     public function isPublished($time=null)
     {
-        if ($this->status=='P'||$this->status=='V')
-        {
+        if ($this->status=='P'||$this->status=='V') {
             return false;
         }
 
         // Status==O
-        if ($time==null)
-        {
+        if ($time==null) {
             $time=time();
         }
 
-        return ($this->getStartPublishingDateOr0()<=$time 
+        return ($this->getStartPublishingDateOr0()<=$time
         && $this->getEndPublishingDateOr3000()>=$time);
     }
 
     public function setStartPublishingDate($time=null)
     {
-        if ($time!==null && $this->getEndPublishingDateOr3000()<=$time)
-        {
-            throw new \Exception("Cannot set start publication date after end publication date");           
+        if ($time!==null && $this->getEndPublishingDateOr3000()<=$time) {
+            throw new \Exception("Cannot set start publication date after end publication date");
         }
         $this->startPublishingDate=$time;
     }
 
     public function setEndPublishingDate($time=null)
     {
-        if ($time!==null && $this->getStartPublishingDateOr0()>=$time)
-        {
-            throw new \Exception("Cannot set end publication date before start publication date");           
+        if ($time!==null && $this->getStartPublishingDateOr0()>=$time) {
+            throw new \Exception("Cannot set end publication date before start publication date");
         }
         $this->endPublishingDate=$time;
     }
 
     public function setPublishingDates($startDate=null, $endDate=null)
     {
-        if ($startDate!==null && $endDate!==null)
-        {
-            if ($startDate>$endDate)
-            {
-                throw new \Exception("Cannot set end publication date before start publication date");           
+        if ($startDate!==null && $endDate!==null) {
+            if ($startDate>$endDate) {
+                throw new \Exception("Cannot set end publication date before start publication date");
             }
         }
         $this->startPublishingDate=$startDate;
         $this->endPublishingDate=$endDate;
-
     }
 
     private function getEndPublishingDateOr3000()
     {
         $endDate=32512176000; // year 3.000
-        if ($this->endPublishingDate)
-        {
+        if ($this->endPublishingDate) {
             $endDate=$this->endPublishingDate;
         }
         return $endDate;
@@ -296,14 +273,13 @@ class BaseInstance implements \JsonSerializable
     private function getStartPublishingDateOr0()
     {
         $startDate=0;
-        if ($this->startPublishingDate)
-        {
+        if ($this->startPublishingDate) {
             $startDate=$this->startPublishingDate;
         }
         return $startDate;
     }
 
-    public function put (string $id, CmsStorageInstanceInterface $storage)
+    public function put(string $id, CmsStorageInstanceInterface $storage)
     {
         $storage::put($id, $this);
     }
@@ -312,5 +288,4 @@ class BaseInstance implements \JsonSerializable
     {
         return $storage::get($id);
     }
-
 }
