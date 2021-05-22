@@ -1,1 +1,52 @@
-{"classes":{"news-item":{"attributes":{"title:en":{"config":{"language":"en","mandatory":true}},"text:en":{"config":{"language":"en"}},"title:es":{"config":{"language":"es"}},"text:es":{"config":{"language":"es"}},"multilang-attribute":[]},"relations":null},"news-category":{"attributes":{"title:en":{"config":{"language":"en","mandatory":true}},"title:es":{"config":{"language":"es"}},"code":[]},"relations":null}},"languages":["es","en"]}
+{
+    "classes": {
+        "news-item": {
+            "attributes": {
+                "title:en": {
+                    "config": {
+                        "language": "en",
+                        "mandatory": true
+                    }
+                },
+                "text:en": {
+                    "config": {
+                        "language": "en"
+                    }
+                },
+                "title:es": {
+                    "config": {
+                        "language": "es"
+                    }
+                },
+                "text:es": {
+                    "config": {
+                        "language": "es"
+                    }
+                },
+                "multilang-attribute": null
+            },
+            "relations": null
+        },
+        "news-category": {
+            "attributes": {
+                "title:en": {
+                    "config": {
+                        "language": "en",
+                        "mandatory": true
+                    }
+                },
+                "title:es": {
+                    "config": {
+                        "language": "es"
+                    }
+                },
+                "code": null
+            },
+            "relations": null
+        }
+    },
+    "languages": [
+        "es",
+        "en"
+    ]
+}

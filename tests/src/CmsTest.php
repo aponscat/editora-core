@@ -69,7 +69,7 @@ class CmsTest extends TestCase
         $structure->addClass($category);
 
 
-        file_put_contents(dirname(__FILE__).'/simple_modern.json', json_encode($structure->jsonSerialize()));
+        file_put_contents(dirname(__FILE__).'/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
 
         $this->assertTrue(true);
     }

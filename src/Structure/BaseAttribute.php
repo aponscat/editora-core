@@ -140,6 +140,9 @@ class BaseAttribute implements \JsonSerializable
             $inner['valueType']=$this->valueType;
         }
 
+        if (!$inner) {
+            $inner=null;
+        }
         $res=[$this->getFullyQualifiedKey()=>$inner];
         return $res;
     }
@@ -152,8 +155,6 @@ class BaseAttribute implements \JsonSerializable
     public function createValue($value): BaseValue
     {
         $class=$this->valueType;
-        //echo "Creating Value\n";
-        //var_dump($value);
         return new $class($this, $value);
     }
 
