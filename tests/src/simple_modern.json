@@ -2,27 +2,25 @@
     "classes": {
         "news-item": {
             "attributes": {
-                "title:en": {
-                    "config": {
-                        "mandatory": true
-                    }
+                "key": "title:en",
+                "config": {
+                    "mandatory": true
                 },
-                "text:en": null,
-                "title:es": null,
-                "text:es": null,
-                "multilang-attribute": null
+                "image-with-alt-and-title": {
+                    "width": "600",
+                    "height": "600",
+                    "storagePath": "\/mnt\/d\/laragon\/www\/editora-core\/tests\/src",
+                    "publicPath": "\/images"
+                }
             },
             "relations": null
         },
         "news-category": {
             "attributes": {
-                "title:en": {
-                    "config": {
-                        "mandatory": true
-                    }
-                },
-                "title:es": null,
-                "code": null
+                "key": "title:en",
+                "config": {
+                    "mandatory": true
+                }
             },
             "relations": null
         }

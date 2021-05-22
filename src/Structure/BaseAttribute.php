@@ -41,13 +41,6 @@ class BaseAttribute implements \JsonSerializable
             $mandatory=false;
         }
 
-        /*
-        if (isset($config['language'])) {
-            assert(strlen($config['language'])==2||$config['language']=='ALL');
-            $this->language=$config['language'];
-        }
-        */
-
         if (isset($config['mandatory'])) {
             assert(is_bool($config['mandatory']));
             $this->mandatory=$config['mandatory'];
@@ -142,19 +135,15 @@ class BaseAttribute implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $inner=[];
+        $res['key']=$this->getFullyQualifiedKey();
         if ($this->config) {
-            $inner['config']=$this->config;
+            $res['config']=$this->config;
         }
 
         if (!$this->valueType=='Omatech\Editora\Values\BaseValue') {
-            $inner['valueType']=$this->valueType;
+            $res['valueType']=$this->valueType;
         }
 
-        if (!$inner) {
-            $inner=null;
-        }
-        $res=[$this->getFullyQualifiedKey()=>$inner];
         return $res;
     }
 

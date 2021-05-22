@@ -81,13 +81,8 @@ class BaseInstance implements \JsonSerializable
 
         $values=[];
         foreach ($json['values'] as $atrikey=>$oneValue) {
-            //echo "Getting from storage $atrikey\n";
-            //print_r($oneValue);
             $values[]=[$atrikey=>$oneValue['value']];
         }
-        
-        //print_r($values);die;
-
         return self::createFromJSON($class, $key, $status, json_encode($values), $startPublishingDate, $endPublishingDate, $externalID);
     }
 

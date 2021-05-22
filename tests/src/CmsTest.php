@@ -12,48 +12,37 @@ use Omatech\Editora\Structure\BaseClass;
 
 class CmsTest extends TestCase
 {
-    public function testLoadStructureFromReverseEngeeneredJSON(): void
-    {
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/test_structure.json');
-        $structure=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
-        $cms=new Cms($structure, $storage);
-        //echo json_encode($cms, JSON_PRETTY_PRINT);
-        $countryClass=$cms->getClass('Countries');
-        //var_dump($countryClass);
-        
-        $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
-            [
-              ['country_code'=>'es'
-              , 'title:es'=>'España'
-              , 'title:en'=>'Spain'
-              ]
-            ]
-        ));
-        $this->assertTrue($instance->getData('es')==
-        ['key' => 'country-es'
-        ,'country_code' => 'es'
-        ,'title' => 'España']);
-
-        $id=uniqid();
-        $cms->putInstanceWithID($id, $instance);
-        $instance2=$cms->getInstanceByID($id);
-        $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
-        $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
-    }
-
     public function testSaveStructureToSimpleModernJSON(): void
     {
+        $publicPath='/images';
+        $originalFilename='result.jpg';
         $jsonAttributes=json_encode([
             ['key'=>'title:en', 'config'=>['mandatory'=>true]]
             , ['key'=>'text:en']
             , ['key'=>'title:es']
             , ['key'=>'text:es']
             , ['key'=>'multilang-attribute']
+            , ['key'=>'image-with-alt-and-title'
+            , 'type'=>'Omatech\Editora\Structure\ImageAttribute'
+            , 'valueType'=>'Omatech\Editora\Values\ImageValue'
+              , 'config'=>
+              ['mandatory'=>true
+              , 'dimensions'=>'600x600'
+              , 'storage-path'=>dirname(__FILE__)
+              , 'public-path'=>$publicPath
+              , 'adapters'=>['media'=>'Omatech\Editora\Adapters\ArrayMediaAdapter']
+              , 'subattributes'=>[
+                ['key'=>'alt:en']
+                , ['key'=>'alt:es']
+                , ['key'=>'title:en']
+                , ['key'=>'title:es']
+                , ['key'=>'code']
+              ]
+          ]]
           ]);
+
         $newsItem=BaseClass::createFromJSON('news-item', $jsonAttributes);
     
-
         $jsonAttributes=json_encode([
             ['key'=>'title:en', 'config'=>['mandatory'=>true]]
             , ['key'=>'title:es']
@@ -61,14 +50,11 @@ class CmsTest extends TestCase
           ]);
         $category=BaseClass::createFromJSON('news-category', $jsonAttributes);
 
-
-
         $structure=CmsStructure::createEmptyStructure();
         $structure->addLanguage('es');
         $structure->addLanguage('en');
         $structure->addClass($newsItem);
         $structure->addClass($category);
-
 
         file_put_contents(dirname(__FILE__).'/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
 
@@ -78,6 +64,50 @@ class CmsTest extends TestCase
 
     public function testLoadStructureFromSimpleModernJSON(): void
     {
-        $this->assertTrue(true);
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/simple_modern.json');
+        $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $storage=new ArrayStorageAdapter($structure);
+        $cms=new Cms($structure, $storage);
+        $countryClass=$cms->getClass('news-item');
+        //var_dump($countryClass);
+
+        $instance=BaseInstance::createFromJSON($countryClass, 'first-news-item', 'O', json_encode(
+            [
+                  ['country_code'=>'es'
+                  , 'title:es'=>'España'
+                  , 'title:en'=>'Spain'
+                  ]
+                ]
+        ));
+    }
+
+    public function testLoadStructureFromReverseEngeeneredJSON(): void
+    {
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/test_structure.json');
+        $structure=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
+        $storage=new ArrayStorageAdapter($structure);
+        $cms=new Cms($structure, $storage);
+        //echo json_encode($cms, JSON_PRETTY_PRINT);
+        $countryClass=$cms->getClass('Countries');
+        //var_dump($countryClass);
+
+        $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
+            [
+                  ['country_code'=>'es'
+                  , 'title:es'=>'España'
+                  , 'title:en'=>'Spain'
+                  ]
+                ]
+        ));
+        $this->assertTrue($instance->getData('es')==
+            ['key' => 'country-es'
+            ,'country_code' => 'es'
+            ,'title' => 'España']);
+
+        $id=uniqid();
+        $cms->putInstanceWithID($id, $instance);
+        $instance2=$cms->getInstanceByID($id);
+        $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
+        $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
     }
 }

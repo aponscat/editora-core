@@ -27,6 +27,7 @@ class BaseClass implements \JsonSerializable
         $attributes=json_decode($jsonAttributes, true);
         assert(json_last_error() == JSON_ERROR_NONE);
         $attributesInstances=[];
+        
         foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
 

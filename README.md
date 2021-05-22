@@ -110,9 +110,7 @@ class BackOfficeController {
 }
 
 class Cms {
-  getClass($key): BaseClass
-  putInstanceWithID($id, $instance): string
-  getInstanceByID($id): BaseInstance
+getClass($key): BaseClass
 }
 @enduml
 ```

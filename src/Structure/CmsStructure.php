@@ -21,13 +21,7 @@ class CmsStructure implements \JsonSerializable
     public static function loadStructureFromReverseEngineeredJSON($jsonStructure)
     {
         $structure=json_decode($jsonStructure, true);
-        $languages=[];
-        if ($structure['languages']) {
-            foreach ($structure['languages'] as $id=>$language) {
-                //echo "language $id $language\n";
-                $languages[(int)$id]=$language;
-            }
-        }
+        $languages=self::parseLanguages($structure);
 
         $classes_list=[];
         if ($structure['classes']) {
@@ -57,9 +51,6 @@ class CmsStructure implements \JsonSerializable
                 $relationsList[(int)$id]=['name'=>$relation_name, 'key'=>$relation_key]+$relationsClasses[$id];
             }
         }
-
-
-
         // TBD
         // groups
         // mandatory class_attributes
@@ -89,11 +80,32 @@ class CmsStructure implements \JsonSerializable
         return new self($languages, $classes);
     }
 
+    private function parseLanguages($structure)
+    {
+        $languages=[];
+        if ($structure['languages']) {
+            foreach ($structure['languages'] as $id=>$language) {
+                //echo "language $id $language\n";
+                $languages[(int)$id]=$language;
+            }
+        }
+        return $languages;
+    }
+
 
     public static function loadStructureFromJSON($jsonStructure)
     {
         $structure=json_decode($jsonStructure, true);
-        print_r($structure);
+        $languages=self::parseLanguages($structure);
+
+        $classes=[];
+        foreach ($structure['classes'] as $key=>$class) {
+            print_r($class);
+            $classInstance=BaseClass::createFromJSON($key, json_encode($class['attributes']));
+            $classes[]=$classInstance;
+        }
+
+        return new self($languages, $classes);
     }
 
     public function getClasses()
