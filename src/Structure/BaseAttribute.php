@@ -131,10 +131,16 @@ class BaseAttribute implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $res=[$this->getFullyQualifiedKey()=>
-        ['valueType'=>$this->valueType
-        , 'config'=>$this->config
-        ]];
+        $inner=[];
+        if ($this->config) {
+            $inner['config']=$this->config;
+        }
+
+        if (!$this->valueType=='Omatech\Editora\Values\BaseValue') {
+            $inner['valueType']=$this->valueType;
+        }
+
+        $res=[$this->getFullyQualifiedKey()=>$inner];
         return $res;
     }
 
