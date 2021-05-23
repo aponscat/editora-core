@@ -159,12 +159,13 @@ class CmsTest extends TestCase
         $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
 
         $instance4='
-        {"key":"society"
-          ,"metadata":{"status":"O"
+        {
+          "metadata":{"status":"O"
             ,"startPublishingDate":null
             ,"endPublishingDate":null
             ,"externalID":null
-            ,"class":"news-category"}
+            ,"class":"news-category"
+            ,"key":"society"}
             ,"values":
             {"code":{"attribute":{"key":"code"},"value":"society"}
             ,"title:es":{"attribute":{"key":"title:es"},"value":"Sociedad"}
@@ -176,11 +177,7 @@ class CmsTest extends TestCase
         $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
 
         $instancesInStorage=$cms->getAllInstances();
-        /*
-                foreach ($instancesInStorage as $id=>$inst) {
-                    echo "$id: ".$inst->getKey()." ".print_r($inst->getMultilanguageData(), true);
-                }
-        */
+
         $this->assertTrue(array_key_exists($id1, $instancesInStorage));
         $this->assertTrue(array_key_exists($id2, $instancesInStorage));
         $this->assertTrue(array_key_exists($id3, $instancesInStorage));

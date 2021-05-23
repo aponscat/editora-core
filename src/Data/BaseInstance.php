@@ -72,7 +72,7 @@ class BaseInstance implements \JsonSerializable
     public static function createFromJSONWithMetadata(BaseClass $class, string $jsonInstance): BaseInstance
     {
         $json=json_decode($jsonInstance, true);
-        $key=$json['key'];
+        $key=$json['metadata']['key'];
         $status=$json['metadata']['status'];
         $startPublishingDate=$json['metadata']['startPublishingDate'];
         $endPublishingDate=$json['metadata']['endPublishingDate'];
