@@ -53,8 +53,11 @@ class CmsTest extends TestCase
         $structure=CmsStructure::createEmptyStructure();
         $structure->addLanguage('es');
         $structure->addLanguage('en');
-        $structure->addClass($newsItem);
+
+        $category->addRelation(new BaseRelation('news', [$newsItem]));
         $structure->addClass($category);
+        $structure->addClass($newsItem);
+
 
         file_put_contents(dirname(__FILE__).'/../data/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
 

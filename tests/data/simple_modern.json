@@ -1,5 +1,30 @@
 {
     "classes": {
+        "news-category": {
+            "attributes": [
+                {
+                    "key": "title:en",
+                    "config": {
+                        "mandatory": true
+                    }
+                },
+                {
+                    "key": "title:es"
+                },
+                {
+                    "key": "code"
+                }
+            ],
+            "relations": {
+                "news": {
+                    "news": {
+                        "children": [
+                            "news-item"
+                        ]
+                    }
+                }
+            }
+        },
         "news-item": {
             "attributes": [
                 {
@@ -48,23 +73,6 @@
                             }
                         ]
                     }
-                }
-            ],
-            "relations": null
-        },
-        "news-category": {
-            "attributes": [
-                {
-                    "key": "title:en",
-                    "config": {
-                        "mandatory": true
-                    }
-                },
-                {
-                    "key": "title:es"
-                },
-                {
-                    "key": "code"
                 }
             ],
             "relations": null

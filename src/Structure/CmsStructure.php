@@ -73,7 +73,7 @@ class CmsStructure implements \JsonSerializable
                 $children[]=$classes[$childrenClassId];
             }
 
-            $classes[$relation['parent']]->addRelation(new BaseRelation($relation['key'], $relation['name'], $children));
+            $classes[$relation['parent']]->addRelation(new BaseRelation($relation['key'], $children));
         }
         
         return new self($languages, $classes);

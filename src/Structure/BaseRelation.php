@@ -5,15 +5,15 @@ namespace Omatech\Editora\Structure;
 class BaseRelation implements \JsonSerializable
 {
     private $key;
-    private $name;
+    //private $name;
     private $children;
 
-    public function __construct($key, $name, $children)
+    public function __construct($key, $children)
     {
-        assert(!empty($key) && !empty($name));
+        assert(!empty($key));
         assert(!empty($children) && \is_array($children));
         $this->key=$key;
-        $this->name=$name;
+        //$this->name=$name;
 
         foreach ($children as $child) {
             assert($child instanceof BaseClass);
@@ -23,10 +23,7 @@ class BaseRelation implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $res=[$this->getKey()=>
-        ['name'=>$this->name
-        ,'children'=>$this->getChildrenKeys()
-        ]];
+        $res=[$this->getKey()=>['children'=>$this->getChildrenKeys()]];
         return $res;
     }
 
