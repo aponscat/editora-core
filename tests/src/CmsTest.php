@@ -73,12 +73,16 @@ class CmsTest extends TestCase
 
         $instance=BaseInstance::createFromJSON($countryClass, 'first-news-item', 'O', json_encode(
             [
-                  ['country_code'=>'es'
-                  , 'title:es'=>'España'
-                  , 'title:en'=>'Spain'
+                  ['title:en'=>'First title of a news item'
+                  , 'title:es'=>'Primer titular de la noticia'
+                  ,'image-with-alt-and-title'=>
+                  ['original-filename'=>$originalFilename
+                  , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
+                  ]
                   ]
                 ]
         ));
+        $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
     }
 
     public function testLoadStructureFromReverseEngeeneredJSON(): void

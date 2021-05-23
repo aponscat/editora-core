@@ -100,7 +100,7 @@ class CmsStructure implements \JsonSerializable
 
         $classes=[];
         foreach ($structure['classes'] as $key=>$class) {
-            print_r($class);
+            //print_r($class);
             $classInstance=BaseClass::createFromJSON($key, json_encode($class['attributes']));
             $classes[]=$classInstance;
         }

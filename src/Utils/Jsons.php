@@ -9,14 +9,14 @@ class Jsons
         if ($var===null) {
             return null;
         }
-        $res=[];
+
         if (is_array($var)) {
-            foreach ($var as $obj) {
-                $res+=$obj->jsonSerialize();
+            $res=[];
+            foreach ($var as $key=>$obj) {
+                $res[$key]=$obj->jsonSerialize();
             }
-        } else {
-            $res+=$var->jsonSerialize();
+            return $res;
         }
-        return $res;
+        return $var->jsonSerialize();
     }
 }

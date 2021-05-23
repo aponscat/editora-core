@@ -4,6 +4,8 @@ namespace Omatech\Editora\Structure;
 
 use Omatech\Editora\Values\BaseValue;
 use Omatech\Editora\Utils\Strings;
+use Omatech\Editora\Utils\Jsons;
+
 
 class BaseAttribute implements \JsonSerializable
 {
@@ -143,7 +145,6 @@ class BaseAttribute implements \JsonSerializable
         if (!$this->valueType=='Omatech\Editora\Values\BaseValue') {
             $res['valueType']=$this->valueType;
         }
-
         return $res;
     }
 

@@ -44,6 +44,7 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
         }
     }
 
+    /*
     public function jsonSerialize()
     {
         $res=parent::jsonSerialize();
@@ -53,7 +54,7 @@ class ImageAttribute extends BaseAttribute implements \JsonSerializable
         $res[$this->getKey()]['publicPath']=$this->publicPath;
         return $res;
     }
-
+*/
     /*
     public function getMediaAdapter(): MediaAdapterInterface
     {

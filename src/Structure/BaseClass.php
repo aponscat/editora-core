@@ -29,6 +29,7 @@ class BaseClass implements \JsonSerializable
         $attributesInstances=[];
         
         foreach ($attributes as $id=>$attribute) {
+            //print_r($attribute);
             assert(isset($attribute['key']));
 
             $attributeType='Omatech\Editora\Structure\BaseAttribute';
@@ -61,11 +62,11 @@ class BaseClass implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $res=[$this->getKey()=>
+        $res[$this->getKey()]=
         [
           'attributes'=>Jsons::mapSerialize($this->attributes)
           ,'relations'=>Jsons::mapSerialize($this->relations)
-        ]];
+        ];
         return $res;
     }
 

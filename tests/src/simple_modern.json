@@ -1,27 +1,72 @@
 {
     "classes": {
         "news-item": {
-            "attributes": {
-                "key": "title:en",
-                "config": {
-                    "mandatory": true
+            "attributes": [
+                {
+                    "key": "title:en",
+                    "config": {
+                        "mandatory": true
+                    }
                 },
-                "image-with-alt-and-title": {
-                    "width": "600",
-                    "height": "600",
-                    "storagePath": "\/mnt\/d\/laragon\/www\/editora-core\/tests\/src",
-                    "publicPath": "\/images"
+                {
+                    "key": "text:en"
+                },
+                {
+                    "key": "title:es"
+                },
+                {
+                    "key": "text:es"
+                },
+                {
+                    "key": "multilang-attribute"
+                },
+                {
+                    "key": "image-with-alt-and-title",
+                    "config": {
+                        "mandatory": true,
+                        "dimensions": "600x600",
+                        "storage-path": "\/Users\/apons\/editora-core\/tests\/src",
+                        "public-path": "\/images",
+                        "adapters": {
+                            "media": "Omatech\\Editora\\Adapters\\ArrayMediaAdapter"
+                        },
+                        "subattributes": [
+                            {
+                                "key": "alt:en"
+                            },
+                            {
+                                "key": "alt:es"
+                            },
+                            {
+                                "key": "title:en"
+                            },
+                            {
+                                "key": "title:es"
+                            },
+                            {
+                                "key": "code"
+                            }
+                        ]
+                    }
                 }
-            },
+            ],
             "relations": null
         },
         "news-category": {
-            "attributes": {
-                "key": "title:en",
-                "config": {
-                    "mandatory": true
+            "attributes": [
+                {
+                    "key": "title:en",
+                    "config": {
+                        "mandatory": true
+                    }
+                },
+                {
+                    "key": "title:es"
+                },
+                {
+                    "key": "code"
                 }
-            },
+            ],
             "relations": null
         }
     },
