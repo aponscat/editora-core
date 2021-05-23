@@ -56,7 +56,7 @@ class CmsTest extends TestCase
         $structure->addClass($newsItem);
         $structure->addClass($category);
 
-        file_put_contents(dirname(__FILE__).'/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
+        file_put_contents(dirname(__FILE__).'/../data/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
 
         $this->assertTrue(true);
     }
@@ -64,7 +64,9 @@ class CmsTest extends TestCase
 
     public function testLoadStructureFromSimpleModernJSON(): void
     {
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/simple_modern.json');
+        $publicPath='/images';
+        $originalFilename='result.jpg';
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
@@ -77,7 +79,7 @@ class CmsTest extends TestCase
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
                   ['original-filename'=>$originalFilename
-                  , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
+                  , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                   ]
                   ]
                 ]
@@ -87,13 +89,11 @@ class CmsTest extends TestCase
 
     public function testLoadStructureFromReverseEngeeneredJSON(): void
     {
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/test_structure.json');
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
         $structure=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
-        //echo json_encode($cms, JSON_PRETTY_PRINT);
         $countryClass=$cms->getClass('Countries');
-        //var_dump($countryClass);
 
         $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
             [
@@ -104,8 +104,7 @@ class CmsTest extends TestCase
                 ]
         ));
         $this->assertTrue($instance->getData('es')==
-            ['key' => 'country-es'
-            ,'country_code' => 'es'
+            ['country_code' => 'es'
             ,'title' => 'España']);
 
         $id=uniqid();
@@ -113,5 +112,107 @@ class CmsTest extends TestCase
         $instance2=$cms->getInstanceByID($id);
         $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
         $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
+    }
+
+
+    public function testLoadStructureFromSimpleModernJSONAndRetrieveInstance(): void
+    {
+        $publicPath='/images';
+        $originalFilename='result.jpg';
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
+        $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $storage=new ArrayStorageAdapter($structure);
+        $cms=new Cms($structure, $storage);
+        $newsItemClass=$cms->getClass('news-item');
+        //var_dump($countryClass);
+
+        $instance=BaseInstance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
+            [
+                  ['title:en'=>'First title of a news item'
+                  , 'title:es'=>'Primer titular de la noticia'
+                  ,'image-with-alt-and-title'=>
+                  ['original-filename'=>$originalFilename
+                  , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
+                  ]
+                  ]
+                ]
+        ));
+        $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
+
+        $id1=$cms->putInstance($instance);
+        $instance2=$cms->getInstanceById($id1);
+        $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
+
+        $categoryClass=$cms->getClass('news-category');
+        $instance=BaseInstance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
+            [
+                  ['code'=>'tech'
+                  , 'title:es'=>'Tecnología'
+                  , 'title:en'=>'Technology'
+                  ]
+                ]
+        ));
+        $this->assertTrue($instance->getData('es')['title']=='Tecnología');
+
+        $id2=$cms->putInstance($instance);
+        $instance3=$cms->getInstanceById($id2);
+        $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
+
+        $instance4='
+        {"key":"society"
+          ,"metadata":{"status":"O"
+            ,"startPublishingDate":null
+            ,"endPublishingDate":null
+            ,"externalID":null
+            ,"class":"news-category"}
+            ,"values":
+            {"code":{"attribute":{"key":"code"},"value":"society"}
+            ,"title:es":{"attribute":{"key":"title:es"},"value":"Sociedad"}
+            ,"title:en":{"attribute":{"key":"title:en","config":{"mandatory":true}},"value":"Society"}}}
+        ';
+
+        $id3=$cms->putJSONInstance($instance4);
+        $instance5=$cms->getInstanceById($id3);
+        $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
+
+        $instancesInStorage=$cms->getAllInstances();
+        /*
+                foreach ($instancesInStorage as $id=>$inst) {
+                    echo "$id: ".$inst->getKey()." ".print_r($inst->getMultilanguageData(), true);
+                }
+        */
+        $this->assertTrue(array_key_exists($id1, $instancesInStorage));
+        $this->assertTrue(array_key_exists($id2, $instancesInStorage));
+        $this->assertTrue(array_key_exists($id3, $instancesInStorage));
+
+
+        $this->assertTrue(
+            $instancesInStorage[$id2]->getData('es')==
+        ['code' => 'tech'
+        ,'title' => 'Tecnología'
+        ]
+        );
+
+        $this->assertTrue(
+            $instancesInStorage[$id3]->getMultilanguageData()==
+      ['code' => 'society'
+      ,'title:es' => 'Sociedad'
+      ,'title:en' => 'Society']
+        );
+
+
+        $this->assertTrue(
+            $instancesInStorage[$id2]->getMultilanguageData()==
+      ['code' => 'tech'
+      ,'title:es' => 'Tecnología'
+      ,'title:en' => 'Technology']
+        );
+
+        $this->assertTrue(
+            $instancesInStorage[$id3]->getMultilanguageData()==
+        ['code' => 'society'
+        ,'title:es' => 'Sociedad'
+        ,'title:en' => 'Society']
+        );
     }
 }

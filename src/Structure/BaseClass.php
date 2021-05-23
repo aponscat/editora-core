@@ -29,7 +29,6 @@ class BaseClass implements \JsonSerializable
         $attributesInstances=[];
         
         foreach ($attributes as $id=>$attribute) {
-            //print_r($attribute);
             assert(isset($attribute['key']));
 
             $attributeType='Omatech\Editora\Structure\BaseAttribute';

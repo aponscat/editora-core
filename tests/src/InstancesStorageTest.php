@@ -39,8 +39,7 @@ class InstancesStorageTest extends TestCase
         $this->assertTrue(
             $instance1->getData('en')==
         [
-          "key" => "news-item-instance"
-          ,"title" => "!eltiT dlroW olleH"
+          "title" => "!eltiT dlroW olleH"
           ,"text" => "!txeT dlroW olleH"
           , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
@@ -48,14 +47,13 @@ class InstancesStorageTest extends TestCase
 
         $this->assertTrue(
             $instance1->getData('en', true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
               'status' => 'O'
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
               ,'class'=>'news-item'
+              , "key" => "news-item-instance"
           ]
           ,"title" => "!eltiT dlroW olleH"
             ,"text" => "!txeT dlroW olleH"
@@ -66,8 +64,7 @@ class InstancesStorageTest extends TestCase
         $this->assertTrue(
             $instance1->getData('es')==
       [
-        "key" => "news-item-instance"
-        ,"title" => "!odnuM aloH"
+        "title" => "!odnuM aloH"
         ,"text" => "!txeT odnuM aloH"
         , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
@@ -75,14 +72,13 @@ class InstancesStorageTest extends TestCase
 
         $this->assertTrue(
             $instance1->getData('es', true)==
-        [
-          "key" => "news-item-instance"
-          , 'metadata' => [
+        ['metadata' => [
             'status' => 'O'
             ,'startPublishingDate' => null
             ,'endPublishingDate' => null
             ,'externalID' => null
             ,'class'=>'news-item'
+            ,"key" => "news-item-instance"
         ]
       ,"title" => "!odnuM aloH"
           ,"text" => "!txeT odnuM aloH"
@@ -92,9 +88,6 @@ class InstancesStorageTest extends TestCase
 
 
         $id=uniqid();
-        //echo "$id\n";
-
-       
         $structure=CmsStructure::createEmptyStructure();
         $structure->addLanguage('es');
         $structure->addLanguage('en');
@@ -103,19 +96,15 @@ class InstancesStorageTest extends TestCase
         $instance1->put($id, $storage);
  
         $instance2=$storage::get($id);
-
-        //print_r($instance2->getData('es', true));die;
-
         $this->assertTrue(
             $instance2->getData('es', true)==
-        [
-          "key" => "news-item-instance"
-          , 'metadata' => [
+        ['metadata' => [
             'status' => 'O'
             ,'startPublishingDate' => null
             ,'endPublishingDate' => null
             ,'externalID' => null
             ,'class'=>'news-item'
+            ,"key" => "news-item-instance"
         ]
         ,"title" => "!odnuM aloH"
         ,"text" => "!txeT odnuM aloH"

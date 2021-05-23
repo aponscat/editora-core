@@ -22,8 +22,7 @@ class InstanceTest extends TestCase
         $this->assertTrue(
             $instance->getData()==
         [
-          "key" => "news-item-instance"
-          ,"english-title" => "Hello World Title!"
+          "english-title" => "Hello World Title!"
           ,"english-text" => "Hello World Text!"
         ]
         );
@@ -31,14 +30,13 @@ class InstanceTest extends TestCase
 
         $this->assertTrue(
             $instance->getData('ALL', true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
                 'status' => 'O'
                 ,'startPublishingDate' => null
                 ,'endPublishingDate' => null
                 ,'externalID' => null
                 ,'class'=>'news-item'
+                ,"key" => "news-item-instance"
             ]
             ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -62,22 +60,20 @@ class InstanceTest extends TestCase
         $this->assertTrue(
             $instance->getData()==
         [
-          "key" => "news-item-instance"
-          ,"english-title" => "Hello World Title!"
+          "english-title" => "Hello World Title!"
           ,"english-text" => "Hello World Text!"
         ]
         );
 
         $this->assertTrue(
             $instance->getData('ALL', true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
               'status' => 'O'
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
               ,'class'=>'news-item'
+              ,"key" => "news-item-instance"
               ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -100,21 +96,19 @@ class InstanceTest extends TestCase
         $this->assertTrue(
             $instance->getData()==
         [
-          "key" => "news-item-instance"
-          ,"english-title" => "Hello World Title!"
+          "english-title" => "Hello World Title!"
         ]
         );
 
         $this->assertTrue(
             $instance->getData('ALL', true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
               'status' => 'O'
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
               ,'class'=>'news-item'
+              ,"key" => "news-item-instance"
               ]
           ,"english-title" => "Hello World Title!"
           ]
@@ -193,8 +187,7 @@ class InstanceTest extends TestCase
         $this->assertTrue(
             $instance->getData('en')==
         [
-          "key" => "news-item-instance"
-          ,"english-title" => "Hello World Title!"
+          "english-title" => "Hello World Title!"
           ,"english-text" => "Hello World Text!"
           , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
@@ -202,14 +195,13 @@ class InstanceTest extends TestCase
 
         $this->assertTrue(
             $instance->getData('en', true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
               'status' => 'O'
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
               ,'class'=>'news-item'
+              ,"key" => "news-item-instance"
             ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -220,8 +212,7 @@ class InstanceTest extends TestCase
         $this->assertTrue(
             $instance->getData('es')==
       [
-        "key" => "news-item-instance"
-        ,"spanish-title" => "Hola Mundo!"
+        "spanish-title" => "Hola Mundo!"
         ,"spanish-text" => "Hola Mundo Text!"
         , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
@@ -229,14 +220,13 @@ class InstanceTest extends TestCase
 
         $this->assertTrue(
             $instance->getData('es', true)==
-        [
-          "key" => "news-item-instance"
-          , 'metadata' => [
+        ['metadata' => [
             'status' => 'O'
             ,'startPublishingDate' => null
             ,'endPublishingDate' => null
             ,'externalID' => null
             ,'class'=>'news-item'
+            ,"key" => "news-item-instance"
             ]
       ,"spanish-title" => "Hola Mundo!"
           ,"spanish-text" => "Hola Mundo Text!"
@@ -268,8 +258,7 @@ class InstanceTest extends TestCase
         $this->assertTrue(
             $instance->getMultilanguageData()==
         [
-          "key" => "news-item-instance"
-          ,"title:en" => "Hello World Title!"
+          "title:en" => "Hello World Title!"
           ,"text:en" => "Hello World Text!"
           ,"title:es" => "Hola Mundo!"
           ,"text:es" => "Hola Mundo Text!"
@@ -279,14 +268,13 @@ class InstanceTest extends TestCase
 
         $this->assertTrue(
             $instance->getMultilanguageData(true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
               'status' => 'O'
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
               ,'class'=>'news-item'
+              ,"key" => "news-item-instance"
           ]
           ,"title:en" => "Hello World Title!"
             ,"text:en" => "Hello World Text!"

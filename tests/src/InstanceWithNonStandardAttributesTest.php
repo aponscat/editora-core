@@ -37,8 +37,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertTrue(
             $instance->getData('en')==
         [
-          "key" => "news-item-instance"
-          ,"english-title" => "!eltiT dlroW olleH"
+          "english-title" => "!eltiT dlroW olleH"
           ,"english-text" => "!txeT dlroW olleH"
           , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
@@ -46,14 +45,13 @@ class InstanceWithNonStandardAttributesTest extends TestCase
 
         $this->assertTrue(
             $instance->getData('en', true)==
-          [
-            "key" => "news-item-instance"
-            , 'metadata' => [
+          ['metadata' => [
               'status' => 'O'
               ,'startPublishingDate' => null
               ,'endPublishingDate' => null
               ,'externalID' => null
               ,'class'=>'news-item'
+              ,"key" => "news-item-instance"
           ]
           ,"english-title" => "!eltiT dlroW olleH"
             ,"english-text" => "!txeT dlroW olleH"
@@ -64,8 +62,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertTrue(
             $instance->getData('es')==
       [
-        "key" => "news-item-instance"
-        ,"spanish-title" => "!odnuM aloH"
+        "spanish-title" => "!odnuM aloH"
         ,"spanish-text" => "!txeT odnuM aloH"
         , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
@@ -73,14 +70,13 @@ class InstanceWithNonStandardAttributesTest extends TestCase
 
         $this->assertTrue(
             $instance->getData('es', true)==
-        [
-          "key" => "news-item-instance"
-          , 'metadata' => [
+        ['metadata' => [
             'status' => 'O'
             ,'startPublishingDate' => null
             ,'endPublishingDate' => null
             ,'externalID' => null
             ,'class'=>'news-item'
+            ,"key" => "news-item-instance"
             ]
       ,"spanish-title" => "!odnuM aloH"
           ,"spanish-text" => "!txeT odnuM aloH"
@@ -109,8 +105,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertTrue(
             $instance->getData()==
         [
-          "key" => "numeric-item-instance"
-          ,"title" => "Numeric Hello World Title!"
+          "title" => "Numeric Hello World Title!"
           ,"times" => 42
         ]
         );
@@ -152,8 +147,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertTrue(
             $instance->getData()==
         [
-          "key" => "news-item-instance"
-          ,"english-title-is-strange" => "Hello World Title!"
+          "english-title-is-strange" => "Hello World Title!"
           ,"english-text-is-strange" => "Hello World Text!"
         ]
         );
@@ -198,7 +192,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
             [
               ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
-                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
+                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
               ]
             ]
@@ -206,15 +200,14 @@ class InstanceWithNonStandardAttributesTest extends TestCase
 
 
         $this->assertTrue($instance->getData()==
-        ['key' => 'image-instance'
-        ,'image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
+        ['image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
 
 
         $secondInstance=BaseInstance::createFromJSON($class, 'second-image-instance', 'O', json_encode(
             [
               ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
-                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
+                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
               ]
             ]
@@ -226,7 +219,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ,'image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
         */
         
-        $this->assertTrue($secondInstance->getData()['key']=='second-image-instance');
+        $this->assertTrue($secondInstance->getMultilanguageData(true)['metadata']['key']=='second-image-instance');
         $this->assertStringStartsWith("$publicPath".'/'.date_format(date_create(), 'Ymd')."/", $secondInstance->getData()['image-with-height']);
         $this->assertStringEndsWith($originalFilename, $secondInstance->getData()['image-with-height']);
     }

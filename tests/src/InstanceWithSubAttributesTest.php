@@ -37,7 +37,7 @@ class InstanceWithSubAttributesTest extends TestCase
             [
               ['image-with-alt-and-title'=>
                 ['original-filename'=>$originalFilename
-                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/sample-image-640x480.jpeg')))
+                , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 , 'image-with-alt-and-title.alt:en'=>'English alt text'
                 , 'image-with-alt-and-title.alt:es'=>'Texto alternativo en Español'
                 , 'image-with-alt-and-title.title:en'=>'English title'
@@ -49,13 +49,13 @@ class InstanceWithSubAttributesTest extends TestCase
         ));
 
         $res=$instance->getData('en');
-        $this->assertTrue($res['key']=='image-instance');
+        $this->assertTrue(!isset($res['key']));
         $this->assertTrue($res['image-with-alt-and-title.alt']=='English alt text');
         $this->assertTrue($res['image-with-alt-and-title.title']=='English title');
         $this->assertTrue($res['image-with-alt-and-title.code']=='CodeTextValue');
 
         $res=$instance->getData('es', true);
-        $this->assertTrue($res['key']=='image-instance');
+        $this->assertTrue(!isset($res['key']));
         $this->assertTrue($res['image-with-alt-and-title.alt']=='Texto alternativo en Español');
         $this->assertTrue($res['image-with-alt-and-title.title']=='Título en Español');
         $this->assertTrue($res['image-with-alt-and-title.code']=='CodeTextValue');

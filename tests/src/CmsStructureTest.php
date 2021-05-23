@@ -10,7 +10,7 @@ class CmsStructureTest extends TestCase
 {
     public function testLoadStructureFromReverseEngineeredJSON(): void
     {
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/test_structure.json');
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
         $cms=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
         
         $classes=[];
@@ -24,7 +24,6 @@ class CmsStructureTest extends TestCase
                 }
             }
         }
-        //print_r($classes);
         $this->assertTrue($classes[71]['key']=='ActionGroup');
         $this->assertTrue($classes[71]['relations']['action_cards'][0]=='ActionCard');
     }
@@ -32,7 +31,7 @@ class CmsStructureTest extends TestCase
 
     public function testLoadStructureFromEditoraDatabase(): void
     {
-        require_once(dirname(__FILE__).'/editoradatabase.php');
+        require_once(dirname(__FILE__).'/../data/editoradatabase.php');
         $jsonStructure=\json_encode($data);
         $cms=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
         $classes=[];

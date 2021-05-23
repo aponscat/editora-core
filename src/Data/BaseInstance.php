@@ -59,7 +59,6 @@ class BaseInstance implements \JsonSerializable
                 foreach ($singleValue as $attributeKey=>$value) {
                     if ($class->existsAttribute($attributeKey)) {
                         $atri=$class->createAttributeFromKey($attributeKey);
-                        //echo "Creating attribute value with value:\n";
                         $valuesArray[]=$atri->createValue($value);
                     } else {
                         throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
@@ -73,9 +72,6 @@ class BaseInstance implements \JsonSerializable
     public static function createFromJSONWithMetadata(BaseClass $class, string $jsonInstance): BaseInstance
     {
         $json=json_decode($jsonInstance, true);
-
-        //print_r($json);
-
         $key=$json['key'];
         $status=$json['metadata']['status'];
         $startPublishingDate=$json['metadata']['startPublishingDate'];
@@ -89,11 +85,23 @@ class BaseInstance implements \JsonSerializable
         return self::createFromJSON($class, $key, $status, json_encode($values), $startPublishingDate, $endPublishingDate, $externalID);
     }
 
+    private function serializeValues()
+    {
+        if (!$this->values) {
+            return null;
+        }
+        $res=[];
+        foreach ($this->values as $value) {
+            $res+=$value->jsonSerialize();
+        }
+        return $res;
+    }
+
     public function jsonSerialize()
     {
         $ret=$this->getInstanceHeaderData();
         $ret=$ret+$this->getInstanceMetadata();
-        $ret['values']=Jsons::mapSerialize($this->values);
+        $ret['values']=$this->serializeValues();
         $ret['relations']=Jsons::mapSerialize($this->relations);
 
         return $ret;
@@ -133,7 +141,8 @@ class BaseInstance implements \JsonSerializable
 
     public function getData($language='ALL', $withMetadata=false): array
     {
-        $ret=$this->getInstanceHeaderData();
+        //$ret=$this->getInstanceHeaderData();
+        $ret=[];
         if ($withMetadata) {
             $ret=$ret+$this->getInstanceMetadata();
         }
@@ -148,7 +157,7 @@ class BaseInstance implements \JsonSerializable
 
     public function getMultilanguageData($withMetadata=false): array
     {
-        $ret=$this->getInstanceHeaderData();
+        $ret=[];
         if ($withMetadata) {
             $ret=$ret+$this->getInstanceMetadata();
         }
@@ -171,6 +180,7 @@ class BaseInstance implements \JsonSerializable
             , 'endPublishingDate'=>$this->endPublishingDate
             , 'externalID'=>$this->externalID
             , 'class'=>$this->class->getKey()
+            , 'key'=>$this->key
             ]];
     }
 

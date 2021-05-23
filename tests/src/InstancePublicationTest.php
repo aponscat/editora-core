@@ -21,22 +21,20 @@ class InstancePublicationTest extends TestCase
         $this->assertTrue(
             $instance->getData()==
             [
-              "key" => "news-item-instance"
-              ,"english-title" => "Hello World Title!"
+              "english-title" => "Hello World Title!"
             ]
         );
         $this->assertTrue($instance->isPublished());
     
         $this->assertTrue(
             $instance->getData('ALL', true)==
-              [
-                "key" => "news-item-instance"
-                , 'metadata' => [
+              ['metadata' => [
                   'status' => 'O'
                   ,'startPublishingDate' => null
                   ,'endPublishingDate' => null
                   ,'externalID' => null
                   ,'class'=>'news-item'
+                  , "key" => "news-item-instance"
               ]
               ,"english-title" => "Hello World Title!"
               ]

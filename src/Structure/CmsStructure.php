@@ -27,7 +27,6 @@ class CmsStructure implements \JsonSerializable
         if ($structure['classes']) {
             foreach ($structure['classes'] as $group=>$classes_array) {
                 foreach ($classes_array as $id=>$labels) {
-                    //echo "class $id ".$labels[0]."\n";
                     $classes_list[$id]=$labels[0];
                 }
             }
@@ -85,7 +84,6 @@ class CmsStructure implements \JsonSerializable
         $languages=[];
         if ($structure['languages']) {
             foreach ($structure['languages'] as $id=>$language) {
-                //echo "language $id $language\n";
                 $languages[(int)$id]=$language;
             }
         }
@@ -100,7 +98,6 @@ class CmsStructure implements \JsonSerializable
 
         $classes=[];
         foreach ($structure['classes'] as $key=>$class) {
-            //print_r($class);
             $classInstance=BaseClass::createFromJSON($key, json_encode($class['attributes']));
             $classes[]=$classInstance;
         }

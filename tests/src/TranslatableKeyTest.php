@@ -28,9 +28,6 @@ class TranslatableKeyTest extends TestCase
         
         ArrayTranslationsStorageAdapter::put($save);
         ArrayTranslationsStorageAdapter::put($download);
-
-        //print_r(ArrayTranslationsStorageAdapter::jsonSerialize());
-
         $this->assertTrue(ArrayTranslationsStorageAdapter::getTranslation('cms.save', 'es')=='Guardar');
         $this->assertTrue(ArrayTranslationsStorageAdapter::getTranslation('cms.save', 'en')=='Save');
         $this->assertTrue(ArrayTranslationsStorageAdapter::getTranslation('cms.save', 'fr')=='Sauvegarder');
