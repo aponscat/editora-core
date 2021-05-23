@@ -54,7 +54,8 @@ class InstancesStorageTest extends TestCase
               ,'externalID' => null
               ,'class'=>'news-item'
               , "key" => "news-item-instance"
-          ]
+              , "ID" => null
+              ]
           ,"title" => "!eltiT dlroW olleH"
             ,"text" => "!txeT dlroW olleH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
@@ -79,7 +80,8 @@ class InstancesStorageTest extends TestCase
             ,'externalID' => null
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
-        ]
+            , "ID" => null
+            ]
       ,"title" => "!odnuM aloH"
           ,"text" => "!txeT odnuM aloH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
@@ -93,7 +95,7 @@ class InstancesStorageTest extends TestCase
         $structure->addLanguage('en');
         $structure->addClass($class);
         $storage=new ArrayStorageAdapter($structure);
-        $instance1->put($id, $storage);
+        $id=$instance1->put($storage);
  
         $instance2=$storage::get($id);
         $this->assertTrue(
@@ -105,6 +107,7 @@ class InstancesStorageTest extends TestCase
             ,'externalID' => null
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
+            , "ID" => $id
         ]
         ,"title" => "!odnuM aloH"
         ,"text" => "!txeT odnuM aloH"

@@ -52,6 +52,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
               ,'externalID' => null
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
+              , "ID" => null
           ]
           ,"english-title" => "!eltiT dlroW olleH"
             ,"english-text" => "!txeT dlroW olleH"
@@ -77,6 +78,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
             ,'externalID' => null
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
+            , "ID" => null
             ]
       ,"spanish-title" => "!odnuM aloH"
           ,"spanish-text" => "!txeT odnuM aloH"

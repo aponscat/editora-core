@@ -20,14 +20,16 @@ class BaseInstance implements \JsonSerializable
     private $externalID;
     private $values;
     private $relations;
+    private $storageID=null;
 
-    private function __construct(BaseClass $class, string $key, string $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
+    private function __construct(BaseClass $class, string $key, string $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
         $this->class=$class;
         $this->key=$key;
         $this->setStatus($status);
         $this->setPublishingDates($startPublishingDate, $endPublishingDate);
         $this->externalID=$externalID;
+        $this->storageID=$storageID;
 
         if ($class->existRelations()) {
             $classRelations=$class->getRelations();
@@ -39,16 +41,16 @@ class BaseInstance implements \JsonSerializable
         }
     }
 
-    public static function createFromValuesArray(BaseClass $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
+    public static function createFromValuesArray(BaseClass $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
-        $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID);
+        $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
         if ($values) {
             $inst->setValues($values);
         }
         return $inst->validate();
     }
 
-    public static function createFromJSON(BaseClass $class, string $key, string $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null)
+    public static function createFromJSON(BaseClass $class, string $key, string $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
         $valuesArray=[];
         if ($jsonValues) {
@@ -66,7 +68,7 @@ class BaseInstance implements \JsonSerializable
                 }
             }
         }
-        return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID);
+        return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
     }
 
     public static function createFromJSONWithMetadata(BaseClass $class, string $jsonInstance): BaseInstance
@@ -77,12 +79,13 @@ class BaseInstance implements \JsonSerializable
         $startPublishingDate=$json['metadata']['startPublishingDate'];
         $endPublishingDate=$json['metadata']['endPublishingDate'];
         $externalID=$json['metadata']['externalID'];
+        $storageID=$json['metadata']['ID'];
 
         $values=[];
         foreach ($json['values'] as $atrikey=>$oneValue) {
             $values[]=[$atrikey=>$oneValue['value']];
         }
-        return self::createFromJSON($class, $key, $status, json_encode($values), $startPublishingDate, $endPublishingDate, $externalID);
+        return self::createFromJSON($class, $key, $status, json_encode($values), $startPublishingDate, $endPublishingDate, $externalID, $storageID);
     }
 
     private function serializeValues()
@@ -181,6 +184,7 @@ class BaseInstance implements \JsonSerializable
             , 'externalID'=>$this->externalID
             , 'class'=>$this->class->getKey()
             , 'key'=>$this->key
+            , 'ID'=>$this->storageID
             ]];
     }
 
@@ -287,9 +291,26 @@ class BaseInstance implements \JsonSerializable
         return $startDate;
     }
 
-    public function put(string $id, CmsStorageInstanceInterface $storage)
+    public function hasID()
     {
+        return ($this->storageID!==null);
+    }
+
+    public function ID()
+    {
+        return $this->storageID;
+    }
+
+    public function put(CmsStorageInstanceInterface $storage): string
+    {
+        $id=uniqid();
+        if ($this->hasID())
+        {
+            $id=$this->ID;
+        }
+        $this->storageID=$id;
         $storage::put($id, $this);
+        return $id;
     }
 
     public static function get(string $id, CmsStorageInstanceInterface $storage): BaseInstance

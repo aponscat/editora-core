@@ -112,6 +112,7 @@ class CmsStructure implements \JsonSerializable
 
     public function getClass(string $key): BaseClass
     {
+        assert(!empty($key));
         $parsedClassKeys='';
         if ($this->classes) {
             foreach ($this->classes as $class) {

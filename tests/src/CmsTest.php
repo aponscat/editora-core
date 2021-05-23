@@ -109,8 +109,7 @@ class CmsTest extends TestCase
             ['country_code' => 'es'
             ,'title' => 'España']);
 
-        $id=uniqid();
-        $cms->putInstanceWithID($id, $instance);
+        $id=$cms->putInstance($instance);
         $instance2=$cms->getInstanceByID($id);
         $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
         $this->assertTrue($instance2->getData('en')==$instance->getData('en'));

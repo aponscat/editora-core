@@ -35,6 +35,7 @@ class InstancePublicationTest extends TestCase
                   ,'externalID' => null
                   ,'class'=>'news-item'
                   , "key" => "news-item-instance"
+                  , "ID" => null
               ]
               ,"english-title" => "Hello World Title!"
               ]

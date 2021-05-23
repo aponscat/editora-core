@@ -26,17 +26,9 @@ class Cms implements \JsonSerializable
         return $this->structure->jsonSerialize();
     }
 
-    public function putInstanceWithID(string $id, BaseInstance $instance)
+    public function putInstance (BaseInstance $instance)
     {
-        $this->storage::put($id, $instance);
-        return $id;
-    }
-
-    public function putInstance(BaseInstance $instance)
-    {
-        $id=uniqid();
-        $this->storage::put($id, $instance);
-        return $id;
+        return $instance->put($this->storage);
     }
 
     public function putJSONInstance(string $json)
@@ -49,9 +41,7 @@ class Cms implements \JsonSerializable
 
     public function getInstanceByID(string $id): BaseInstance
     {
-        $instance=$this->storage::get($id);
-        //var_dump($instance);
-        return $instance;
+        return BaseInstance::get($id, $this->storage);
     }
 
     public function getAllInstances()
