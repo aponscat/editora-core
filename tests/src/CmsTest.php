@@ -71,7 +71,6 @@ class CmsTest extends TestCase
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('news-item');
-        //var_dump($countryClass);
 
         $instance=BaseInstance::createFromJSON($countryClass, 'first-news-item', 'O', json_encode(
             [
