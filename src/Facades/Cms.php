@@ -26,7 +26,7 @@ class Cms implements \JsonSerializable
         return $this->structure->jsonSerialize();
     }
 
-    public function putInstance (BaseInstance $instance)
+    public function putInstance(BaseInstance $instance)
     {
         return $instance->put($this->storage);
     }
@@ -47,5 +47,17 @@ class Cms implements \JsonSerializable
     public function getAllInstances()
     {
         return $this->storage::all();
+    }
+
+    public function filterInstances(array $instances, $filterFunction): array
+    {
+        $res=[];
+        foreach ($instances as $key=>$instance) {
+            $filteredInstance=$filterFunction($instance);
+            if ($filteredInstance) {
+                $res[$key]=$filteredInstance;
+            }
+        }
+        return $res;
     }
 }

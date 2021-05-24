@@ -111,6 +111,9 @@ class BackOfficeController {
 
 class Cms {
 getClass($key): BaseClass
+putJSONInstance(string $json): string
+getInstanceByID(string $id): BaseInstance
+getAllInstances()
 }
 @enduml
 ```

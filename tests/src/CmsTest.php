@@ -162,9 +162,6 @@ class CmsTest extends TestCase
         $instance4='
         {
           "metadata":{"status":"O"
-            ,"startPublishingDate":null
-            ,"endPublishingDate":null
-            ,"externalID":null
             ,"class":"news-category"
             ,"key":"society"}
             ,"values":
@@ -212,5 +209,14 @@ class CmsTest extends TestCase
         ,'title:es' => 'Sociedad'
         ,'title:en' => 'Society']
         );
+
+
+        $onlyCategoryInstances=$cms->filterInstances($instancesInStorage, function ($instance) {
+            if ($instance->getClassKey()=='news-category') {
+                return $instance;
+            }
+        });
+
+        print_r($onlyCategoryInstances);
     }
 }

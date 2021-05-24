@@ -142,6 +142,11 @@ class BaseInstance implements \JsonSerializable
         return $this->key;
     }
 
+    public function getClassKey(): string
+    {
+        return $this->class->getKey();
+    }
+
     public function getData($language='ALL', $withMetadata=false): array
     {
         //$ret=$this->getInstanceHeaderData();
