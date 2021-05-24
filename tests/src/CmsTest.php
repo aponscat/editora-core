@@ -217,6 +217,9 @@ class CmsTest extends TestCase
             }
         });
 
-        print_r($onlyCategoryInstances);
+        foreach ($onlyCategoryInstances as $instance)
+        {
+            print_r($instance->getData());
+        }
     }
 }
