@@ -49,12 +49,8 @@ class InstancesStorageTest extends TestCase
             $instance1->getData('en', true)==
           ['metadata' => [
               'status' => 'O'
-              ,'startPublishingDate' => null
-              ,'endPublishingDate' => null
-              ,'externalID' => null
               ,'class'=>'news-item'
               , "key" => "news-item-instance"
-              , "ID" => null
               ]
           ,"title" => "!eltiT dlroW olleH"
             ,"text" => "!txeT dlroW olleH"
@@ -75,12 +71,8 @@ class InstancesStorageTest extends TestCase
             $instance1->getData('es', true)==
         ['metadata' => [
             'status' => 'O'
-            ,'startPublishingDate' => null
-            ,'endPublishingDate' => null
-            ,'externalID' => null
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
-            , "ID" => null
             ]
       ,"title" => "!odnuM aloH"
           ,"text" => "!txeT odnuM aloH"
@@ -102,9 +94,6 @@ class InstancesStorageTest extends TestCase
             $instance2->getData('es', true)==
         ['metadata' => [
             'status' => 'O'
-            ,'startPublishingDate' => null
-            ,'endPublishingDate' => null
-            ,'externalID' => null
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
             , "ID" => $id

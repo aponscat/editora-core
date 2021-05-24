@@ -30,12 +30,8 @@ class InstancePublicationTest extends TestCase
             $instance->getData('ALL', true)==
               ['metadata' => [
                   'status' => 'O'
-                  ,'startPublishingDate' => null
-                  ,'endPublishingDate' => null
-                  ,'externalID' => null
                   ,'class'=>'news-item'
                   , "key" => "news-item-instance"
-                  , "ID" => null
               ]
               ,"english-title" => "Hello World Title!"
               ]

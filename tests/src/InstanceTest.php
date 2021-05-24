@@ -32,12 +32,8 @@ class InstanceTest extends TestCase
             $instance->getData('ALL', true)==
           ['metadata' => [
                 'status' => 'O'
-                ,'startPublishingDate' => null
-                ,'endPublishingDate' => null
-                ,'externalID' => null
                 ,'class'=>'news-item'
                 ,"key" => "news-item-instance"
-                , "ID" => null
                 ]
             ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -70,12 +66,8 @@ class InstanceTest extends TestCase
             $instance->getData('ALL', true)==
           ['metadata' => [
               'status' => 'O'
-              ,'startPublishingDate' => null
-              ,'endPublishingDate' => null
-              ,'externalID' => null
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
-              , "ID" => null
               ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -106,12 +98,8 @@ class InstanceTest extends TestCase
             $instance->getData('ALL', true)==
           ['metadata' => [
               'status' => 'O'
-              ,'startPublishingDate' => null
-              ,'endPublishingDate' => null
-              ,'externalID' => null
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
-              , "ID" => null
               ]
           ,"english-title" => "Hello World Title!"
           ]
@@ -200,12 +188,8 @@ class InstanceTest extends TestCase
             $instance->getData('en', true)==
           ['metadata' => [
               'status' => 'O'
-              ,'startPublishingDate' => null
-              ,'endPublishingDate' => null
-              ,'externalID' => null
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
-              , "ID" => null
               ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
@@ -226,12 +210,8 @@ class InstanceTest extends TestCase
             $instance->getData('es', true)==
         ['metadata' => [
             'status' => 'O'
-            ,'startPublishingDate' => null
-            ,'endPublishingDate' => null
-            ,'externalID' => null
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
-            , "ID" => null
             ]
       ,"spanish-title" => "Hola Mundo!"
           ,"spanish-text" => "Hola Mundo Text!"
@@ -275,12 +255,8 @@ class InstanceTest extends TestCase
             $instance->getMultilanguageData(true)==
           ['metadata' => [
               'status' => 'O'
-              ,'startPublishingDate' => null
-              ,'endPublishingDate' => null
-              ,'externalID' => null
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
-              , "ID" => null
               ]
           ,"title:en" => "Hello World Title!"
             ,"text:en" => "Hello World Text!"

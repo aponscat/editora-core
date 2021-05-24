@@ -76,10 +76,10 @@ class BaseInstance implements \JsonSerializable
         $json=json_decode($jsonInstance, true);
         $key=$json['metadata']['key'];
         $status=$json['metadata']['status'];
-        $startPublishingDate=$json['metadata']['startPublishingDate'];
-        $endPublishingDate=$json['metadata']['endPublishingDate'];
-        $externalID=$json['metadata']['externalID'];
-        $storageID=$json['metadata']['ID'];
+        $startPublishingDate=(isset($json['metadata']['startPublishingDate']))?$json['metadata']['startPublishingDate']:null;
+        $endPublishingDate=(isset($json['metadata']['endPublishingDate']))?$json['metadata']['endPublishingDate']:null;
+        $externalID=(isset($json['metadata']['externalID']))?$json['metadata']['externalID']:null;
+        $storageID=(isset($json['metadata']['ID']))?$json['metadata']['ID']:null;
 
         $values=[];
         foreach ($json['values'] as $atrikey=>$oneValue) {
@@ -176,16 +176,30 @@ class BaseInstance implements \JsonSerializable
 
     private function getInstanceMetadata(): array
     {
-        return
-            ['metadata'=>[
-            'status'=>$this->status
-            , 'startPublishingDate'=>$this->startPublishingDate
-            , 'endPublishingDate'=>$this->endPublishingDate
-            , 'externalID'=>$this->externalID
-            , 'class'=>$this->class->getKey()
-            , 'key'=>$this->key
-            , 'ID'=>$this->storageID
-            ]];
+        $ret=
+        ['metadata'=>
+          ['status'=>$this->status
+          , 'class'=>$this->class->getKey()
+          , 'key'=>$this->key
+        ]];
+
+        if (!empty($this->startPublishingDate)) {
+            $ret['metadata']['startPublishingDate']=$this->startPublishingDate;
+        }
+
+        if (!empty($this->endPublishingDate)) {
+            $ret['metadata']['endPublishingDate']=$this->endPublishingDate;
+        }
+
+        if (!empty($this->externalID)) {
+            $ret['metadata']['externalID']=$this->externalID;
+        }
+
+        if (!empty($this->storageID)) {
+            $ret['metadata']['ID']=$this->storageID;
+        }
+
+        return $ret;
     }
 
     private function getInstanceHeaderData(): array
@@ -304,8 +318,7 @@ class BaseInstance implements \JsonSerializable
     public function put(CmsStorageInstanceInterface $storage): string
     {
         $id=uniqid();
-        if ($this->hasID())
-        {
+        if ($this->hasID()) {
             $id=$this->ID;
         }
         $this->storageID=$id;
@@ -317,5 +330,4 @@ class BaseInstance implements \JsonSerializable
     {
         return $storage::get($id);
     }
-    
 }
