@@ -90,6 +90,21 @@ class BaseClass implements \JsonSerializable
         return $this->relations;
     }
 
+    public function getRelation(string $key): ?BaseRelation
+    {
+        if ($this->relations)
+        {
+            foreach ($this->relations as $relation)
+            {
+                if ($relation->getKey()==$key)
+                {
+                    return $relation;
+                }
+            }
+        }
+        return null;
+    }
+
     private function setAttributes(array $attributes): void
     {
         foreach ($attributes as $id=>$attribute) {

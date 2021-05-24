@@ -221,5 +221,11 @@ class CmsTest extends TestCase
         {
             print_r($instance->getData());
         }
+
+        $newsItemInstance=$cms->getInstanceByID($id1);
+        $categoryInstance=$cms->getInstanceByID($id2);
+        $categoryInstance->addToRelationByKey('news-item', $newsItemInstance);
+        $cms->putInstance($categoryInstance);
+
     }
 }

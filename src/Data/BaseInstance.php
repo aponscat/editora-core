@@ -124,6 +124,12 @@ class BaseInstance implements \JsonSerializable
         }
     }
 
+    public function addToRelationByKey (string $key, BaseInstance $children)
+    {
+        $relation=$this->getClass()->getRelation($key);
+        return $this->addToRelation($relation, $children);
+    }
+
     public function setValues(array $values)
     {
         assert(isset($values) && !empty($values) && is_array($values));
@@ -145,6 +151,11 @@ class BaseInstance implements \JsonSerializable
     public function getClassKey(): string
     {
         return $this->class->getKey();
+    }
+
+    public function getClass(): BaseClass
+    {
+        return $this->class;
     }
 
     public function getData($language='ALL', $withMetadata=false): array
@@ -320,14 +331,42 @@ class BaseInstance implements \JsonSerializable
         return $this->storageID;
     }
 
+    public function putIfNotExists(CmsStorageInstanceInterface $storage)
+    {
+        if (!$this->hasID())
+        {
+            return $this->put($storage);
+        }
+
+        if ($storage->exists($this->ID()))
+        {
+            return $this->ID();
+        }
+        
+        return $this->put($storage);
+    }
+
     public function put(CmsStorageInstanceInterface $storage): string
     {
         $id=uniqid();
         if ($this->hasID()) {
-            $id=$this->ID;
+            $id=$this->ID();
         }
         $this->storageID=$id;
         $storage::put($id, $this);
+        if ($this->relations)
+        {
+            foreach ($this->relations as $relation)
+            {
+                if ($relation)
+                {
+                    foreach ($relation as $child)
+                    {
+                        $child->putIfNotExists($storage);
+                    }
+                }
+            }
+        }
         return $id;
     }
 
