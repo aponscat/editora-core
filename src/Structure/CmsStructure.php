@@ -70,7 +70,7 @@ class CmsStructure implements \JsonSerializable
         foreach ($relationsList as $id=>$relation) {
             $children=[];
             foreach ($relation['children'] as $childrenClassId) {
-                $children[]=$classes[$childrenClassId];
+                $children[]=$classes[$childrenClassId]->getKey();
             }
 
             $classes[$relation['parent']]->addRelation(new BaseRelation($relation['key'], $children));
@@ -98,7 +98,9 @@ class CmsStructure implements \JsonSerializable
 
         $classes=[];
         foreach ($structure['classes'] as $key=>$class) {
-            $classInstance=BaseClass::createFromJSON($key, json_encode($class['attributes']));
+            $classInstance=BaseClass::createFromJSON($key
+            , json_encode($class['attributes'])
+            , json_encode($class['relations']));
             $classes[]=$classInstance;
         }
 

@@ -16,13 +16,9 @@
                 }
             ],
             "relations": {
-                "news": {
-                    "news": {
-                        "children": [
-                            "news-item"
-                        ]
-                    }
-                }
+                "news": [
+                    "news-item"
+                ]
             }
         },
         "news-item": {
@@ -74,8 +70,7 @@
                         ]
                     }
                 }
-            ],
-            "relations": null
+            ]
         }
     },
     "languages": [

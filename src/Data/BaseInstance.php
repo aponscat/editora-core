@@ -34,8 +34,8 @@ class BaseInstance implements \JsonSerializable
         if ($class->existRelations()) {
             $classRelations=$class->getRelations();
             if ($classRelations) {
-                foreach ($classRelations as $key=>$relation) {
-                    $this->relations[$key]=new BaseRelationInstances($relation);
+                foreach ($classRelations as $relationKey=>$relation) {
+                    $this->relations[$relationKey]=new BaseRelationInstances($relation);
                 }
             }
         }
@@ -114,8 +114,8 @@ class BaseInstance implements \JsonSerializable
     {
         assert(!empty($relation) && !empty($childInstance));
         if ($relation->isValid($childInstance)) {
-            if (isset($relations[$relation->getKey()])) {
-                $relations[$relation->getKey()]->add($childInstance);
+            if (isset($this->relations[$relation->getKey()])) {
+                $this->relations[$relation->getKey()]->add($childInstance);
             } else {
                 throw new \Exception("Trying to add a relation ".$relation->getKey()." to an instance that not have this relation!");
             }
@@ -124,10 +124,10 @@ class BaseInstance implements \JsonSerializable
         }
     }
 
-    public function addToRelationByKey (string $key, BaseInstance $children)
+    public function addToRelationByKey (string $key, BaseInstance $child)
     {
-        $relation=$this->getClass()->getRelation($key);
-        return $this->addToRelation($relation, $children);
+        $relation=$this->getClass()->getRelationByKey($key);
+        return $this->addToRelation($relation, $child);
     }
 
     public function setValues(array $values)

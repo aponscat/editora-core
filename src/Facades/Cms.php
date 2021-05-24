@@ -60,4 +60,10 @@ class Cms implements \JsonSerializable
         }
         return $res;
     }
+
+    public function getStructure()
+    {
+        return $this->structure;
+    }
+
 }

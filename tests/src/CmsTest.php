@@ -12,6 +12,35 @@ use Omatech\Editora\Structure\BaseClass;
 
 class CmsTest extends TestCase
 {
+
+
+    public function testLoadStructureFromReverseEngeeneredJSON(): void
+    {
+        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
+        $structure=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
+        $storage=new ArrayStorageAdapter($structure);
+        $cms=new Cms($structure, $storage);
+        $countryClass=$cms->getClass('Countries');
+
+        $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
+            [
+                  ['country_code'=>'es'
+                  , 'title:es'=>'España'
+                  , 'title:en'=>'Spain'
+                  ]
+                ]
+        ));
+        $this->assertTrue($instance->getData('es')==
+            ['country_code' => 'es'
+            ,'title' => 'España']);
+
+        $id=$cms->putInstance($instance);
+        $instance2=$cms->getInstanceByID($id);
+        $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
+        $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
+    }
+
+
     public function testSaveStructureToSimpleModernJSON(): void
     {
         $publicPath='/images';
@@ -54,10 +83,9 @@ class CmsTest extends TestCase
         $structure->addLanguage('es');
         $structure->addLanguage('en');
 
-        $category->addRelation(new BaseRelation('news', [$newsItem]));
+        $category->addRelation(new BaseRelation('news', ['news-item']));
         $structure->addClass($category);
         $structure->addClass($newsItem);
-
 
         file_put_contents(dirname(__FILE__).'/../data/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
 
@@ -88,33 +116,6 @@ class CmsTest extends TestCase
         ));
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
     }
-
-    public function testLoadStructureFromReverseEngeeneredJSON(): void
-    {
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
-        $structure=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
-        $cms=new Cms($structure, $storage);
-        $countryClass=$cms->getClass('Countries');
-
-        $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
-            [
-                  ['country_code'=>'es'
-                  , 'title:es'=>'España'
-                  , 'title:en'=>'Spain'
-                  ]
-                ]
-        ));
-        $this->assertTrue($instance->getData('es')==
-            ['country_code' => 'es'
-            ,'title' => 'España']);
-
-        $id=$cms->putInstance($instance);
-        $instance2=$cms->getInstanceByID($id);
-        $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
-        $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
-    }
-
 
     public function testLoadStructureFromSimpleModernJSONAndRetrieveInstance(): void
     {
@@ -212,20 +213,14 @@ class CmsTest extends TestCase
 
 
         $onlyCategoryInstances=$cms->filterInstances($instancesInStorage, function ($instance) {
-            if ($instance->getClassKey()=='news-category') {
+            if ($instance->getClassKey()=='news') {
                 return $instance;
             }
         });
 
-        foreach ($onlyCategoryInstances as $instance)
-        {
-            print_r($instance->getData());
-        }
-
         $newsItemInstance=$cms->getInstanceByID($id1);
         $categoryInstance=$cms->getInstanceByID($id2);
-        $categoryInstance->addToRelationByKey('news-item', $newsItemInstance);
+        $categoryInstance->addToRelationByKey('news', $newsItemInstance);
         $cms->putInstance($categoryInstance);
-
     }
 }

@@ -19,7 +19,7 @@ class CmsStructureTest extends TestCase
             if ($class->existRelations()) {
                 foreach ($class->getRelations() as $relationId=>$relation) {
                     foreach ($relation->getChildren() as $childrenId=>$child) {
-                        $classes[$id]['relations'][$relationId][]=$child->getKey();
+                        $classes[$id]['relations'][$relationId][]=$child;
                     }
                 }
             }
@@ -40,7 +40,7 @@ class CmsStructureTest extends TestCase
             if ($class->existRelations()) {
                 foreach ($class->getRelations() as $relationId=>$relation) {
                     foreach ($relation->getChildren() as $childrenId=>$child) {
-                        $classes[$id]['relations'][$relationId][]=$child->getKey();
+                        $classes[$id]['relations'][$relationId][]=$child;
                     }
                 }
             }

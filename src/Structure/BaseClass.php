@@ -22,7 +22,7 @@ class BaseClass implements \JsonSerializable
         return $class;
     }
 
-    public static function createFromJSON(string $key, string $jsonAttributes): BaseClass
+    public static function createFromJSON(string $key, string $jsonAttributes, string $jsonRelations=null): BaseClass
     {
         $attributes=json_decode($jsonAttributes, true);
         assert(json_last_error() == JSON_ERROR_NONE);
@@ -40,7 +40,6 @@ class BaseClass implements \JsonSerializable
                 }
             }
 
-
             $valueType='Omatech\Editora\Values\BaseValue';
             if (isset($attribute['valueType'])) {
                 if (class_exists($attribute['valueType'])) {
@@ -56,7 +55,25 @@ class BaseClass implements \JsonSerializable
             }
             $attributesInstances[$id]=new $attributeType($attribute['key'], $config, $valueType);
         }
-        return self::createFromAttributesArray($key, $attributesInstances);
+        $returnClass=self::createFromAttributesArray($key, $attributesInstances);
+
+        if ($jsonRelations)
+        {
+            $relations=json_decode($jsonRelations, true);
+            assert(json_last_error() == JSON_ERROR_NONE);
+            if ($relations)
+            {
+                assert(is_array($relations));
+                foreach ($relations as $relationKey=>$children)
+                {
+                        $returnClass->addRelation(new BaseRelation($relationKey, $children));    
+                }
+    
+            }
+    
+        }
+        return $returnClass;
+
     }
 
     public function jsonSerialize()
@@ -64,8 +81,13 @@ class BaseClass implements \JsonSerializable
         $res[$this->getKey()]=
         [
           'attributes'=>Jsons::mapSerialize($this->attributes)
-          ,'relations'=>Jsons::mapSerialize($this->relations)
         ];
+
+        if ($this->relations)
+        {
+            $res[$this->getKey()]['relations']=$this->serializeRelations();
+        }
+
         return $res;
     }
 
@@ -79,6 +101,20 @@ class BaseClass implements \JsonSerializable
         $this->relations[$relation->getKey()]=$relation;
     }
 
+    public function serializeRelations()
+    {
+        if ($this->relations)
+        {
+            $res=[];
+            foreach ($this->relations as $key=>$relation)
+            {
+                $res[$key]=$relation->getChildrenKeys();
+            }
+            return $res;
+        }
+        return null;
+    }
+
     public function existRelations(): bool
     {
         return (!empty($this->relations));
@@ -90,19 +126,20 @@ class BaseClass implements \JsonSerializable
         return $this->relations;
     }
 
-    public function getRelation(string $key): ?BaseRelation
+    public function getRelationByKey(string $key): ?BaseRelation
     {
         if ($this->relations)
         {
-            foreach ($this->relations as $relation)
+            //print_r($this->relations);
+            foreach ($this->relations as $relationKey=>$relation)
             {
-                if ($relation->getKey()==$key)
+               if ($relationKey===$key)
                 {
-                    return $relation;
+                   return $relation;
                 }
             }
         }
-        return null;
+        throw new \Exception("Relation $key not found in class ".$this->getKey());
     }
 
     private function setAttributes(array $attributes): void
