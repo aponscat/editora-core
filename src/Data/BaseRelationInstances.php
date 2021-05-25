@@ -22,6 +22,11 @@ class BaseRelationInstances implements \JsonSerializable
         $this->children[]=$child;
     }
 
+    public function getChildren(): ?array
+    {
+        return $this->children;
+    }
+
     public function jsonSerialize()
     {
         $ret=[];
