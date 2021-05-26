@@ -117,3 +117,11 @@ getAllInstances()
 }
 @enduml
 ```
+
+Estimations:
+Hector: 2 meses Core , 1,5 meses Backoffice
+Christian: 2 meses Core , 3 meses Backoffice (amb alguna millora i canvis maquetació)
+Alvaro: 2,5 meses Core , 2 meses Backoffice
+Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
+
+4,5 - 5 meses total
