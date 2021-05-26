@@ -26,7 +26,8 @@ class CmsTest extends TestCase
                   , 'title:es'=>'España'
                   , 'title:en'=>'Spain'
                   ]
-                ]
+            ]
+                
         ));
         $this->assertTrue($instance->getData('es')==
             ['country_code' => 'es'
@@ -160,14 +161,15 @@ class CmsTest extends TestCase
 
         $instance4='
         {
-          "metadata":{"status":"O"
-            ,"class":"news-category"
-            ,"key":"society"}
-            ,"values":
-            {"code":{"attribute":{"key":"code"},"value":"society"}
-            ,"title:es":{"attribute":{"key":"title:es"},"value":"Sociedad"}
-            ,"title:en":{"attribute":{"key":"title:en","config":{"mandatory":true}},"value":"Society"}}}
-        ';
+            "metadata":{"status":"O"
+                ,"class":"news-category"
+                ,"key":"society"}
+                ,"values":[
+                {"code":"society"}
+                ,{"title:es":"Sociedad"}
+                ,{"title:en":"Society"}
+                ]
+            }';
 
         $id3=$cms->putJSONInstance($instance4);
         $instance5=$cms->getInstanceById($id3);
@@ -262,14 +264,16 @@ class CmsTest extends TestCase
 
         $instanceCategory2='
         {
-          "metadata":{"status":"O"
+        "metadata":{"status":"O"
             ,"class":"news-category"
             ,"key":"society"}
-            ,"values":
-            {"code":{"attribute":{"key":"code"},"value":"society"}
-            ,"title:es":{"attribute":{"key":"title:es"},"value":"Sociedad"}
-            ,"title:en":{"attribute":{"key":"title:en","config":{"mandatory":true}},"value":"Society"}}}
-        ';
+            ,"values":[
+            {"code":"society"}
+            ,{"title:es":"Sociedad"}
+            ,{"title:en":"Society"}
+            ]
+        }';
+
 
         $idCategory2=$cms->putJSONInstance($instanceCategory2);
         $instancesInStorage=$cms->getAllInstances();

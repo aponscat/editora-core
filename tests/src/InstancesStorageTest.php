@@ -52,7 +52,7 @@ class InstancesStorageTest extends TestCase
               ,'class'=>'news-item'
               , "key" => "news-item-instance"
               ]
-          ,"title" => "!eltiT dlroW olleH"
+            ,"title" => "!eltiT dlroW olleH"
             ,"text" => "!txeT dlroW olleH"
             , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
@@ -74,9 +74,9 @@ class InstancesStorageTest extends TestCase
             ,'class'=>'news-item'
             ,"key" => "news-item-instance"
             ]
-      ,"title" => "!odnuM aloH"
+          ,"title" => "!odnuM aloH"
           ,"text" => "!txeT odnuM aloH"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
         );
 
@@ -90,6 +90,7 @@ class InstancesStorageTest extends TestCase
         $id=$instance1->put($storage);
  
         $instance2=$storage::get($id);
+
         $this->assertTrue(
             $instance2->getData('es', true)==
         ['metadata' => [

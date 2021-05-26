@@ -21,12 +21,20 @@ class BaseValue implements \JsonSerializable
 
     public function jsonSerialize()
     {
+        /*
         $res[$this->getFullyQualifiedKey()]=
         [
         'attribute'=>$this->attribute
         ,'value'=>$this->value
         ,'subValues'=>$this->subValues
         ];
+        */
+        $res=[];
+        $res+=[$this->getFullyQualifiedKey()=>$this->value];
+        if ($this->subvalues)
+        {
+            $res+=$this->getSubValuesData();
+        }
         return $res;
     }
 

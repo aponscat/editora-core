@@ -81,11 +81,8 @@ class BaseInstance implements \JsonSerializable
         $externalID=(isset($json['metadata']['externalID']))?$json['metadata']['externalID']:null;
         $storageID=(isset($json['metadata']['ID']))?$json['metadata']['ID']:null;
 
-        $values=[];
-        foreach ($json['values'] as $atrikey=>$oneValue) {
-            $values[]=[$atrikey=>$oneValue['value']];
-        }
-        return self::createFromJSON($class, $key, $status, json_encode($values), $startPublishingDate, $endPublishingDate, $externalID, $storageID);
+        $values=json_encode($json['values']);
+        return self::createFromJSON($class, $key, $status, $values, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
     }
 
     private function serializeValues()
@@ -95,7 +92,7 @@ class BaseInstance implements \JsonSerializable
         }
         $res=[];
         foreach ($this->values as $value) {
-            $res+=$value->jsonSerialize();
+            $res[]=$value->jsonSerialize();
         }
         return $res;
     }

@@ -34,6 +34,11 @@ class Cms implements \JsonSerializable
     public function putJSONInstance(string $json)
     {
         $jsonInstance=json_decode($json, true);
+        assert(json_last_error() == JSON_ERROR_NONE);
+        if (!isset($jsonInstance['metadata']['class']))
+        {
+            throw new \Exception("metadata.class not found in json: $json\n");
+        }
         $class=$this->getClass($jsonInstance['metadata']['class']);
         $instance=BaseInstance::createFromJSONWithMetadata($class, $json);
         return $this->putInstance($instance);

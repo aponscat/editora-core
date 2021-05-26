@@ -130,7 +130,6 @@ class BaseClass implements \JsonSerializable
     {
         if ($this->relations)
         {
-            //print_r($this->relations);
             foreach ($this->relations as $relationKey=>$relation)
             {
                if ($relationKey===$key)

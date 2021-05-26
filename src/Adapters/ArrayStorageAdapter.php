@@ -50,6 +50,7 @@ class ArrayStorageAdapter implements CmsStorageInstanceInterface
         $jsonArray=json_decode($json, true);
         $classKey=$jsonArray['metadata']['class'];
         $class=self::$structure->getClass($classKey);
+        
         return BaseInstance::createFromJSONWithMetadata($class, $json);
     }
 }
