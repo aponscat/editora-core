@@ -63,7 +63,7 @@ class CmsStructure implements \JsonSerializable
                 $classAttris+=self::getAttributesFromId($attributes, $languages, $attributeId);
             }
 
-            $classInstance=BaseClass::createFromAttributesArray($className, $classAttris);
+            $classInstance=Clas::createFromAttributesArray($className, $classAttris);
             $classes[$id]=$classInstance;
         }
 
@@ -73,7 +73,7 @@ class CmsStructure implements \JsonSerializable
                 $children[]=$classes[$childrenClassId]->getKey();
             }
 
-            $classes[$relation['parent']]->addRelation(new BaseRelation($relation['key'], $children));
+            $classes[$relation['parent']]->addRelation(new Relation($relation['key'], $children));
         }
         
         return new self($languages, $classes);
@@ -98,7 +98,7 @@ class CmsStructure implements \JsonSerializable
 
         $classes=[];
         foreach ($structure['classes'] as $key=>$class) {
-            $classInstance=BaseClass::createFromJSON(
+            $classInstance=Clas::createFromJSON(
                 $key,
                 json_encode($class['attributes']),
                 (isset($class['relations']))?json_encode($class['relations']):null
@@ -114,7 +114,7 @@ class CmsStructure implements \JsonSerializable
         return $this->classes;
     }
 
-    public function getClass(string $key): BaseClass
+    public function getClass(string $key): Clas
     {
         assert(!empty($key));
         $parsedClassKeys='';
@@ -150,7 +150,7 @@ class CmsStructure implements \JsonSerializable
         $this->languages[]=$isoCode;
     }
 
-    public function addClass(BaseClass $class)
+    public function addClass(Clas $class)
     {
         $this->classes[]=$class;
         foreach ($class->getAttributes() as $attribute) {
@@ -217,7 +217,7 @@ class CmsStructure implements \JsonSerializable
     }
 
     
-    public function addAttribute(BaseAttribute $attribute)
+    public function addAttribute(Attribute $attribute)
     {
         $this->attributes[]=$attribute;
     }
@@ -229,11 +229,11 @@ class CmsStructure implements \JsonSerializable
             foreach ($structure[$attributeType] as $id=>$stringAttribute) {
                 if ($languages) {
                     foreach ($languages as $languageId=>$language) {
-                        $atri=new BaseAttribute($stringAttribute[0].":$language");
+                        $atri=new Attribute($stringAttribute[0].":$language");
                         $atris[$languageId+$id]=$atri;
                     }
                 } else {
-                    $atri=new BaseAttribute($stringAttribute[0]);
+                    $atri=new Attribute($stringAttribute[0]);
                     $atris[$id]=$atri;
                 }
             }

@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Values;
 
-class ReverseValue extends BaseValue
+class ReverseValue extends Value
 {
     public function getValue()
     {

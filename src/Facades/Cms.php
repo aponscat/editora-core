@@ -2,8 +2,8 @@
 
 namespace Omatech\Editora\Facades;
 
-use Omatech\Editora\Structure\BaseClass;
-use Omatech\Editora\Data\BaseInstance;
+use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Data\Instance;
 
 class Cms implements \JsonSerializable
 {
@@ -16,7 +16,7 @@ class Cms implements \JsonSerializable
         $this->storage=$storage;
     }
 
-    public function getClass(string $key): BaseClass
+    public function getClass(string $key): Clas
     {
         return $this->structure->getClass($key);
     }
@@ -26,7 +26,7 @@ class Cms implements \JsonSerializable
         return $this->structure->jsonSerialize();
     }
 
-    public function putInstance(BaseInstance $instance)
+    public function putInstance(Instance $instance)
     {
         return $instance->put($this->storage);
     }
@@ -40,13 +40,13 @@ class Cms implements \JsonSerializable
             throw new \Exception("metadata.class not found in json: $json\n");
         }
         $class=$this->getClass($jsonInstance['metadata']['class']);
-        $instance=BaseInstance::createFromJSONWithMetadata($class, $json);
+        $instance=Instance::createFromJSONWithMetadata($class, $json);
         return $this->putInstance($instance);
     }
 
-    public function getInstanceByID(string $id): BaseInstance
+    public function getInstanceByID(string $id): Instance
     {
-        return BaseInstance::get($id, $this->storage);
+        return Instance::get($id, $this->storage);
     }
 
     public function getAllInstances()

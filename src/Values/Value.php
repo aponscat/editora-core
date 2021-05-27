@@ -2,16 +2,16 @@
 
 namespace Omatech\Editora\Values;
 
-use Omatech\Editora\Structure\BaseAttribute;
+use Omatech\Editora\Structure\Attribute;
 use Omatech\Editora\Utils\Strings;
 
-class BaseValue implements \JsonSerializable
+class Value implements \JsonSerializable
 {
     protected $attribute;
     protected $value;
     private $subValues;
 
-    public function __construct(BaseAttribute $attribute, $value=null)
+    public function __construct(Attribute $attribute, $value=null)
     {
         $this->attribute=$attribute;
         $this->setSubValues($value);

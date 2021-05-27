@@ -2,9 +2,9 @@
 
 namespace Omatech\Editora\Structure;
 
-use Omatech\Editora\Data\BaseInstance;
+use Omatech\Editora\Data\Instance;
 
-class BaseRelation implements \JsonSerializable
+class Relation implements \JsonSerializable
 {
     private $key;
     //private $name;
@@ -18,7 +18,7 @@ class BaseRelation implements \JsonSerializable
         //$this->name=$name;
 
         foreach ($children as $child) {
-            //assert($child instanceof BaseClass);
+            //assert($child instanceof Class);
             $this->children[]=$child;
         }
     }
@@ -47,7 +47,7 @@ class BaseRelation implements \JsonSerializable
         return $res;
     }
 
-    public function isValid(BaseInstance $instance)
+    public function isValid(Instance $instance)
     {
         $classKey=$instance->getClassKey();
         foreach ($this->children as $child)

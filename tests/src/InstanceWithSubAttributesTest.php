@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\BaseClass;
-use Omatech\Editora\Structure\BaseAttribute;
-use Omatech\Editora\Data\BaseInstance;
-use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Values\Value;
 
 class InstanceWithSubAttributesTest extends TestCase
 {
@@ -32,8 +32,8 @@ class InstanceWithSubAttributesTest extends TestCase
             , ['key'=>'code']
           ]
       ]]]);
-        $class=BaseClass::createFromJSON('image', $jsonAttributes);
-        $instance=BaseInstance::createFromJSON($class, 'image-instance', 'O', json_encode(
+        $class=Clas::createFromJSON('image', $jsonAttributes);
+        $instance=Instance::createFromJSON($class, 'image-instance', 'O', json_encode(
             [
               ['image-with-alt-and-title'=>
                 ['original-filename'=>$originalFilename

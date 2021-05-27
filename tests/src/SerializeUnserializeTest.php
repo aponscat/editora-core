@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Facades\Cms;
 use Omatech\Editora\Structure\CmsStructure;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Data\BaseInstance;
-use Omatech\Editora\Structure\BaseRelation;
-use Omatech\Editora\Structure\BaseClass;
+use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Structure\Relation;
+use Omatech\Editora\Structure\Clas;
 
 class SerializeUnserializeTest extends TestCase
 {

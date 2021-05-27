@@ -2,9 +2,9 @@
 
 namespace Omatech\Editora\Values;
 
-use Omatech\Editora\Structure\BaseAttribute;
+use Omatech\Editora\Structure\Attribute;
 
-class ImageValue extends BaseValue
+class ImageValue extends Value
 {
     private $internalPath;
     private $externalPath;

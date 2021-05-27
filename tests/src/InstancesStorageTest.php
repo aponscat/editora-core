@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\BaseClass;
-use Omatech\Editora\Structure\BaseAttribute;
-use Omatech\Editora\Data\BaseInstance;
-use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Values\Value;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
 use Omatech\Editora\Structure\CmsStructure;
@@ -24,9 +24,9 @@ class InstancesStorageTest extends TestCase
         , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
         , ['key'=>'multilang-attribute']
       ]);
-        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+        $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance1=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+        $instance1=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
               ['title:en'=>'Hello World Title!']
               ,["text:en" => "Hello World Text!"]

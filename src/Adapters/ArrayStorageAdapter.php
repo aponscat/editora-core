@@ -3,8 +3,8 @@
 namespace Omatech\Editora\Adapters;
 
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
-use Omatech\Editora\Structure\BaseClass;
-use Omatech\Editora\Data\BaseInstance;
+use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Data\Instance;
 use Omatech\Editora\Structure\CmsStructure;
 
 class ArrayStorageAdapter implements CmsStorageInstanceInterface
@@ -23,12 +23,12 @@ class ArrayStorageAdapter implements CmsStorageInstanceInterface
         return array_key_exists($id, self::$instances);
     }
 
-    public static function put(string $id, BaseInstance $instance)
+    public static function put(string $id, Instance $instance)
     {
         self::$instances[$id]=json_encode($instance);
     }
 
-    public static function get(string $id): BaseInstance
+    public static function get(string $id): Instance
     {
         $json=self::$instances[$id];
         return self::decodeInstanceJSON($json);
@@ -51,6 +51,6 @@ class ArrayStorageAdapter implements CmsStorageInstanceInterface
         $classKey=$jsonArray['metadata']['class'];
         $class=self::$structure->getClass($classKey);
         
-        return BaseInstance::createFromJSONWithMetadata($class, $json);
+        return Instance::createFromJSONWithMetadata($class, $json);
     }
 }

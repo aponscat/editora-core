@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\BaseClass;
-use Omatech\Editora\Structure\BaseAttribute;
-use Omatech\Editora\Data\BaseInstance;
-use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Values\Value;
 
 class InstanceWithNonStandardAttributesTest extends TestCase
 {
@@ -21,9 +21,9 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         , ['key'=>'spanish-text:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
         , ['key'=>'multilang-attribute']
       ]);
-        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
+        $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
               ['english-title:en'=>'Hello World Title!']
               ,["english-text:en" => "Hello World Text!"]
@@ -88,8 +88,8 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ['key'=>'title:en', 'config'=>['mandatory'=>true]]
         , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
       ]);
-        $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
-        $instance=BaseInstance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
+        $class=Clas::createFromJSON('numeric-item', $jsonAttributes);
+        $instance=Instance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
             [
             ['title:en'=>'Numeric Hello World Title!']
             ,["times" => 42]
@@ -112,10 +112,10 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ['key'=>'title:es', 'config'=>['mandatory'=>true]]
         , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
       ]);
-        $class=BaseClass::createFromJSON('numeric-item', $jsonAttributes);
+        $class=Clas::createFromJSON('numeric-item', $jsonAttributes);
 
         $this->expectException(\Exception::class);
-        $instance=BaseInstance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
+        $instance=Instance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
             [
             ['title:en'=>'Numeric Hello World Title!']
             ,["times" => 'aaaa']
@@ -130,8 +130,8 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ['key'=>'english-title:en', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute', 'config'=>['mandatory'=>true]]
         , ['key'=>'english-text:en', 'type'=>'\Omatech\Editora\Structure\StrangeAttribute']
       ]);
-        $class=BaseClass::createFromJSON('news-item', $jsonAttributes);
-        $instance=BaseInstance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
             [
             ['english-title-is-strange:en'=>'Hello World Title!']
             ,["english-text-is-strange:en" => "Hello World Text!"]
@@ -167,7 +167,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         , ['key'=>'image-with-width:en', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'300x']]
         , ['key'=>'image-with-width-and-height', 'type'=>'Omatech\Editora\Structure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'100x200']]
       ]);
-        $class=BaseClass::createFromJSON('image', $jsonAttributes);
+        $class=Clas::createFromJSON('image', $jsonAttributes);
 
 
         $this->assertEquals($class->getAttributeByKey('image-with-height:en')->getDimensions(), 'x300');
@@ -182,7 +182,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertEquals($class->getAttributeByKey('image-with-width:en')->getHeight(), null);
         $this->assertEquals($class->getAttributeByKey('image-with-width-and-height')->getHeight(), 200);
 
-        $instance=BaseInstance::createFromJSON($class, 'image-instance', 'O', json_encode(
+        $instance=Instance::createFromJSON($class, 'image-instance', 'O', json_encode(
             [
               ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
@@ -197,7 +197,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ['image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
 
 
-        $secondInstance=BaseInstance::createFromJSON($class, 'second-image-instance', 'O', json_encode(
+        $secondInstance=Instance::createFromJSON($class, 'second-image-instance', 'O', json_encode(
             [
               ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename

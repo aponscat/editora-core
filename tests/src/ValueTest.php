@@ -3,33 +3,33 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\BaseAttribute;
-use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Values\Value;
 
 class ValueTest extends TestCase
 {
     public function testGetValueAfterCreate(): void
     {
-        $atri=new BaseAttribute('english-text-attribute', 'en');
-        $val=new BaseValue($atri, 'Hello World!');
+        $atri=new Attribute('english-text-attribute', 'en');
+        $val=new Value($atri, 'Hello World!');
         $this->assertTrue($val->getValue()=='Hello World!');
     }
 
     public function testGetEnglishDataAfterCreate(): void
     {
         $key='english-text-attribute';
-        $atri=new BaseAttribute($key, 'en');
+        $atri=new Attribute($key, 'en');
         $textValue='Hello World!';
-        $value=new BaseValue($atri, $textValue);
+        $value=new Value($atri, $textValue);
         $this->assertTrue($value->getData()==[$key=>$textValue]);
     }
 
     public function testGetMultiLangDataAfterCreate(): void
     {
         $key='multilang-text-attribute';
-        $atri=new BaseAttribute($key);
+        $atri=new Attribute($key);
         $textValue='hello-world-multilang';
-        $value=new BaseValue($atri, $textValue);
+        $value=new Value($atri, $textValue);
         $this->assertTrue($value->getData()==[$key=>$textValue]);
     }
 }

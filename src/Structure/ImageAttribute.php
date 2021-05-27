@@ -2,10 +2,10 @@
 
 namespace Omatech\Editora\Structure;
 
-use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Values\Value;
 use Omatech\Editora\Adapters\MediaAdapterInterface;
 
-class ImageAttribute extends BaseAttribute implements \JsonSerializable
+class ImageAttribute extends Attribute implements \JsonSerializable
 {
     protected $width=null;
     protected $height=null;

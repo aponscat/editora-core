@@ -2,17 +2,17 @@
 
 namespace Omatech\Editora\Structure;
 
-use Omatech\Editora\Values\BaseValue;
+use Omatech\Editora\Values\Value;
 use Omatech\Editora\Utils\Strings;
 use Omatech\Editora\Utils\Jsons;
 
 
-class BaseAttribute implements \JsonSerializable
+class Attribute implements \JsonSerializable
 {
     protected $key;
     protected $language='ALL';
     protected $mandatory=false;
-    protected $valueType='Omatech\Editora\Values\BaseValue';
+    protected $valueType='Omatech\Editora\Values\Value';
     protected $adapters=null;
     protected $subattributes=null;
     protected $langSeparator=':';
@@ -142,7 +142,7 @@ class BaseAttribute implements \JsonSerializable
             $res['config']=$this->config;
         }
 
-        if (!$this->valueType=='Omatech\Editora\Values\BaseValue') {
+        if (!$this->valueType=='Omatech\Editora\Values\Value') {
             $res['valueType']=$this->valueType;
         }
         return $res;
@@ -153,7 +153,7 @@ class BaseAttribute implements \JsonSerializable
         return $this->jsonSerialize();
     }
 
-    public function createValue($value): BaseValue
+    public function createValue($value): Value
     {
         $class=$this->valueType;
         return new $class($this, $value);

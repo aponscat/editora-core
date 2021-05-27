@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Facades\Cms;
 use Omatech\Editora\Structure\CmsStructure;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Data\BaseInstance;
-use Omatech\Editora\Structure\BaseRelation;
-use Omatech\Editora\Structure\BaseClass;
+use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Structure\Relation;
+use Omatech\Editora\Structure\Clas;
 
 class CmsTest extends TestCase
 {
@@ -20,7 +20,7 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('Countries');
 
-        $instance=BaseInstance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
+        $instance=Instance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
             [
                   ['country_code'=>'es'
                   , 'title:es'=>'España'
@@ -69,20 +69,20 @@ class CmsTest extends TestCase
           ]]
           ]);
 
-        $newsItem=BaseClass::createFromJSON('news-item', $jsonAttributes);
+        $newsItem=Clas::createFromJSON('news-item', $jsonAttributes);
     
         $jsonAttributes=json_encode([
             ['key'=>'title:en', 'config'=>['mandatory'=>true]]
             , ['key'=>'title:es']
             , ['key'=>'code']
           ]);
-        $category=BaseClass::createFromJSON('news-category', $jsonAttributes);
+        $category=Clas::createFromJSON('news-category', $jsonAttributes);
 
         $structure=CmsStructure::createEmptyStructure();
         $structure->addLanguage('es');
         $structure->addLanguage('en');
 
-        $category->addRelation(new BaseRelation('news', ['news-item']));
+        $category->addRelation(new Relation('news', ['news-item']));
         $structure->addClass($category);
         $structure->addClass($newsItem);
 
@@ -102,7 +102,7 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('news-item');
 
-        $instance=BaseInstance::createFromJSON($countryClass, 'first-news-item', 'O', json_encode(
+        $instance=Instance::createFromJSON($countryClass, 'first-news-item', 'O', json_encode(
             [
                   ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
@@ -127,7 +127,7 @@ class CmsTest extends TestCase
         $newsItemClass=$cms->getClass('news-item');
         //var_dump($countryClass);
 
-        $instance=BaseInstance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
+        $instance=Instance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
             [
                   ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
@@ -145,7 +145,7 @@ class CmsTest extends TestCase
         $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
 
         $categoryClass=$cms->getClass('news-category');
-        $instance=BaseInstance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
+        $instance=Instance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
             [
                   ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
@@ -236,7 +236,7 @@ class CmsTest extends TestCase
         $newsItemClass=$cms->getClass('news-item');
         //var_dump($countryClass);
 
-        $instanceNewsItem=BaseInstance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
+        $instanceNewsItem=Instance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
             [
                 ['title:en'=>'First title of a news item'
                 , 'title:es'=>'Primer titular de la noticia'
@@ -250,7 +250,7 @@ class CmsTest extends TestCase
         $this->assertTrue($instanceNewsItem->getData('es')['title']=='Primer titular de la noticia');
 
         $categoryClass=$cms->getClass('news-category');
-        $instanceCategory1=BaseInstance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
+        $instanceCategory1=Instance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
             [
                   ['code'=>'tech'
                   , 'title:es'=>'Tecnología'

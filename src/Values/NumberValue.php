@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Values;
 
-class NumberValue extends BaseValue
+class NumberValue extends Value
 {
     public function getValue()
     {

@@ -2,15 +2,15 @@
 
 namespace Omatech\Editora\Data;
 
-use Omatech\Editora\Structure\BaseClass;
-use Omatech\Editora\Structure\BaseAttribute;
+use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Structure\Attribute;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Structure\BaseRelation;
-use Omatech\Editora\Data\BaseRelationInstances;
+use Omatech\Editora\Structure\Relation;
+use Omatech\Editora\Data\RelationInstances;
 use Omatech\Editora\Utils\Jsons;
 
-class BaseInstance implements \JsonSerializable
+class Instance implements \JsonSerializable
 {
     private $class;
     private $key;
@@ -22,7 +22,7 @@ class BaseInstance implements \JsonSerializable
     private $relations;
     private $storageID=null;
 
-    private function __construct(BaseClass $class, string $key, string $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    private function __construct(Clas $class, string $key, string $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
         $this->class=$class;
         $this->key=$key;
@@ -35,13 +35,13 @@ class BaseInstance implements \JsonSerializable
             $classRelations=$class->getRelations();
             if ($classRelations) {
                 foreach ($classRelations as $relationKey=>$relation) {
-                    $this->relations[$relationKey]=new BaseRelationInstances($relation);
+                    $this->relations[$relationKey]=new RelationInstances($relation);
                 }
             }
         }
     }
 
-    public static function createFromValuesArray(BaseClass $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    public static function createFromValuesArray(Clas $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
         $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
         if ($values) {
@@ -50,7 +50,7 @@ class BaseInstance implements \JsonSerializable
         return $inst->validate();
     }
 
-    public static function createFromJSON(BaseClass $class, string $key, string $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    public static function createFromJSON(Clas $class, string $key, string $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
         $valuesArray=[];
         if ($jsonValues) {
@@ -71,7 +71,7 @@ class BaseInstance implements \JsonSerializable
         return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
     }
 
-    public static function createFromJSONWithMetadata(BaseClass $class, string $jsonInstance): BaseInstance
+    public static function createFromJSONWithMetadata(Clas $class, string $jsonInstance): Instance
     {
         $json=json_decode($jsonInstance, true);
         $key=$json['metadata']['key'];
@@ -107,7 +107,7 @@ class BaseInstance implements \JsonSerializable
         return $ret;
     }
 
-    public function addToRelation(BaseRelation $relation, BaseInstance $childInstance)
+    public function addToRelation(Relation $relation, Instance $childInstance)
     {
         assert(!empty($relation) && !empty($childInstance));
         if ($relation->isValid($childInstance)) {
@@ -121,7 +121,7 @@ class BaseInstance implements \JsonSerializable
         }
     }
 
-    public function addToRelationByKey(string $key, BaseInstance $child)
+    public function addToRelationByKey(string $key, Instance $child)
     {
         $relation=$this->getClass()->getRelationByKey($key);
         return $this->addToRelation($relation, $child);
@@ -150,7 +150,7 @@ class BaseInstance implements \JsonSerializable
         return $this->class->getKey();
     }
 
-    public function getClass(): BaseClass
+    public function getClass(): Clas
     {
         return $this->class;
     }
@@ -220,14 +220,14 @@ class BaseInstance implements \JsonSerializable
         return ['key'=>$this->key];
     }
 
-    public function validate(): BaseInstance
+    public function validate(): Instance
     {
         foreach ($this->values as $value) {
             $value->validate();
         }
 
         foreach ($this->class->getAttributes() as $attribute) {
-            assert($attribute instanceof BaseAttribute);
+            assert($attribute instanceof Attribute);
             if ($attribute->isMandatory() && $this->isEmptyValueForAttribute($attribute)) {
                 throw new \Exception("Mandatory value missing for attribute ".$attribute->getKey());
             }
@@ -235,7 +235,7 @@ class BaseInstance implements \JsonSerializable
         return $this;
     }
 
-    private function isEmptyValueForAttribute(BaseAttribute $attribute): bool
+    private function isEmptyValueForAttribute(Attribute $attribute): bool
     {
         foreach ($this->values as $value) {
             if ($attribute->getKey()==$value->getKey()) {
@@ -361,7 +361,7 @@ class BaseInstance implements \JsonSerializable
         return $id;
     }
 
-    public static function get(string $id, CmsStorageInstanceInterface $storage): BaseInstance
+    public static function get(string $id, CmsStorageInstanceInterface $storage): Instance
     {
         return $storage::get($id);
     }

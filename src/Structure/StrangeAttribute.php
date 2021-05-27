@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Structure;
 
-class StrangeAttribute extends BaseAttribute
+class StrangeAttribute extends Attribute
 {
     public function getKey(): string
     {

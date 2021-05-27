@@ -2,21 +2,21 @@
 
 namespace Omatech\Editora\Data;
 
-use Omatech\Editora\Structure\BaseRelation;
+use Omatech\Editora\Structure\Relation;
 use Omatech\Editora\Utils\Jsons;
 
-class BaseRelationInstances implements \JsonSerializable
+class RelationInstances implements \JsonSerializable
 {
     private $relation;
     private $children;
 
-    public function __construct(BaseRelation $relation)
+    public function __construct(Relation $relation)
     {
         assert(!empty($relation));
         $this->relation=$relation;
     }
 
-    public function add(BaseInstance $child)
+    public function add(Instance $child)
     {
         assert(!empty($child));
         $this->children[]=$child;

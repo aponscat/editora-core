@@ -19,22 +19,22 @@ class Cms
 
 package "Structure"
 {
-class BaseClass
-class BaseAttribute
-class BaseRelation
+class Class
+class Attribute
+class Relation
 class ImageAttribute
 class CmsStructure
 }
 
 package "Data"
 {
-class BaseInstance
-class BaseRelationInstances
+class Instance
+class RelationInstances
 class TranslatableKey
 }
 
 package "Values" {
-class BaseValue
+class Value
 class ImageValue
 class NumberValue
 class ReverseValue
@@ -64,34 +64,34 @@ class BackOfficeController
 BackOfficeController -- Cms
 Cms o-- CmsStructure
 Cms o-- CmsStorageInstanceInterface
-CmsStructure "1" *-- "*" BaseClass
+CmsStructure "1" *-- "*" Class
 
-BaseClass -- BaseInstance
-BaseClass "1" *-- "*" BaseAttribute
-BaseClass "1" *-- "*"   BaseRelation : children
-BaseAttribute "1" *-- "*subattributes" BaseAttribute
+Class -- Instance
+Class "1" *-- "*" Attribute
+Class "1" *-- "*"   Relation : children
+Attribute "1" *-- "*subattributes" Attribute
 
-BaseRelation "0..1" -- BaseRelationInstances
+Relation "0..1" -- RelationInstances
 
-BaseAttribute <|-- ImageAttribute
+Attribute <|-- ImageAttribute
 
-BaseAttribute "1" - "*" BaseValue
-BaseInstance "1" *.. "*" BaseValue
-BaseInstance "1" *-- "*"  BaseRelationInstances : children
+Attribute "1" - "*" Value
+Instance "1" *.. "*" Value
+Instance "1" *-- "*"  RelationInstances : children
 
 ImageAttribute -- MediaAdapterInterface
 
 TranslationsStorageAdapterInterface "1" *.. "*" TranslatableKey
 
-BaseValue *-- BaseValue
+Value *-- Value
 
-BaseValue <|-- ImageValue
-BaseValue <|-- NumberValue
-BaseValue <|-- ReverseValue
+Value <|-- ImageValue
+Value <|-- NumberValue
+Value <|-- ReverseValue
 
 ImageAttribute -- ImageValue
 
-class BaseInstance {
+class Instance {
   String key
   Date startPublishingDate
   Date endPublishingDate
@@ -110,9 +110,9 @@ class BackOfficeController {
 }
 
 class Cms {
-getClass($key): BaseClass
+getClass($key): Clas
 putJSONInstance(string $json): string
-getInstanceByID(string $id): BaseInstance
+getInstanceByID(string $id): Instance
 getAllInstances()
 }
 @enduml
