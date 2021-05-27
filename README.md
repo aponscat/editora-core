@@ -130,6 +130,7 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 
 src
   - Application
+    - use cases
   - Domain
     - CmsStructure
       aqui les classes
