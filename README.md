@@ -125,3 +125,33 @@ Alvaro: 2,5 meses Core , 2 meses Backoffice
 Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 
 4,5 - 5 meses total
+
+
+
+src
+  - Application
+  - Domain
+    - CmsStructure
+      aqui les classes
+      - Contracts (Ports)
+      - Services (SubCasos d'us)
+    - CmsData
+      - aqui les classes
+      - Contracts (Ports)
+        InstanceRepositoryInterface
+          create($instance):void
+          read($id):$instance
+          update($instance):void
+          delete($instance):void
+      - Services (Subcasos d'us)
+  - Infrastructure
+    - Persistence
+      - Memory
+        InstanceRepository implements InstanceRepositoryInterface	
+      - MongoDB
+        InstanceRepository implements InstanceRepositoryInterface
+      - Eloquent
+        InstanceRepository implements InstanceRepositoryInterface
+        ValuesRepository
+        RelationsRepository
+      - Doctrine
