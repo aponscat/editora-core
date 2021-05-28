@@ -41,13 +41,11 @@ class Relation
     public function isValid(Instance $instance)
     {
         $classKey=$instance->getClassKey();
-        foreach ($this->children as $child)
-        {
+        foreach ($this->children as $child) {
             if ($child==$classKey) {
                 return true;
             }
         }
         return false;
     }
-
 }

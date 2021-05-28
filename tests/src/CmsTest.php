@@ -20,12 +20,15 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('Countries');
 
-        $instance=Instance::create($countryClass, 'country-es', 'O', 
-                  ['country_code'=>'es'
+        $instance=Instance::create(
+            $countryClass,
+            'country-es',
+            'O',
+            ['country_code'=>'es'
                   , 'title:es'=>'España'
                   , 'title:en'=>'Spain'
                   ]
-            );
+        );
         $this->assertTrue($instance->getData('es')==
             ['country_code' => 'es'
             ,'title' => 'España']);
@@ -99,15 +102,17 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('news-item');
 
-        $instance=Instance::create($countryClass, 'first-news-item', 'O', 
-                  ['title:en'=>'First title of a news item'
+        $instance=Instance::create(
+            $countryClass,
+            'first-news-item',
+            'O',
+            ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
                   ['original-filename'=>$originalFilename
                   , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                   ]
                   ]
-                
         );
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
     }
@@ -121,17 +126,18 @@ class CmsTest extends TestCase
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
-        //var_dump($countryClass);
 
-        $instance=Instance::create($newsItemClass, 'first-news-item', 'O', 
-                  ['title:en'=>'First title of a news item'
+        $instance=Instance::create(
+            $newsItemClass,
+            'first-news-item',
+            'O',
+            ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
                   ['original-filename'=>$originalFilename
                   , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                   ]
                   ]
-                
         );
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
 
@@ -140,12 +146,14 @@ class CmsTest extends TestCase
         $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
 
         $categoryClass=$cms->getClass('news-category');
-        $instance=Instance::create($categoryClass, 'tech', 'O', 
-                  ['code'=>'tech'
+        $instance=Instance::create(
+            $categoryClass,
+            'tech',
+            'O',
+            ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
                   , 'title:en'=>'Technology'
                   ]
-                
         );
         $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
@@ -228,27 +236,30 @@ class CmsTest extends TestCase
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
-        //var_dump($countryClass);
 
-        $instanceNewsItem=Instance::create($newsItemClass, 'first-news-item', 'O', 
-                ['title:en'=>'First title of a news item'
+        $instanceNewsItem=Instance::create(
+            $newsItemClass,
+            'first-news-item',
+            'O',
+            ['title:en'=>'First title of a news item'
                 , 'title:es'=>'Primer titular de la noticia'
                 ,'image-with-alt-and-title'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
                 ]
-              
         );
         $this->assertTrue($instanceNewsItem->getData('es')['title']=='Primer titular de la noticia');
 
         $categoryClass=$cms->getClass('news-category');
-        $instanceCategory1=Instance::create($categoryClass, 'tech', 'O', 
-                  ['code'=>'tech'
+        $instanceCategory1=Instance::create(
+            $categoryClass,
+            'tech',
+            'O',
+            ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
                   , 'title:en'=>'Technology'
                   ]
-                
         );
 
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem);

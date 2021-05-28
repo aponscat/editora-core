@@ -23,8 +23,10 @@ class InstanceWithNonStandardAttributesTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance=Instance::create($class, 'news-item-instance', 'O'
-        ,
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             [
               'english-title:en'=>'Hello World Title!'
               ,"english-text:en" => "Hello World Text!"
@@ -90,8 +92,11 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         , ['key'=>'times', 'valueType'=>'Omatech\Editora\Domain\CmsData\NumberValue']
       ]);
         $class=Clas::createFromJSON('numeric-item', $jsonAttributes);
-        $instance=Instance::create($class, 'numeric-item-instance', 'O'
-        , [
+        $instance=Instance::create(
+            $class,
+            'numeric-item-instance',
+            'O',
+            [
         'title:en'=>'Numeric Hello World Title!'
         ,"times" => 42
         ]
@@ -116,8 +121,11 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $class=Clas::createFromJSON('numeric-item', $jsonAttributes);
 
         $this->expectException(\Exception::class);
-        $instance=Instance::create($class, 'numeric-item-instance', 'O'
-        , ['title:en'=>'Numeric Hello World Title!'
+        $instance=Instance::create(
+            $class,
+            'numeric-item-instance',
+            'O',
+            ['title:en'=>'Numeric Hello World Title!'
         ,"times" => 'aaaa'
       ]
         );
@@ -131,8 +139,11 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         , ['key'=>'english-text:en', 'type'=>'\Omatech\Editora\Domain\CmsStructure\StrangeAttribute']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance', 'O'
-        ,  ['english-title-is-strange:en'=>'Hello World Title!'
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
+            ['english-title-is-strange:en'=>'Hello World Title!'
           ,"english-text-is-strange:en" => "Hello World Text!"
       ]
         );
@@ -181,13 +192,15 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $this->assertEquals($class->getAttributeByKey('image-with-width:en')->getHeight(), null);
         $this->assertEquals($class->getAttributeByKey('image-with-width-and-height')->getHeight(), 200);
 
-        $instance=Instance::create($class, 'image-instance', 'O'
-        , ['image-with-height:en'=>
+        $instance=Instance::create(
+            $class,
+            'image-instance',
+            'O',
+            ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
               ]
-            
         );
 
 
@@ -195,21 +208,17 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ['image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
 
 
-        $secondInstance=Instance::create($class, 'second-image-instance', 'O'
-        ,     ['image-with-height:en'=>
+        $secondInstance=Instance::create(
+            $class,
+            'second-image-instance',
+            'O',
+            ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
               ]
-            
         );
 
-        /*
-        $this->assertFalse($secondInstance->getData()==
-        ['key' => 'second-image-instance'
-        ,'image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
-        */
-        
         $this->assertTrue($secondInstance->getMultilanguageData(true)['metadata']['key']=='second-image-instance');
         $this->assertStringStartsWith("$publicPath".'/'.date_format(date_create(), 'Ymd')."/", $secondInstance->getData()['image-with-height']);
         $this->assertStringEndsWith($originalFilename, $secondInstance->getData()['image-with-height']);

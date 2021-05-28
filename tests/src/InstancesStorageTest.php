@@ -26,8 +26,11 @@ class InstancesStorageTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance1=Instance::create($class, 'news-item-instance', 'O'
-        , [
+        $instance1=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
+            [
               'title:en'=>'Hello World Title!'
               ,"text:en" => "Hello World Text!"
               ,"title:es" => "Hola Mundo!"

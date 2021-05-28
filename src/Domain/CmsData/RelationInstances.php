@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsData;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Utils\Jsons;
 
-class RelationInstances 
+class RelationInstances
 {
     private $relation;
     private $children;

@@ -48,7 +48,10 @@ class InstanceTest extends TestCase
         , ['key'=>'english-text:en']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance', 'O', 
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             [
             'english-title:en'=>'Hello World Title!'
             ,"english-text:en" => "Hello World Text!"
@@ -82,7 +85,10 @@ class InstanceTest extends TestCase
         , ['key'=>'english-text:en']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance', 'O', 
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             ['english-title:en'=>'Hello World Title!']
         );
         $this->assertTrue(
@@ -128,7 +134,10 @@ class InstanceTest extends TestCase
 
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
-        $instance=Instance::create($class, 'news-item-instance', 'O', 
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             [
             ['english-title:en'=>'Hello World Title!']
             ,["english-text:en" => "Hello World Text!"]
@@ -145,7 +154,10 @@ class InstanceTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
-        $instance=Instance::create($class, 'news-item-instance', 'O', 
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             ["english-text:en" => "Hello World Text!"]
         );
     }
@@ -162,7 +174,10 @@ class InstanceTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance=Instance::create($class, 'news-item-instance', 'O', 
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             ['english-title:en'=>'Hello World Title!'
             ,"english-text:en" => "Hello World Text!"
             ,"spanish-title:es" => "Hola Mundo!"
@@ -226,7 +241,10 @@ class InstanceTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance=Instance::create($class, 'news-item-instance', 'O', 
+        $instance=Instance::create(
+            $class,
+            'news-item-instance',
+            'O',
             [
             'title:en'=>'Hello World Title!'
             ,"text:en" => "Hello World Text!"

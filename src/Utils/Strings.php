@@ -12,18 +12,18 @@ class Strings
 
     public static function substringBefore($haystack, $needle)
     {
-        if ($i=stripos($haystack, $needle)) {// Needle found, return from start to needle
+        if ($i=stripos($haystack, $needle)) {
             return(substr($haystack, 0, $i));
-        } else {// Needle not found
+        } else {
             return $haystack;
         }
     }
 
     public static function substringAfter($haystack, $needle)
     {
-        if ($i=strripos($haystack, $needle)) {// Needle found, return from start to needle
+        if ($i=strripos($haystack, $needle)) {
             return(substr($haystack, $i+1));
-        } else {// Needle not found
+        } else {
             return $haystack;
         }
     }

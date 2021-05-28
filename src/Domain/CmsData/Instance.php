@@ -40,7 +40,7 @@ class Instance
         }
     }
 
-    public static function fromArray(Clas $class, array $arr): Instance 
+    public static function fromArray(Clas $class, array $arr): Instance
     {
         assert(isset($arr['metadata']['key']));
         $key=$arr['metadata']['key'];
@@ -58,13 +58,13 @@ class Instance
         $valuesArray=[];
         if ($values) {
             foreach ($values as $attributeKey=>$value) {
-                    if ($class->existsAttribute($attributeKey)) {
-                        $atri=$class->createAttributeFromKey($attributeKey);
-                        $valuesArray[]=$atri->createValue($value);
-                    } else {
-                        throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
-                    }
+                if ($class->existsAttribute($attributeKey)) {
+                    $atri=$class->createAttributeFromKey($attributeKey);
+                    $valuesArray[]=$atri->createValue($value);
+                } else {
+                    throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
                 }
+            }
         }
 
         $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
@@ -76,7 +76,7 @@ class Instance
 
     public function toArray()
     {
-        return 
+        return
         $this->getInstanceMetadata()
         +['values'=>$this->getValuesArray()];
     }
@@ -84,8 +84,7 @@ class Instance
     public function getValuesArray()
     {
         $ret=[];
-        foreach ($this->values as $key=>$val)
-        {
+        foreach ($this->values as $key=>$val) {
             $ret+=$val->toArray();
         }
         return $ret;
@@ -205,11 +204,10 @@ class Instance
 
     public function validate(): Instance
     {
-        if ($this->values)
-        {
+        if ($this->values) {
             foreach ($this->values as $value) {
                 $value->validate();
-            }    
+            }
         }
 
         foreach ($this->class->getAttributes() as $attribute) {
@@ -223,7 +221,9 @@ class Instance
 
     private function isEmptyValueForAttribute(Attribute $attribute): bool
     {
-        if (!$this->values) {return false;}
+        if (!$this->values) {
+            return false;
+        }
         foreach ($this->values as $value) {
             if ($attribute->getKey()==$value->getKey()) {
                 return false;

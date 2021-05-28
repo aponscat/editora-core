@@ -51,5 +51,4 @@ class ArrayStorageAdapter implements CmsStorageInstanceInterface
         $class=self::$structure->getClass($classKey);
         return Instance::fromArray($class, $arr);
     }
-
 }

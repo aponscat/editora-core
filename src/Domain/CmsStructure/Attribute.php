@@ -6,8 +6,7 @@ use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Utils\Strings;
 use Omatech\Editora\Utils\Jsons;
 
-
-class Attribute 
+class Attribute
 {
     protected $key;
     protected $language='ALL';

@@ -20,22 +20,7 @@ class SerializeUnserializeTest extends TestCase
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
-/*
-        $instance1='
-        {
-          "metadata":{"status":"O"
-            ,"class":"news-item"
-            ,"key":"first-news-item"}
-            ,"values":[
-            {"title:en":"First news item title"}
-            ,{"title:es":"Primer titular de la noticia"}
-            ,{"image-with-alt-and-title":
-            [{"original-filename":"fff"}
-            ,{"data":"aaaa"}
-            ]}
-          ]
-        }';
-*/
+
         $instance1=[
             'metadata'=>[
                 'class'=>'news-item'
@@ -53,36 +38,15 @@ class SerializeUnserializeTest extends TestCase
 
         $id1=$cms->putArrayInstance($instance1);
 
-        /*
-        $instance2='
-        {
-        "metadata":{"status":"O"
-            ,"class":"news-category"
-            ,"key":"society"}
-            ,"values":[
-            {"code":"society"}
-            ,{"title:es":"Sociedad"}
-            ,{"title:en":"Society"}
-            ]
-        }';
-
-        $id2=$cms->putJSONInstance($instance2);
-*/
-
-        foreach ($storage->all() as $instance)
-        {
-          if($instance->getKey()=='first-news-item')
-            {
+        foreach ($storage->all() as $instance) {
+            if ($instance->getKey()=='first-news-item') {
                 $this->assertTrue($instance->getData('en')['title']=='First news item title');
                 $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
             }
-            if($instance->getKey()=='society')
-            {
+            if ($instance->getKey()=='society') {
                 $this->assertTrue($instance->getData('en')['title']=='Society');
                 $this->assertTrue($instance->getData('es')['title']=='Sociedad');
             }
-
         }
-
     }
 }

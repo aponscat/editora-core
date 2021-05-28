@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsStructure;
 use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Adapters\MediaAdapterInterface;
 
-class ImageAttribute extends Attribute 
+class ImageAttribute extends Attribute
 {
     protected $width=null;
     protected $height=null;

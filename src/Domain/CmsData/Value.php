@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsData;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Utils\Strings;
 
-class Value 
+class Value
 {
     protected $attribute;
     protected $value;
@@ -21,15 +21,13 @@ class Value
 
     public function toArray()
     {
-        if ($this->subvalues)
-        {
-            return 
+        if ($this->subValues) {
+            return
             [$this->attribute->getFullyQualifiedKey()=>$this->value]
-            +$this->getSubValuesData();    
+            +$this->getSubValuesData();
         }
-        return 
+        return
         [$this->attribute->getFullyQualifiedKey()=>$this->value];
-
     }
 
     public function setSubValues($value=null)
@@ -45,8 +43,7 @@ class Value
 
     public function getSubValue($key)
     {
-        if ($this->subValues && isset($this->subValues[$key]))
-        {
+        if ($this->subValues && isset($this->subValues[$key])) {
             return $this->subValues[$key];
         }
         return null;
@@ -59,16 +56,13 @@ class Value
 
     public function getSubValuesData($language='ALL'): ?array
     {
-        if ($this->attribute->hasSubAttributes($language))
-        {
+        if ($this->attribute->hasSubAttributes($language)) {
             $atriKey=$this->attribute->getKey();
             $res=[];
-            foreach ($this->attribute->getSubAttributes($language) as $subattribute)
-            {
+            foreach ($this->attribute->getSubAttributes($language) as $subattribute) {
                 $subFullKey=$subattribute->getFullyQualifiedKey();
                 $subkey=$subattribute->getKey();
-                if ($this->hasSubValue($subFullKey))
-                {
+                if ($this->hasSubValue($subFullKey)) {
                     $subval=$this->getSubValue($subFullKey);
                     $res+=[$subkey=>$subval];
                 }
@@ -117,8 +111,7 @@ class Value
 
     public function getSingleData($language='ALL'): ?array
     {
-        if ($this->attribute->availableInLanguage($language))
-        {
+        if ($this->attribute->availableInLanguage($language)) {
             return $this->getKeyVal();
         }
         return null;
@@ -133,5 +126,4 @@ class Value
     {
         return true;
     }
-
 }

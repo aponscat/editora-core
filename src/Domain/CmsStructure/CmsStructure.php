@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Domain\CmsStructure;
 
-class CmsStructure //implements \JsonSerializable
+class CmsStructure
 {
     private $classes;
     private $languages;
@@ -138,12 +138,12 @@ class CmsStructure //implements \JsonSerializable
         return $res;
     }
 
-   public function toArray()
-   {
-    $res=['classes'=>$this->serializeClasses()
+    public function toArray()
+    {
+        $res=['classes'=>$this->serializeClasses()
     , 'languages'=>$this->languages];
-    return $res;
-   }
+        return $res;
+    }
 
     public function addLanguage(string $isoCode)
     {

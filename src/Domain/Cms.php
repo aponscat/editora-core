@@ -60,5 +60,4 @@ class Cms
     {
         return $this->structure;
     }
-
 }

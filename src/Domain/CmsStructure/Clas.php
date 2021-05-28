@@ -4,7 +4,7 @@ namespace Omatech\Editora\Domain\CmsStructure;
 
 use Omatech\Editora\Utils\Jsons;
 
-class Clas 
+class Clas
 {
     private $key;
     private $attributes;
@@ -57,23 +57,17 @@ class Clas
         }
         $returnClass=self::createFromAttributesArray($key, $attributesInstances);
 
-        if ($jsonRelations)
-        {
+        if ($jsonRelations) {
             $relations=json_decode($jsonRelations, true);
             assert(json_last_error() == JSON_ERROR_NONE);
-            if ($relations)
-            {
+            if ($relations) {
                 assert(is_array($relations));
-                foreach ($relations as $relationKey=>$children)
-                {
-                        $returnClass->addRelation(new Relation($relationKey, $children));    
+                foreach ($relations as $relationKey=>$children) {
+                    $returnClass->addRelation(new Relation($relationKey, $children));
                 }
-    
             }
-    
         }
         return $returnClass;
-
     }
 
     
@@ -84,8 +78,7 @@ class Clas
           'attributes'=>$this->serializeAttributes()
         ];
 
-        if ($this->relations)
-        {
+        if ($this->relations) {
             $res[$this->getKey()]['relations']=$this->serializeRelations();
         }
 
@@ -104,11 +97,9 @@ class Clas
 
     public function serializeRelations()
     {
-        if ($this->relations)
-        {
+        if ($this->relations) {
             $res=[];
-            foreach ($this->relations as $key=>$relation)
-            {
+            foreach ($this->relations as $key=>$relation) {
                 $res[$key]=$relation->getChildrenKeys();
             }
             return $res;
@@ -118,11 +109,9 @@ class Clas
 
     public function serializeAttributes()
     {
-        if ($this->attributes)
-        {
+        if ($this->attributes) {
             $res=[];
-            foreach ($this->attributes as $key=>$attribute)
-            {
+            foreach ($this->attributes as $key=>$attribute) {
                 $res[$key]=$attribute->toArray();
             }
             return $res;
@@ -143,13 +132,10 @@ class Clas
 
     public function getRelationByKey(string $key): ?Relation
     {
-        if ($this->relations)
-        {
-            foreach ($this->relations as $relationKey=>$relation)
-            {
-               if ($relationKey===$key)
-                {
-                   return $relation;
+        if ($this->relations) {
+            foreach ($this->relations as $relationKey=>$relation) {
+                if ($relationKey===$key) {
+                    return $relation;
                 }
             }
         }
