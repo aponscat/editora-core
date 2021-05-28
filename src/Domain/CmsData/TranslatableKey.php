@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Domain\CmsData;
 
-class TranslatableKey implements \JsonSerializable
+class TranslatableKey 
 {
     private $key;
     private $translations;
@@ -55,9 +55,11 @@ class TranslatableKey implements \JsonSerializable
         return $this->key;
     }
 
+    /*
     public function jsonSerialize()
     {
         $res=[$this->key=>$this->translations];
         return $res;
     }
+    */
 }

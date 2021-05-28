@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsData\Instance;
 
-class Cms implements \JsonSerializable
+class Cms
 {
     private $structure;
     private $storage;
@@ -21,26 +21,16 @@ class Cms implements \JsonSerializable
         return $this->structure->getClass($key);
     }
 
-    public function jsonSerialize()
-    {
-        return $this->structure->jsonSerialize();
-    }
-
     public function putInstance(Instance $instance)
     {
         return $instance->put($this->storage);
     }
 
-    public function putJSONInstance(string $json)
+    public function putArrayInstance($arr)
     {
-        $jsonInstance=json_decode($json, true);
-        assert(json_last_error() == JSON_ERROR_NONE);
-        if (!isset($jsonInstance['metadata']['class']))
-        {
-            throw new \Exception("metadata.class not found in json: $json\n");
-        }
-        $class=$this->getClass($jsonInstance['metadata']['class']);
-        $instance=Instance::createFromJSONWithMetadata($class, $json);
+        assert(isset($arr['metadata']['class']));
+        $class=$this->getClass($arr['metadata']['class']);
+        $instance=Instance::fromArray($class, $arr);
         return $this->putInstance($instance);
     }
 

@@ -20,15 +20,12 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('Countries');
 
-        $instance=Instance::createFromJSON($countryClass, 'country-es', 'O', json_encode(
-            [
+        $instance=Instance::create($countryClass, 'country-es', 'O', 
                   ['country_code'=>'es'
                   , 'title:es'=>'España'
                   , 'title:en'=>'Spain'
                   ]
-            ]
-                
-        ));
+            );
         $this->assertTrue($instance->getData('es')==
             ['country_code' => 'es'
             ,'title' => 'España']);
@@ -86,7 +83,7 @@ class CmsTest extends TestCase
         $structure->addClass($category);
         $structure->addClass($newsItem);
 
-        file_put_contents(dirname(__FILE__).'/../data/simple_modern.json', json_encode($structure->jsonSerialize(), JSON_PRETTY_PRINT));
+        file_put_contents(dirname(__FILE__).'/../data/simple_modern.json', json_encode($structure->toArray(), JSON_PRETTY_PRINT));
 
         $this->assertTrue(true);
     }
@@ -102,8 +99,7 @@ class CmsTest extends TestCase
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('news-item');
 
-        $instance=Instance::createFromJSON($countryClass, 'first-news-item', 'O', json_encode(
-            [
+        $instance=Instance::create($countryClass, 'first-news-item', 'O', 
                   ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
@@ -111,8 +107,8 @@ class CmsTest extends TestCase
                   , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                   ]
                   ]
-                ]
-        ));
+                
+        );
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
     }
 
@@ -127,8 +123,7 @@ class CmsTest extends TestCase
         $newsItemClass=$cms->getClass('news-item');
         //var_dump($countryClass);
 
-        $instance=Instance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
-            [
+        $instance=Instance::create($newsItemClass, 'first-news-item', 'O', 
                   ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
@@ -136,8 +131,8 @@ class CmsTest extends TestCase
                   , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                   ]
                   ]
-                ]
-        ));
+                
+        );
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
 
         $id1=$cms->putInstance($instance);
@@ -145,33 +140,32 @@ class CmsTest extends TestCase
         $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
 
         $categoryClass=$cms->getClass('news-category');
-        $instance=Instance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
-            [
+        $instance=Instance::create($categoryClass, 'tech', 'O', 
                   ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
                   , 'title:en'=>'Technology'
                   ]
-                ]
-        ));
+                
+        );
         $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
         $id2=$cms->putInstance($instance);
         $instance3=$cms->getInstanceById($id2);
         $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
 
-        $instance4='
-        {
-            "metadata":{"status":"O"
-                ,"class":"news-category"
-                ,"key":"society"}
-                ,"values":[
-                {"code":"society"}
-                ,{"title:es":"Sociedad"}
-                ,{"title:en":"Society"}
-                ]
-            }';
+        $instance4=['metadata'=>[
+            'status'=>'O'
+            ,'class'=>'news-category'
+            ,'key'=>'society'
+        ]
+            ,'values'=>[
+                'code'=>'society'
+                ,'title:es'=>'Sociedad'
+                ,'title:en'=>'Society'
+            ]
+        ];
 
-        $id3=$cms->putJSONInstance($instance4);
+        $id3=$cms->putArrayInstance($instance4);
         $instance5=$cms->getInstanceById($id3);
         $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
 
@@ -236,8 +230,7 @@ class CmsTest extends TestCase
         $newsItemClass=$cms->getClass('news-item');
         //var_dump($countryClass);
 
-        $instanceNewsItem=Instance::createFromJSON($newsItemClass, 'first-news-item', 'O', json_encode(
-            [
+        $instanceNewsItem=Instance::create($newsItemClass, 'first-news-item', 'O', 
                 ['title:en'=>'First title of a news item'
                 , 'title:es'=>'Primer titular de la noticia'
                 ,'image-with-alt-and-title'=>
@@ -245,37 +238,36 @@ class CmsTest extends TestCase
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
                 ]
-              ]
-        ));
+              
+        );
         $this->assertTrue($instanceNewsItem->getData('es')['title']=='Primer titular de la noticia');
 
         $categoryClass=$cms->getClass('news-category');
-        $instanceCategory1=Instance::createFromJSON($categoryClass, 'tech', 'O', json_encode(
-            [
+        $instanceCategory1=Instance::create($categoryClass, 'tech', 'O', 
                   ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
                   , 'title:en'=>'Technology'
                   ]
-                ]
-        ));
+                
+        );
 
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem);
         $idCategory1=$cms->putInstance($instanceCategory1);
 
-        $instanceCategory2='
-        {
-        "metadata":{"status":"O"
-            ,"class":"news-category"
-            ,"key":"society"}
-            ,"values":[
-            {"code":"society"}
-            ,{"title:es":"Sociedad"}
-            ,{"title:en":"Society"}
+        $instanceCategory2=['metadata'=>[
+            'status'=>'O'
+            ,'class'=>'news-category'
+            ,'key'=>'society'
+        ]
+            ,'values'=>[
+                'code'=>'society'
+                ,'title:es'=>'Sociedad'
+                ,'title:en'=>'Society'
             ]
-        }';
+        ];
 
 
-        $idCategory2=$cms->putJSONInstance($instanceCategory2);
+        $idCategory2=$cms->putArrayInstance($instanceCategory2);
         $instancesInStorage=$cms->getAllInstances();
 
         $this->assertTrue(array_key_exists($idCategory1, $instancesInStorage));

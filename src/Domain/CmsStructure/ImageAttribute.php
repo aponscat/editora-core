@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsStructure;
 use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Adapters\MediaAdapterInterface;
 
-class ImageAttribute extends Attribute implements \JsonSerializable
+class ImageAttribute extends Attribute 
 {
     protected $width=null;
     protected $height=null;
@@ -43,24 +43,6 @@ class ImageAttribute extends Attribute implements \JsonSerializable
             }
         }
     }
-
-    /*
-    public function jsonSerialize()
-    {
-        $res=parent::jsonSerialize();
-        $res[$this->getKey()]['width']=$this->width;
-        $res[$this->getKey()]['height']=$this->height;
-        $res[$this->getKey()]['storagePath']=$this->storagePath;
-        $res[$this->getKey()]['publicPath']=$this->publicPath;
-        return $res;
-    }
-*/
-    /*
-    public function getMediaAdapter(): MediaAdapterInterface
-    {
-        return new $this->adapters['media'];
-    }
-    */
     
     public function getWidth()
     {

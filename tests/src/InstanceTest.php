@@ -17,7 +17,7 @@ class InstanceTest extends TestCase
         $class=Clas::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
         $valTitle=new Value($atriTitle, 'Hello World Title!');
         $valText=new Value($atriText, 'Hello World Text!');
-        $instance=Instance::createFromValuesArray($class, 'news-item-instance', 'O', [$valTitle, $valText]);
+        $instance=Instance::create($class, 'news-item-instance', 'O', $valTitle->toArray()+$valText->toArray());
 
         $this->assertTrue(
             $instance->getData()==
@@ -48,12 +48,12 @@ class InstanceTest extends TestCase
         , ['key'=>'english-text:en']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+        $instance=Instance::create($class, 'news-item-instance', 'O', 
             [
-            ['english-title:en'=>'Hello World Title!']
-            ,["english-text:en" => "Hello World Text!"]
+            'english-title:en'=>'Hello World Title!'
+            ,"english-text:en" => "Hello World Text!"
       ]
-        ));
+        );
         $this->assertTrue(
             $instance->getData()==
         [
@@ -82,11 +82,9 @@ class InstanceTest extends TestCase
         , ['key'=>'english-text:en']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
-            [
+        $instance=Instance::create($class, 'news-item-instance', 'O', 
             ['english-title:en'=>'Hello World Title!']
-      ]
-        ));
+        );
         $this->assertTrue(
             $instance->getData()==
         [
@@ -118,7 +116,7 @@ class InstanceTest extends TestCase
         $valText=new Value($atriText, 'Hello World Text!');
         $valInexistentText=new Value($atriInexistentText, 'Inexistent Text!');
         $this->expectException(\Exception::class);
-        $instance=Instance::createFromValuesArray($class, 'news-item-instance', 'O', [$valTitle, $valText, $valInexistentText]);
+        $instance=Instance::create($class, 'news-item-instance', 'O', [$valTitle, $valText, $valInexistentText]);
     }
 
     public function testSetDataInNonExistingAttributeFromJSON(): void
@@ -130,13 +128,13 @@ class InstanceTest extends TestCase
 
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
-        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+        $instance=Instance::create($class, 'news-item-instance', 'O', 
             [
             ['english-title:en'=>'Hello World Title!']
             ,["english-text:en" => "Hello World Text!"]
             ,["english-nonexistent:en" => "Hello World Text!"]
       ]
-        ));
+        );
     }
 
     public function testMissingMandatoryAttributeFromJSON(): void
@@ -147,11 +145,9 @@ class InstanceTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
-        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
-            [
+        $instance=Instance::create($class, 'news-item-instance', 'O', 
             ["english-text:en" => "Hello World Text!"]
-      ]
-        ));
+        );
     }
 
 
@@ -166,15 +162,14 @@ class InstanceTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
-            [
-            ['english-title:en'=>'Hello World Title!']
-            ,["english-text:en" => "Hello World Text!"]
-            ,["spanish-title:es" => "Hola Mundo!"]
-            ,["spanish-text:es" => "Hola Mundo Text!"]
-            ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
-      ]
-        ));
+        $instance=Instance::create($class, 'news-item-instance', 'O', 
+            ['english-title:en'=>'Hello World Title!'
+            ,"english-text:en" => "Hello World Text!"
+            ,"spanish-title:es" => "Hola Mundo!"
+            ,"spanish-text:es" => "Hola Mundo Text!"
+            ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            ]
+        );
         $this->assertTrue(
             $instance->getData('en')==
         [
@@ -231,15 +226,15 @@ class InstanceTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
+        $instance=Instance::create($class, 'news-item-instance', 'O', 
             [
-            ['title:en'=>'Hello World Title!']
-            ,["text:en" => "Hello World Text!"]
-            ,["title:es" => "Hola Mundo!"]
-            ,["text:es" => "Hola Mundo Text!"]
-            ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
+            'title:en'=>'Hello World Title!'
+            ,"text:en" => "Hello World Text!"
+            ,"title:es" => "Hola Mundo!"
+            ,"text:es" => "Hola Mundo Text!"
+            ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
-        ));
+        );
         $this->assertTrue(
             $instance->getMultilanguageData()==
         [

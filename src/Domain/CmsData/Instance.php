@@ -8,9 +8,8 @@ use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsData\RelationInstances;
-use Omatech\Editora\Utils\Jsons;
 
-class Instance implements \JsonSerializable
+class Instance
 {
     private $class;
     private $key;
@@ -41,24 +40,24 @@ class Instance implements \JsonSerializable
         }
     }
 
-    public static function createFromValuesArray(Clas $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    public static function fromArray(Clas $class, array $arr): Instance 
     {
-        $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
-        if ($values) {
-            $inst->setValues($values);
-        }
-        return $inst->validate();
+        assert(isset($arr['metadata']['key']));
+        $key=$arr['metadata']['key'];
+        $status=(isset($arr['metadata']['status']))?$arr['metadata']['status']:'O';
+        $startPublishingDate=(isset($arr['metadata']['startPublishingDate']))?$arr['metadata']['startPublishingDate']:null;
+        $endPublishingDate=(isset($arr['metadata']['endPublishingDate']))?$arr['metadata']['endPublishingDate']:null;
+        $externalID=(isset($arr['metadata']['externalID']))?$arr['metadata']['externalID']:null;
+        $storageID=(isset($arr['metadata']['ID']))?$arr['metadata']['ID']:null;
+
+        return self::create($class, $key, $status, $arr['values'], $startPublishingDate, $endPublishingDate, $externalID, $storageID);
     }
 
-    public static function createFromJSON(Clas $class, string $key, string $status, string $jsonValues=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    public static function create(Clas $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
     {
         $valuesArray=[];
-        if ($jsonValues) {
-            $values=json_decode($jsonValues, true);
-            assert(json_last_error() == JSON_ERROR_NONE);
-            foreach ($values as $singleValue) {
-                assert(is_array($singleValue));
-                foreach ($singleValue as $attributeKey=>$value) {
+        if ($values) {
+            foreach ($values as $attributeKey=>$value) {
                     if ($class->existsAttribute($attributeKey)) {
                         $atri=$class->createAttributeFromKey($attributeKey);
                         $valuesArray[]=$atri->createValue($value);
@@ -66,44 +65,29 @@ class Instance implements \JsonSerializable
                         throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
                     }
                 }
-            }
         }
-        return self::createFromValuesArray($class, $key, $status, $valuesArray, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
+
+        $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
+        if ($valuesArray) {
+            $inst->setValues($valuesArray);
+        }
+        return $inst->validate();
     }
 
-    public static function createFromJSONWithMetadata(Clas $class, string $jsonInstance): Instance
+    public function toArray()
     {
-        $json=json_decode($jsonInstance, true);
-        $key=$json['metadata']['key'];
-        $status=$json['metadata']['status'];
-        $startPublishingDate=(isset($json['metadata']['startPublishingDate']))?$json['metadata']['startPublishingDate']:null;
-        $endPublishingDate=(isset($json['metadata']['endPublishingDate']))?$json['metadata']['endPublishingDate']:null;
-        $externalID=(isset($json['metadata']['externalID']))?$json['metadata']['externalID']:null;
-        $storageID=(isset($json['metadata']['ID']))?$json['metadata']['ID']:null;
-
-        $values=json_encode($json['values']);
-        return self::createFromJSON($class, $key, $status, $values, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
+        return 
+        $this->getInstanceMetadata()
+        +['values'=>$this->getValuesArray()];
     }
 
-    private function serializeValues()
+    public function getValuesArray()
     {
-        if (!$this->values) {
-            return null;
+        $ret=[];
+        foreach ($this->values as $key=>$val)
+        {
+            $ret+=$val->toArray();
         }
-        $res=[];
-        foreach ($this->values as $value) {
-            $res[]=$value->jsonSerialize();
-        }
-        return $res;
-    }
-
-    public function jsonSerialize()
-    {
-        $ret=$this->getInstanceHeaderData();
-        $ret=$ret+$this->getInstanceMetadata();
-        $ret['values']=$this->serializeValues();
-        $ret['relations']=Jsons::mapSerialize($this->relations);
-
         return $ret;
     }
 
@@ -157,7 +141,6 @@ class Instance implements \JsonSerializable
 
     public function getData($language='ALL', $withMetadata=false): array
     {
-        //$ret=$this->getInstanceHeaderData();
         $ret=[];
         if ($withMetadata) {
             $ret=$ret+$this->getInstanceMetadata();
@@ -222,8 +205,11 @@ class Instance implements \JsonSerializable
 
     public function validate(): Instance
     {
-        foreach ($this->values as $value) {
-            $value->validate();
+        if ($this->values)
+        {
+            foreach ($this->values as $value) {
+                $value->validate();
+            }    
         }
 
         foreach ($this->class->getAttributes() as $attribute) {
@@ -237,6 +223,7 @@ class Instance implements \JsonSerializable
 
     private function isEmptyValueForAttribute(Attribute $attribute): bool
     {
+        if (!$this->values) {return false;}
         foreach ($this->values as $value) {
             if ($attribute->getKey()==$value->getKey()) {
                 return false;
@@ -264,7 +251,7 @@ class Instance implements \JsonSerializable
             return false;
         }
 
-        // Status==O
+        // POST Cond: Status==O
         if ($time==null) {
             $time=time();
         }

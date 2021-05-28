@@ -4,10 +4,9 @@ namespace Omatech\Editora\Domain\CmsStructure;
 
 use Omatech\Editora\Domain\CmsData\Instance;
 
-class Relation implements \JsonSerializable
+class Relation
 {
     private $key;
-    //private $name;
     private $children;
 
     public function __construct($key, $children)
@@ -15,18 +14,10 @@ class Relation implements \JsonSerializable
         assert(!empty($key));
         assert(!empty($children) && \is_array($children));
         $this->key=$key;
-        //$this->name=$name;
 
         foreach ($children as $child) {
-            //assert($child instanceof Class);
             $this->children[]=$child;
         }
-    }
-
-    public function jsonSerialize()
-    {
-        $res=[$this->getKey()=>['children'=>$this->getChildrenKeys()]];
-        return $res;
     }
 
     public function getKey(): string

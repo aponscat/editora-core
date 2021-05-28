@@ -4,7 +4,7 @@ namespace Omatech\Editora\Domain\CmsStructure;
 
 use Omatech\Editora\Utils\Jsons;
 
-class Clas implements \JsonSerializable
+class Clas 
 {
     private $key;
     private $attributes;
@@ -76,11 +76,12 @@ class Clas implements \JsonSerializable
 
     }
 
-    public function jsonSerialize()
+    
+    public function toArray()
     {
         $res[$this->getKey()]=
         [
-          'attributes'=>Jsons::mapSerialize($this->attributes)
+          'attributes'=>$this->serializeAttributes()
         ];
 
         if ($this->relations)
@@ -93,7 +94,7 @@ class Clas implements \JsonSerializable
 
     public function getData(): array
     {
-        return $this->jsonSerialize();
+        return $this->toArray();
     }
 
     public function addRelation(Relation $relation): void
@@ -109,6 +110,20 @@ class Clas implements \JsonSerializable
             foreach ($this->relations as $key=>$relation)
             {
                 $res[$key]=$relation->getChildrenKeys();
+            }
+            return $res;
+        }
+        return null;
+    }
+
+    public function serializeAttributes()
+    {
+        if ($this->attributes)
+        {
+            $res=[];
+            foreach ($this->attributes as $key=>$attribute)
+            {
+                $res[$key]=$attribute->toArray();
             }
             return $res;
         }

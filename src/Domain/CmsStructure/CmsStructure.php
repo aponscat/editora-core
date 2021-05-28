@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Domain\CmsStructure;
 
-class CmsStructure implements \JsonSerializable
+class CmsStructure //implements \JsonSerializable
 {
     private $classes;
     private $languages;
@@ -129,21 +129,21 @@ class CmsStructure implements \JsonSerializable
         throw new \Exception("$key class not found valid keys are: $parsedClassKeys!");
     }
 
-    public function jsonSerialize()
-    {
-        $res=['classes'=>$this->serializeClasses()
-        , 'languages'=>$this->languages];
-        return $res;
-    }
-
     public function serializeClasses()
     {
         $res=[];
         foreach ($this->classes as $class) {
-            $res[$class->getKey()]=$class->jsonSerialize()[$class->getKey()];
+            $res[$class->getKey()]=$class->toArray()[$class->getKey()];
         }
         return $res;
     }
+
+   public function toArray()
+   {
+    $res=['classes'=>$this->serializeClasses()
+    , 'languages'=>$this->languages];
+    return $res;
+   }
 
     public function addLanguage(string $isoCode)
     {

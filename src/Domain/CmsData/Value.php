@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsData;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Utils\Strings;
 
-class Value implements \JsonSerializable
+class Value 
 {
     protected $attribute;
     protected $value;
@@ -19,15 +19,17 @@ class Value implements \JsonSerializable
         $this->validate();
     }
 
-    public function jsonSerialize()
+    public function toArray()
     {
-        $res=[];
-        $res+=[$this->getFullyQualifiedKey()=>$this->value];
         if ($this->subvalues)
         {
-            $res+=$this->getSubValuesData();
+            return 
+            [$this->attribute->getFullyQualifiedKey()=>$this->value]
+            +$this->getSubValuesData();    
         }
-        return $res;
+        return 
+        [$this->attribute->getFullyQualifiedKey()=>$this->value];
+
     }
 
     public function setSubValues($value=null)

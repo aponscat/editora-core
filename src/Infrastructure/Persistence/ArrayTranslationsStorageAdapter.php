@@ -5,7 +5,7 @@ namespace Omatech\Editora\Infrastructure\Persistence;
 use Omatech\Editora\Domain\CmsData\TranslatableKey;
 use Omatech\Editora\Ports\TranslationsStorageInterface;
 
-class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface, \JsonSerializable
+class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
 {
     private static $translations=[];
 
@@ -53,14 +53,5 @@ class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface, \
             return self::get($key)->get($language);
         }
         return $key;
-    }
-
-    public function jsonSerialize()
-    {
-        $res=[];
-        foreach (self::$translations as $key=>$translation) {
-            $res+=[$key=>json_encode($translation)];
-        }
-        return $res;
     }
 }

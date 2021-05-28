@@ -25,32 +25,31 @@ class ArrayStorageAdapter implements CmsStorageInstanceInterface
 
     public static function put(string $id, Instance $instance)
     {
-        self::$instances[$id]=json_encode($instance);
+        self::$instances[$id]=$instance->toArray();
     }
 
     public static function get(string $id): Instance
     {
-        $json=self::$instances[$id];
-        return self::decodeInstanceJSON($json);
+        $arr=self::$instances[$id];
+        return self::hydrateInstance($arr);
     }
 
     public static function all(): array
     {
         $ret=[];
         if (!empty(self::$instances)) {
-            foreach (self::$instances as $id=>$json) {
-                $ret[$id]=self::decodeInstanceJSON($json);
+            foreach (self::$instances as $id=>$arr) {
+                $ret[$id]=self::hydrateInstance($arr);
             }
         }
         return $ret;
     }
 
-    private static function decodeInstanceJSON($json)
+    private static function hydrateInstance($arr): Instance
     {
-        $jsonArray=json_decode($json, true);
-        $classKey=$jsonArray['metadata']['class'];
+        $classKey=$arr['metadata']['class'];
         $class=self::$structure->getClass($classKey);
-        
-        return Instance::createFromJSONWithMetadata($class, $json);
+        return Instance::fromArray($class, $arr);
     }
+
 }

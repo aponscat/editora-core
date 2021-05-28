@@ -7,7 +7,7 @@ use Omatech\Editora\Utils\Strings;
 use Omatech\Editora\Utils\Jsons;
 
 
-class Attribute implements \JsonSerializable
+class Attribute 
 {
     protected $key;
     protected $language='ALL';
@@ -135,7 +135,8 @@ class Attribute implements \JsonSerializable
         return null;
     }
 
-    public function jsonSerialize()
+    
+    public function toArray()
     {
         $res['key']=$this->getFullyQualifiedKey();
         if ($this->config) {
@@ -150,7 +151,7 @@ class Attribute implements \JsonSerializable
 
     public function getData(): array
     {
-        return $this->jsonSerialize();
+        return $this->toArray();
     }
 
     public function createValue($value): Value

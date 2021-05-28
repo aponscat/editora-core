@@ -20,7 +20,7 @@ class SerializeUnserializeTest extends TestCase
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
         $storage=new ArrayStorageAdapter($structure);
         $cms=new Cms($structure, $storage);
-
+/*
         $instance1='
         {
           "metadata":{"status":"O"
@@ -35,9 +35,25 @@ class SerializeUnserializeTest extends TestCase
             ]}
           ]
         }';
+*/
+        $instance1=[
+            'metadata'=>[
+                'class'=>'news-item'
+                , 'key'=>'first-news-item'
+            ]
+            , 'values'=>[
+                    'title:en'=>'First news item title'
+                    , 'title:es'=>'Primer titular de la noticia'
+                    , 'image-with-alt-and-title'=>[
+                        'original-filename'=>'fff'
+                        , 'data'=>'aaaa'
+                    ]
+            ]
+        ];
 
-        $id1=$cms->putJSONInstance($instance1);
+        $id1=$cms->putArrayInstance($instance1);
 
+        /*
         $instance2='
         {
         "metadata":{"status":"O"
@@ -51,10 +67,11 @@ class SerializeUnserializeTest extends TestCase
         }';
 
         $id2=$cms->putJSONInstance($instance2);
+*/
 
         foreach ($storage->all() as $instance)
         {
-            if($instance->getKey()=='first-news-item')
+          if($instance->getKey()=='first-news-item')
             {
                 $this->assertTrue($instance->getData('en')['title']=='First news item title');
                 $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');

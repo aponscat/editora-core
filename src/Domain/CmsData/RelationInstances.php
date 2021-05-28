@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsData;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Utils\Jsons;
 
-class RelationInstances implements \JsonSerializable
+class RelationInstances 
 {
     private $relation;
     private $children;
@@ -25,14 +25,5 @@ class RelationInstances implements \JsonSerializable
     public function getChildren(): ?array
     {
         return $this->children;
-    }
-
-    public function jsonSerialize()
-    {
-        $ret=[];
-        $ret['relation']=Jsons::mapSerialize($this->relation);
-        $ret['children']=Jsons::mapSerialize($this->children);
-
-        return $ret;
     }
 }

@@ -26,15 +26,15 @@ class InstancesStorageTest extends TestCase
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
-        $instance1=Instance::createFromJSON($class, 'news-item-instance', 'O', json_encode(
-            [
-              ['title:en'=>'Hello World Title!']
-              ,["text:en" => "Hello World Text!"]
-              ,["title:es" => "Hola Mundo!"]
-              ,["text:es" => "Hola Mundo Text!"]
-              ,["multilang-attribute" => "NOT-TRANSLATABLE-CODE"]
+        $instance1=Instance::create($class, 'news-item-instance', 'O'
+        , [
+              'title:en'=>'Hello World Title!'
+              ,"text:en" => "Hello World Text!"
+              ,"title:es" => "Hola Mundo!"
+              ,"text:es" => "Hola Mundo Text!"
+              ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
-        ));
+        );
 
         $this->assertTrue(
             $instance1->getData('en')==
