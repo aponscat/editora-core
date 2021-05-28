@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Values;
 
-use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Utils\Strings;
 
 class Value implements \JsonSerializable

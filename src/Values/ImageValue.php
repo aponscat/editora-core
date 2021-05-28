@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Values;
 
-use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Domain\CmsStructure\Attribute;
 
 class ImageValue extends Value
 {

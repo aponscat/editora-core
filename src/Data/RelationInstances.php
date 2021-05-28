@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Data;
 
-use Omatech\Editora\Structure\Relation;
+use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Utils\Jsons;
 
 class RelationInstances implements \JsonSerializable

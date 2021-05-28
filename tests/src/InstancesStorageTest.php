@@ -3,13 +3,13 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\Clas;
-use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Domain\CmsStructure\Clas;
+use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Data\Instance;
 use Omatech\Editora\Values\Value;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Structure\CmsStructure;
+use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class InstancesStorageTest extends TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Facades;
+namespace Omatech\Editora\Domain;
 
-use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Data\Instance;
 
 class Cms implements \JsonSerializable

@@ -2,11 +2,11 @@
 
 namespace Omatech\Editora\Data;
 
-use Omatech\Editora\Structure\Clas;
-use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Domain\CmsStructure\Clas;
+use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Structure\Relation;
+use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Data\RelationInstances;
 use Omatech\Editora\Utils\Jsons;
 

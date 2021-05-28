@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Values\Value;
 
 class ValueTest extends TestCase

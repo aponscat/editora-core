@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Structure;
+namespace Omatech\Editora\Domain\CmsStructure;
 
 use Omatech\Editora\Utils\Jsons;
 
@@ -31,7 +31,7 @@ class Clas implements \JsonSerializable
         foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
 
-            $attributeType='Omatech\Editora\Structure\Attribute';
+            $attributeType='Omatech\Editora\Domain\CmsStructure\Attribute';
             if (isset($attribute['type'])) {
                 if (class_exists($attribute['type'])) {
                     $attributeType=$attribute['type'];

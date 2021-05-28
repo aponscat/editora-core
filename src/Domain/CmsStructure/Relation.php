@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Structure;
+namespace Omatech\Editora\Domain\CmsStructure;
 
 use Omatech\Editora\Data\Instance;
 

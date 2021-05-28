@@ -4,7 +4,7 @@ namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
 
-use Omatech\Editora\Structure\CmsStructure;
+use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class CmsStructureTest extends TestCase
 {

@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Structure\Clas;
-use Omatech\Editora\Structure\Attribute;
+use Omatech\Editora\Domain\CmsStructure\Clas;
+use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Data\Instance;
 use Omatech\Editora\Values\Value;
 
@@ -44,7 +44,7 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'type'=>'Omatech\Editora\Structure\Attribute', 'config'=>['mandatory'=>true]]
+        ['key'=>'english-title:en', 'type'=>'Omatech\Editora\Domain\CmsStructure\Attribute', 'config'=>['mandatory'=>true]]
         , ['key'=>'english-text:en']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);

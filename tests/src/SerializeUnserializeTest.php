@@ -3,12 +3,12 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Facades\Cms;
-use Omatech\Editora\Structure\CmsStructure;
+use Omatech\Editora\Domain\Cms;
+use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 use Omatech\Editora\Adapters\ArrayStorageAdapter;
 use Omatech\Editora\Data\Instance;
-use Omatech\Editora\Structure\Relation;
-use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Domain\CmsStructure\Relation;
+use Omatech\Editora\Domain\CmsStructure\Clas;
 
 class SerializeUnserializeTest extends TestCase
 {

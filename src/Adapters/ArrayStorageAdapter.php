@@ -3,9 +3,9 @@
 namespace Omatech\Editora\Adapters;
 
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
-use Omatech\Editora\Structure\Clas;
+use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Data\Instance;
-use Omatech\Editora\Structure\CmsStructure;
+use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class ArrayStorageAdapter implements CmsStorageInstanceInterface
 {
