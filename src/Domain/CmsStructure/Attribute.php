@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Domain\CmsStructure;
 
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Utils\Strings;
 use Omatech\Editora\Utils\Jsons;
 
@@ -12,7 +12,7 @@ class Attribute implements \JsonSerializable
     protected $key;
     protected $language='ALL';
     protected $mandatory=false;
-    protected $valueType='Omatech\Editora\Values\Value';
+    protected $valueType='Omatech\Editora\Domain\CmsData\Value';
     protected $adapters=null;
     protected $subattributes=null;
     protected $langSeparator=':';
@@ -142,7 +142,7 @@ class Attribute implements \JsonSerializable
             $res['config']=$this->config;
         }
 
-        if (!$this->valueType=='Omatech\Editora\Values\Value') {
+        if (!$this->valueType=='Omatech\Editora\Domain\CmsData\Value') {
             $res['valueType']=$this->valueType;
         }
         return $res;

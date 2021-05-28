@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Data;
+namespace Omatech\Editora\Domain\CmsData;
 
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Utils\Jsons;

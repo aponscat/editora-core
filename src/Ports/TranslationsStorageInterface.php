@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Ports;
 
-use Omatech\Editora\Data\TranslatableKey;
+use Omatech\Editora\Domain\CmsData\TranslatableKey;
 
 interface TranslationsStorageInterface
 {

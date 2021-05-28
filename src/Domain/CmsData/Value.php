@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Values;
+namespace Omatech\Editora\Domain\CmsData;
 
 use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Utils\Strings;
@@ -21,14 +21,6 @@ class Value implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        /*
-        $res[$this->getFullyQualifiedKey()]=
-        [
-        'attribute'=>$this->attribute
-        ,'value'=>$this->value
-        ,'subValues'=>$this->subValues
-        ];
-        */
         $res=[];
         $res+=[$this->getFullyQualifiedKey()=>$this->value];
         if ($this->subvalues)

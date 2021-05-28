@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Data\TranslatableKey;
-use Omatech\Editora\Adapters\ArrayTranslationsStorageAdapter;
+use Omatech\Editora\Domain\CmsData\TranslatableKey;
+use Omatech\Editora\Infrastructure\Persistence\ArrayTranslationsStorageAdapter;
 
 class TranslatableKeyTest extends TestCase
 {

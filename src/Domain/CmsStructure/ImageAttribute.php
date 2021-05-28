@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Domain\CmsStructure;
 
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Adapters\MediaAdapterInterface;
 
 class ImageAttribute extends Attribute implements \JsonSerializable

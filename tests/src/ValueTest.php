@@ -4,7 +4,7 @@ namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Value;
 
 class ValueTest extends TestCase
 {

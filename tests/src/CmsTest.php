@@ -5,8 +5,8 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Cms;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
+use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 
@@ -52,7 +52,7 @@ class CmsTest extends TestCase
             , ['key'=>'multilang-attribute']
             , ['key'=>'image-with-alt-and-title'
             , 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute'
-            , 'valueType'=>'Omatech\Editora\Values\ImageValue'
+            , 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue'
               , 'config'=>
               ['mandatory'=>true
               , 'dimensions'=>'600x600'

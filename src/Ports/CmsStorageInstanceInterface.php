@@ -2,7 +2,7 @@
 
 namespace Omatech\Editora\Ports;
 
-use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Domain\CmsData\Instance;
 
 interface CmsStorageInstanceInterface
 {

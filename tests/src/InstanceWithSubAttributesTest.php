@@ -5,8 +5,8 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Data\Instance;
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\CmsData\Value;
 
 class InstanceWithSubAttributesTest extends TestCase
 {
@@ -17,7 +17,7 @@ class InstanceWithSubAttributesTest extends TestCase
         $jsonAttributes=json_encode([
         ['key'=>'image-with-alt-and-title'
         , 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute'
-        , 'valueType'=>'Omatech\Editora\Values\ImageValue'
+        , 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue'
           , 'config'=>
           ['mandatory'=>true
           , 'dimensions'=>'600x600'

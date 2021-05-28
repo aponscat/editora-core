@@ -5,10 +5,10 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Data\Instance;
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
-use Omatech\Editora\Adapters\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class InstancesStorageTest extends TestCase
@@ -17,11 +17,11 @@ class InstancesStorageTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'title:en'
-        , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
+        , 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue'
         , 'config'=>['mandatory'=>true]]
-        , ['key'=>'text:en', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
-        , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
-        , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
+        , ['key'=>'text:en', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
+        , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
+        , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
         , ['key'=>'multilang-attribute']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);

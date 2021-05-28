@@ -1,13 +1,13 @@
 <?php
 
-namespace Omatech\Editora\Data;
+namespace Omatech\Editora\Domain\CmsData;
 
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Ports\CmsStorageInstanceInterface;
-use Omatech\Editora\Adapters\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsStructure\Relation;
-use Omatech\Editora\Data\RelationInstances;
+use Omatech\Editora\Domain\CmsData\RelationInstances;
 use Omatech\Editora\Utils\Jsons;
 
 class Instance implements \JsonSerializable

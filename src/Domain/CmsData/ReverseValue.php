@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Values;
+namespace Omatech\Editora\Domain\CmsData;
 
 class ReverseValue extends Value
 {

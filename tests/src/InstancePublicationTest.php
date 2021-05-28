@@ -5,8 +5,8 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Data\Instance;
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\CmsData\Value;
 
 class InstancePublicationTest extends TestCase
 {

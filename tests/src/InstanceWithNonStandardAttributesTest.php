@@ -5,8 +5,8 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Data\Instance;
-use Omatech\Editora\Values\Value;
+use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\CmsData\Value;
 
 class InstanceWithNonStandardAttributesTest extends TestCase
 {
@@ -14,11 +14,11 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'english-title:en'
-        , 'valueType'=>'Omatech\Editora\Values\ReverseValue'
+        , 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue'
         , 'config'=>['mandatory'=>true]]
-        , ['key'=>'english-text:en', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
-        , ['key'=>'spanish-title:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
-        , ['key'=>'spanish-text:es', 'valueType'=>'Omatech\Editora\Values\ReverseValue']
+        , ['key'=>'english-text:en', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
+        , ['key'=>'spanish-title:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
+        , ['key'=>'spanish-text:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
         , ['key'=>'multilang-attribute']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
@@ -86,7 +86,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'title:en', 'config'=>['mandatory'=>true]]
-        , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
+        , ['key'=>'times', 'valueType'=>'Omatech\Editora\Domain\CmsData\NumberValue']
       ]);
         $class=Clas::createFromJSON('numeric-item', $jsonAttributes);
         $instance=Instance::createFromJSON($class, 'numeric-item-instance', 'O', json_encode(
@@ -110,7 +110,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'title:es', 'config'=>['mandatory'=>true]]
-        , ['key'=>'times', 'valueType'=>'Omatech\Editora\Values\NumberValue']
+        , ['key'=>'times', 'valueType'=>'Omatech\Editora\Domain\CmsData\NumberValue']
       ]);
         $class=Clas::createFromJSON('numeric-item', $jsonAttributes);
 
@@ -156,7 +156,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $jsonAttributes=json_encode([
         ['key'=>'image-with-height:en'
         , 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute'
-        , 'valueType'=>'Omatech\Editora\Values\ImageValue'
+        , 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue'
           , 'config'=>
           ['mandatory'=>true
           , 'dimensions'=>'x300'
@@ -164,8 +164,8 @@ class InstanceWithNonStandardAttributesTest extends TestCase
           , 'public-path'=>$publicPath
           , 'adapters'=>['media'=>'Omatech\Editora\Adapters\ArrayMediaAdapter']
           ]]
-        , ['key'=>'image-with-width:en', 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'300x']]
-        , ['key'=>'image-with-width-and-height', 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute', 'valueType'=>'Omatech\Editora\Values\ImageValue', 'config'=>['dimensions'=>'100x200']]
+        , ['key'=>'image-with-width:en', 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute', 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue', 'config'=>['dimensions'=>'300x']]
+        , ['key'=>'image-with-width-and-height', 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute', 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue', 'config'=>['dimensions'=>'100x200']]
       ]);
         $class=Clas::createFromJSON('image', $jsonAttributes);
 

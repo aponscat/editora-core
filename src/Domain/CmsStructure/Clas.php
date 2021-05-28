@@ -40,7 +40,7 @@ class Clas implements \JsonSerializable
                 }
             }
 
-            $valueType='Omatech\Editora\Values\Value';
+            $valueType='Omatech\Editora\Domain\CmsData\Value';
             if (isset($attribute['valueType'])) {
                 if (class_exists($attribute['valueType'])) {
                     $valueType=$attribute['valueType'];

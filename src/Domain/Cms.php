@@ -3,7 +3,7 @@
 namespace Omatech\Editora\Domain;
 
 use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Domain\CmsData\Instance;
 
 class Cms implements \JsonSerializable
 {

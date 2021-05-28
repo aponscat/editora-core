@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Data;
+namespace Omatech\Editora\Domain\CmsData;
 
 class TranslatableKey implements \JsonSerializable
 {

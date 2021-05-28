@@ -5,8 +5,8 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Cms;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Adapters\ArrayStorageAdapter;
-use Omatech\Editora\Data\Instance;
+use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
+use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 
