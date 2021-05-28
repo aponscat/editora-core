@@ -126,8 +126,12 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 
 4,5 - 5 meses total
 
+TBD:
+Guardar relationinstances com IDs addRelation ($child, ABOVE|BELOW, $id)
+Refactor InstanceRepositoryInterface dins de Contracts
+Editora Database amb yaml
 
-
+Estructura:
 src
   - Application
     - use cases
