@@ -7,7 +7,7 @@ use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
-class ArrayStorageAdapter implements InstanceRepositoryInterface
+class ArrayInstanceRepository implements InstanceRepositoryInterface
 {
     private static $instances;
     private static $structure;

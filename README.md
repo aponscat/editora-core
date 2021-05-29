@@ -12,63 +12,54 @@ composer testwindows tests
 @startuml
 title Editora - Class Diagram
 
-package "Facades"
+
+package "CmsStructure"
 {
 class Cms
-}
-
-package "Structure"
-{
-class Class
+class Clas
 class Attribute
 class Relation
 class ImageAttribute
 class CmsStructure
 }
 
-package "Data"
+package "CmsData"
 {
 class Instance
 class RelationInstances
 class TranslatableKey
-}
-
-package "Values" {
 class Value
 class ImageValue
 class NumberValue
 class ReverseValue
+class PublishingInfo
 }
 
-package "CmsData\Contracts" {
+package "Contracts" {
 class MediaAdapterInterface
 class TranslationsStorageAdapterInterface
 class InstanceRepositoryInterface
 }
 
-package "Adapters" #DDDDDD {
+package "Infrastructure" #DDDDDD {
 class ArrayMediaAdapter implements MediaAdapterInterface
 class S3MediaAdapter implements MediaAdapterInterface
 class MySQLMediaAdapter implements MediaAdapterInterface
 class LocalStorageMediaAdapter implements MediaAdapterInterface
 class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
 class MySQLTranslationsStorageManager implements TranslationsStorageAdapterInterface
-class ArrayStorageAdapter implements InstanceRepositoryInterface
+class ArrayInstanceRepository implements InstanceRepositoryInterface
+class EloquentInstanceRepository implements InstanceRepositoryInterface
 }
 
-package "Controllers"
-{
-class BackOfficeController
-}
 
-BackOfficeController -- Cms
 Cms o-- CmsStructure
 Cms o-- InstanceRepositoryInterface
-CmsStructure "1" *-- "*" Class
+CmsStructure "1" *-- "*" Clas
 
-Class -- Instance
-Class "1" *-- "*" Attribute
-Class "1" *-- "*"   Relation : children
+Clas -- Instance
+Clas "1" *-- "*" Attribute
+Clas "1" *-- "*"   Relation : children
 Attribute "1" *-- "*subattributes" Attribute
 
 Relation "0..1" -- RelationInstances
@@ -77,6 +68,8 @@ Attribute <|-- ImageAttribute
 
 Attribute "1" - "*" Value
 Instance "1" *.. "*" Value
+Instance "1" *.. "1" PublishingInfo
+
 Instance "1" *-- "*"  RelationInstances : children
 
 ImageAttribute -- MediaAdapterInterface
@@ -93,20 +86,20 @@ ImageAttribute -- ImageValue
 
 class Instance {
   String key
-  Date startPublishingDate
-  Date endPublishingDate
-  Enum status
   String externalID
   createFromValuesArray(class,values,...)
   createFromJson(class,json,...
   Json getJson(lang)
 }
 
-class BackOfficeController {
-  listClasses()
-  newInstance()
-  getInstance($id)
-  saveInstance()
+class PublishingInfo {
+  Date startPublishingDate
+  Date endPublishingDate
+  Enum status
+  fromArray()
+  toArray()
+  validateStatus()
+  isPublished()
 }
 
 class Cms {
@@ -127,9 +120,10 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 4,5 - 5 meses total
 
 TBD:
-Guardar relationinstances com IDs addRelation ($child, ABOVE|BELOW, $id)
-Passar de jsons a Structure
-Editora Database amb yaml
+- Guardar relationinstances com IDs addRelation ($child, ABOVE|BELOW, $id)
+- Passar de jsons a Structure
+- Editora Database amb yaml
+- components a nivell d'attribute i class: edit=xxx list=xxx
 
 Estructura:
 src

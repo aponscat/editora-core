@@ -8,7 +8,7 @@ use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class InstancesStorageTest extends TestCase
@@ -88,7 +88,7 @@ class InstancesStorageTest extends TestCase
         $structure->addLanguage('es');
         $structure->addLanguage('en');
         $structure->addClass($class);
-        $storage=new ArrayStorageAdapter($structure);
+        $storage=new ArrayInstanceRepository($structure);
         $storage->create($instance1);
         $id=$instance1->ID();
  

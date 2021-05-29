@@ -79,7 +79,7 @@ class CmsStructure
         return new self($languages, $classes);
     }
 
-    private function parseLanguages($structure)
+    private static function parseLanguages($structure)
     {
         $languages=[];
         if ($structure['languages']) {
@@ -157,7 +157,7 @@ class CmsStructure
             $this->attributes[]=$attribute;
         }
     }
-    private function getAllAttributesFromStructureArray($structure, $languages)
+    private static function getAllAttributesFromStructureArray($structure, $languages)
     {
 
         // TBD

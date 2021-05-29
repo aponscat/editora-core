@@ -5,7 +5,7 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Cms;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsStructure\Clas;
@@ -16,7 +16,7 @@ class CmsTest extends TestCase
     {
         $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
         $structure=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
+        $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('Countries');
 
@@ -97,7 +97,7 @@ class CmsTest extends TestCase
         $originalFilename='result.jpg';
         $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
+        $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('news-item');
 
@@ -121,7 +121,7 @@ class CmsTest extends TestCase
         $originalFilename='result.jpg';
         $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
+        $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
 
@@ -232,7 +232,7 @@ class CmsTest extends TestCase
         $originalFilename='result.jpg';
         $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
+        $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
 

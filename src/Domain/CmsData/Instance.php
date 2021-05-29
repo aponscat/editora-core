@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsData;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Domains\CmsStructure\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsData\RelationInstances;
 

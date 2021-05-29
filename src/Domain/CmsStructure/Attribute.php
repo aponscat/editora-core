@@ -12,7 +12,6 @@ class Attribute
     protected $language='ALL';
     protected $mandatory=false;
     protected $valueType='Omatech\Editora\Domain\CmsData\Value';
-    protected $adapters=null;
     protected $subattributes=null;
     protected $langSeparator=':';
     private $config;
@@ -45,10 +44,6 @@ class Attribute
         if (isset($config['mandatory'])) {
             assert(is_bool($config['mandatory']));
             $this->mandatory=$config['mandatory'];
-        }
-
-        if (isset($config['adapters'])) {
-            $this->adapters=$config['adapters'];
         }
 
         if (isset($config['subattributes'])) {

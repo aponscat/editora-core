@@ -18,7 +18,7 @@ class SerializeUnserializeTest extends TestCase
         $originalFilename='result.jpg';
         $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
-        $storage=new ArrayStorageAdapter($structure);
+        $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
 
         $instance1=[
