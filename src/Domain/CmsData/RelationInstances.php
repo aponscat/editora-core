@@ -19,7 +19,8 @@ class RelationInstances
     public function add(Instance $child)
     {
         assert(!empty($child));
-        $this->children[]=$child;
+        assert($child->hasID());
+        $this->children[]=$child->ID();
     }
 
     public function getChildren(): ?array

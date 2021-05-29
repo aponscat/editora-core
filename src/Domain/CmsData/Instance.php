@@ -319,46 +319,4 @@ class Instance
     {
         $this->storageID=$id;
     }
-
-    /*
-
-    public function putIfNotExists(InstanceRepositoryInterface $storage)
-    {
-        if (!$this->hasID()) {
-            return $this->put($storage);
-        }
-
-        if ($storage->exists($this->ID())) {
-            return $this->ID();
-        }
-        
-        return $this->put($storage);
-    }
-
-    public function put(InstanceRepositoryInterface $storage): string
-    {
-        $id=uniqid();
-        if ($this->hasID()) {
-            $id=$this->ID();
-        }
-        $this->storageID=$id;
-        $storage::put($id, $this);
-        if ($this->relations) {
-            foreach ($this->relations as $relationInstances) {
-                if ($relationInstances->getChildren()) {
-                    foreach ($relationInstances->getChildren() as $child) {
-                        $child->putIfNotExists($storage);
-                    }
-                }
-            }
-        }
-        return $id;
-    }
-
-    public static function get(string $id, InstanceRepositoryInterface $storage): Instance
-    {
-        return $storage::get($id);
-    }
-
-    */
 }

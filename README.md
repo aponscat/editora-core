@@ -128,7 +128,7 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 
 TBD:
 Guardar relationinstances com IDs addRelation ($child, ABOVE|BELOW, $id)
-Refactor InstanceRepositoryInterface dins de Contracts
+Passar de jsons a Structure
 Editora Database amb yaml
 
 Estructura:

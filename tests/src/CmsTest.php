@@ -230,7 +230,7 @@ class CmsTest extends TestCase
 
 
 
-    public function testSaveCategoryAndCheckIfNewsIsSavedAutomatically(): void
+    public function testSaveCategoryAndRelatedNews(): void
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
@@ -265,11 +265,12 @@ class CmsTest extends TestCase
                   ]
         );
 
+        $cms->putInstance($instanceNewsItem);
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem);
         $cms->putInstance($instanceCategory1);
         $idCategory1=$instanceCategory1->ID();
         
-        $instanceCategory2=['metadata'=>[
+        $instanceCategoryArray2=['metadata'=>[
             'status'=>'O'
             ,'class'=>'news-category'
             ,'key'=>'society'
@@ -282,7 +283,7 @@ class CmsTest extends TestCase
         ];
 
 
-        $instanceCategory2=$cms->putArrayInstance($instanceCategory2);
+        $instanceCategory2=$cms->putArrayInstance($instanceCategoryArray2);
         $idCategory2=$instanceCategory2->ID();
         $instancesInStorage=$cms->getAllInstances();
 
