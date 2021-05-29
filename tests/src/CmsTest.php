@@ -33,8 +33,8 @@ class CmsTest extends TestCase
             ['country_code' => 'es'
             ,'title' => 'España']);
 
-        $id=$cms->putInstance($instance);
-        $instance2=$cms->getInstanceByID($id);
+        $cms->putInstance($instance);
+        $instance2=$cms->getInstanceByID($instance->ID());
         $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
         $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
     }
@@ -141,7 +141,8 @@ class CmsTest extends TestCase
         );
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
 
-        $id1=$cms->putInstance($instance);
+        $cms->putInstance($instance);
+        $id1=$instance->ID();
         $instance2=$cms->getInstanceById($id1);
         $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
 
@@ -157,11 +158,12 @@ class CmsTest extends TestCase
         );
         $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
-        $id2=$cms->putInstance($instance);
+        $cms->putInstance($instance);
+        $id2=$instance->ID();
         $instance3=$cms->getInstanceById($id2);
         $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
 
-        $instance4=['metadata'=>[
+        $instance4Array=['metadata'=>[
             'status'=>'O'
             ,'class'=>'news-category'
             ,'key'=>'society'
@@ -173,7 +175,8 @@ class CmsTest extends TestCase
             ]
         ];
 
-        $id3=$cms->putArrayInstance($instance4);
+        $instance4=$cms->putArrayInstance($instance4Array);
+        $id3=$instance4->ID();
         $instance5=$cms->getInstanceById($id3);
         $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
 
@@ -263,8 +266,9 @@ class CmsTest extends TestCase
         );
 
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem);
-        $idCategory1=$cms->putInstance($instanceCategory1);
-
+        $cms->putInstance($instanceCategory1);
+        $idCategory1=$instanceCategory1->ID();
+        
         $instanceCategory2=['metadata'=>[
             'status'=>'O'
             ,'class'=>'news-category'
@@ -278,7 +282,8 @@ class CmsTest extends TestCase
         ];
 
 
-        $idCategory2=$cms->putArrayInstance($instanceCategory2);
+        $instanceCategory2=$cms->putArrayInstance($instanceCategory2);
+        $idCategory2=$instanceCategory2->ID();
         $instancesInStorage=$cms->getAllInstances();
 
         $this->assertTrue(array_key_exists($idCategory1, $instancesInStorage));

@@ -2,12 +2,12 @@
 
 namespace Omatech\Editora\Infrastructure\Persistence;
 
-use Omatech\Editora\Ports\CmsStorageInstanceInterface;
+use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
-class ArrayStorageAdapter implements CmsStorageInstanceInterface
+class ArrayStorageAdapter implements InstanceRepositoryInterface
 {
     private static $instances;
     private static $structure;
@@ -23,8 +23,17 @@ class ArrayStorageAdapter implements CmsStorageInstanceInterface
         return array_key_exists($id, self::$instances);
     }
 
-    public static function put(string $id, Instance $instance)
+    public static function put(Instance $instance): void
     {
+        if ($instance->hasID())
+        {
+            $id=$instance->ID();
+        }
+        else
+        {
+            $id=uniqid();
+            $instance->setID($id);
+        }
         self::$instances[$id]=$instance->toArray();
     }
 

@@ -3,7 +3,7 @@
 namespace Omatech\Editora\Infrastructure\Persistence;
 
 use Omatech\Editora\Domain\CmsData\TranslatableKey;
-use Omatech\Editora\Ports\TranslationsStorageInterface;
+use Omatech\Editora\Domain\CmsData\Contracts\TranslationsStorageInterface;
 
 class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
 {

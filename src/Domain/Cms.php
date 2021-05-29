@@ -23,7 +23,8 @@ class Cms
 
     public function putInstance(Instance $instance)
     {
-        return $instance->put($this->storage);
+        $this->storage->put($instance);
+        //return $instance->put($this->storage);
     }
 
     public function putArrayInstance($arr)
@@ -31,12 +32,13 @@ class Cms
         assert(isset($arr['metadata']['class']));
         $class=$this->getClass($arr['metadata']['class']);
         $instance=Instance::fromArray($class, $arr);
-        return $this->putInstance($instance);
+        $this->putInstance($instance);
+        return $instance;
     }
 
     public function getInstanceByID(string $id): Instance
     {
-        return Instance::get($id, $this->storage);
+        return $this->storage->get($id);
     }
 
     public function getAllInstances()

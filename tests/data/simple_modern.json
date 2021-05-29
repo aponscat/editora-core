@@ -46,7 +46,7 @@
                     "config": {
                         "mandatory": true,
                         "dimensions": "600x600",
-                        "storage-path": "\/mnt\/d\/laragon\/www\/editora-core\/tests\/src",
+                        "storage-path": "\/Users\/apons\/editora-core\/tests\/src",
                         "public-path": "\/images",
                         "adapters": {
                             "media": "Omatech\\Editora\\Adapters\\ArrayMediaAdapter"

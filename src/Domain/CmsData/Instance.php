@@ -4,7 +4,7 @@ namespace Omatech\Editora\Domain\CmsData;
 
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Ports\CmsStorageInstanceInterface;
+use Omatech\Editora\Domains\CmsStructure\Contracts\InstanceRepositoryInterface;
 use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsData\RelationInstances;
@@ -315,7 +315,14 @@ class Instance
         return $this->storageID;
     }
 
-    public function putIfNotExists(CmsStorageInstanceInterface $storage)
+    public function setID(string $id)
+    {
+        $this->storageID=$id;
+    }
+
+    /*
+
+    public function putIfNotExists(InstanceRepositoryInterface $storage)
     {
         if (!$this->hasID()) {
             return $this->put($storage);
@@ -328,7 +335,7 @@ class Instance
         return $this->put($storage);
     }
 
-    public function put(CmsStorageInstanceInterface $storage): string
+    public function put(InstanceRepositoryInterface $storage): string
     {
         $id=uniqid();
         if ($this->hasID()) {
@@ -348,8 +355,10 @@ class Instance
         return $id;
     }
 
-    public static function get(string $id, CmsStorageInstanceInterface $storage): Instance
+    public static function get(string $id, InstanceRepositoryInterface $storage): Instance
     {
         return $storage::get($id);
     }
+
+    */
 }

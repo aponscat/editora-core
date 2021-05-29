@@ -40,10 +40,10 @@ class NumberValue
 class ReverseValue
 }
 
-package "Ports" {
+package "CmsData\Contracts" {
 class MediaAdapterInterface
 class TranslationsStorageAdapterInterface
-class CmsStorageInstanceInterface
+class InstanceRepositoryInterface
 }
 
 package "Adapters" #DDDDDD {
@@ -53,7 +53,7 @@ class MySQLMediaAdapter implements MediaAdapterInterface
 class LocalStorageMediaAdapter implements MediaAdapterInterface
 class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
 class MySQLTranslationsStorageManager implements TranslationsStorageAdapterInterface
-class ArrayStorageAdapter implements CmsStorageInstanceInterface
+class ArrayStorageAdapter implements InstanceRepositoryInterface
 }
 
 package "Controllers"
@@ -63,7 +63,7 @@ class BackOfficeController
 
 BackOfficeController -- Cms
 Cms o-- CmsStructure
-Cms o-- CmsStorageInstanceInterface
+Cms o-- InstanceRepositoryInterface
 CmsStructure "1" *-- "*" Class
 
 Class -- Instance

@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Ports;
+namespace Omatech\Editora\Domain\CmsData\Contracts;
 
 use Omatech\Editora\Domain\CmsData\TranslatableKey;
 
