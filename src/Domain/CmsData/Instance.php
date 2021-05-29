@@ -5,7 +5,7 @@ namespace Omatech\Editora\Domain\CmsData;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Domains\CmsStructure\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsData\RelationInstances;
 
@@ -13,22 +13,24 @@ class Instance
 {
     private $class;
     private $key;
-    private $status;
-    private $startPublishingDate;
-    private $endPublishingDate;
+    private $publishingInfo;
     private $externalID;
     private $values;
     private $relations;
     private $storageID=null;
 
-    private function __construct(Clas $class, string $key, string $status, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    private function __construct(Clas $class, string $key, array $values=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
         $this->class=$class;
         $this->key=$key;
-        $this->setStatus($status);
-        $this->setPublishingDates($startPublishingDate, $endPublishingDate);
+        $this->publishingInfo=$publishingInfo;
         $this->externalID=$externalID;
         $this->storageID=$storageID;
+
+        if (!$publishingInfo) 
+        {
+            $this->publishingInfo=new PublishingInfo();
+        }
 
         if ($class->existRelations()) {
             $classRelations=$class->getRelations();
@@ -50,10 +52,12 @@ class Instance
         $externalID=(isset($arr['metadata']['externalID']))?$arr['metadata']['externalID']:null;
         $storageID=(isset($arr['metadata']['ID']))?$arr['metadata']['ID']:null;
 
-        return self::create($class, $key, $status, $arr['values'], $startPublishingDate, $endPublishingDate, $externalID, $storageID);
+        $publishingInfo=PublishingInfo::fromArray($arr);
+
+        return self::create($class, $key, $arr['values'], $publishingInfo, $externalID, $storageID);
     }
 
-    public static function create(Clas $class, string $key, string $status, array $values=null, $startPublishingDate=null, $endPublishingDate=null, $externalID=null, $storageID=null)
+    public static function create(Clas $class, string $key, array $values=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
         $valuesArray=[];
         if ($values) {
@@ -67,7 +71,7 @@ class Instance
             }
         }
 
-        $inst=new self($class, $key, $status, $startPublishingDate, $endPublishingDate, $externalID, $storageID);
+        $inst=new self($class, $key, null, $publishingInfo, $externalID, $storageID);
         if ($valuesArray) {
             $inst->setValues($valuesArray);
         }
@@ -173,18 +177,11 @@ class Instance
     {
         $ret=
         ['metadata'=>
-          ['status'=>$this->status
-          , 'class'=>$this->class->getKey()
+          ['class'=>$this->class->getKey()
           , 'key'=>$this->key
         ]];
 
-        if (!empty($this->startPublishingDate)) {
-            $ret['metadata']['startPublishingDate']=$this->startPublishingDate;
-        }
-
-        if (!empty($this->endPublishingDate)) {
-            $ret['metadata']['endPublishingDate']=$this->endPublishingDate;
-        }
+        $ret['metadata']+=$this->publishingInfo->toArray();
 
         if (!empty($this->externalID)) {
             $ret['metadata']['externalID']=$this->externalID;
@@ -195,11 +192,6 @@ class Instance
         }
 
         return $ret;
-    }
-
-    private function getInstanceHeaderData(): array
-    {
-        return ['key'=>$this->key];
     }
 
     public function validate(): Instance
@@ -232,77 +224,39 @@ class Instance
         return true;
     }
 
-    private function validateStatus($status)
-    {
-        if ($status!='P' && $status!='V' && $status!='O') {
-            throw new \Exception("Incorrect status $status for instance. Valid values are (O)k, (V)erified, (P)ending");
-        }
-    }
-
     public function setStatus($status)
     {
-        $this->validateStatus($status);
-        $this->status=$status;
+        return $this->publishingInfo->setStatus($status);
     }
 
     public function isPublished($time=null)
     {
-        if ($this->status=='P'||$this->status=='V') {
-            return false;
-        }
-
-        // POST Cond: Status==O
-        if ($time==null) {
-            $time=time();
-        }
-
-        return ($this->getStartPublishingDateOr0()<=$time
-        && $this->getEndPublishingDateOr3000()>=$time);
+        return $this->publishingInfo->isPublished($time);
     }
 
     public function setStartPublishingDate($time=null)
     {
-        if ($time!==null && $this->getEndPublishingDateOr3000()<=$time) {
-            throw new \Exception("Cannot set start publication date after end publication date");
-        }
-        $this->startPublishingDate=$time;
+        return $this->publishingInfo->setStartPublishingDate($time);
     }
 
     public function setEndPublishingDate($time=null)
     {
-        if ($time!==null && $this->getStartPublishingDateOr0()>=$time) {
-            throw new \Exception("Cannot set end publication date before start publication date");
-        }
-        $this->endPublishingDate=$time;
+        return $this->publishingInfo->setEndPublishingDate($time);
     }
 
     public function setPublishingDates($startDate=null, $endDate=null)
     {
-        if ($startDate!==null && $endDate!==null) {
-            if ($startDate>$endDate) {
-                throw new \Exception("Cannot set end publication date before start publication date");
-            }
-        }
-        $this->startPublishingDate=$startDate;
-        $this->endPublishingDate=$endDate;
+        return $this->publishingInfo->setPublishingDates($startDate, $endDate);
     }
 
     private function getEndPublishingDateOr3000()
     {
-        $endDate=32512176000; // year 3.000
-        if ($this->endPublishingDate) {
-            $endDate=$this->endPublishingDate;
-        }
-        return $endDate;
+        return $this->publishingInfo->getEndPublishingDateOr3000();
     }
 
     private function getStartPublishingDateOr0()
     {
-        $startDate=0;
-        if ($this->startPublishingDate) {
-            $startDate=$this->startPublishingDate;
-        }
-        return $startDate;
+        return $this->publishingInfo->getStartPublishingDateOr0();
     }
 
     public function hasID()

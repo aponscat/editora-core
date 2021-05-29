@@ -5,7 +5,7 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Cms;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsStructure\Clas;
@@ -23,7 +23,6 @@ class CmsTest extends TestCase
         $instance=Instance::create(
             $countryClass,
             'country-es',
-            'O',
             ['country_code'=>'es'
                   , 'title:es'=>'España'
                   , 'title:en'=>'Spain'
@@ -105,7 +104,6 @@ class CmsTest extends TestCase
         $instance=Instance::create(
             $countryClass,
             'first-news-item',
-            'O',
             ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
@@ -130,7 +128,6 @@ class CmsTest extends TestCase
         $instance=Instance::create(
             $newsItemClass,
             'first-news-item',
-            'O',
             ['title:en'=>'First title of a news item'
                   , 'title:es'=>'Primer titular de la noticia'
                   ,'image-with-alt-and-title'=>
@@ -150,7 +147,6 @@ class CmsTest extends TestCase
         $instance=Instance::create(
             $categoryClass,
             'tech',
-            'O',
             ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
                   , 'title:en'=>'Technology'
@@ -243,7 +239,6 @@ class CmsTest extends TestCase
         $instanceNewsItem=Instance::create(
             $newsItemClass,
             'first-news-item',
-            'O',
             ['title:en'=>'First title of a news item'
                 , 'title:es'=>'Primer titular de la noticia'
                 ,'image-with-alt-and-title'=>
@@ -258,7 +253,6 @@ class CmsTest extends TestCase
         $instanceCategory1=Instance::create(
             $categoryClass,
             'tech',
-            'O',
             ['code'=>'tech'
                   , 'title:es'=>'Tecnología'
                   , 'title:en'=>'Technology'

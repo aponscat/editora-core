@@ -4,7 +4,7 @@ namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsData\TranslatableKey;
-use Omatech\Editora\Infrastructure\Persistence\ArrayTranslationsStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayTranslationsStorageAdapter;
 
 class TranslatableKeyTest extends TestCase
 {

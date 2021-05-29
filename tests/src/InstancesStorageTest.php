@@ -8,7 +8,7 @@ use Omatech\Editora\Domain\CmsStructure\Attribute;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsData\Value;
 use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Infrastructure\Persistence\ArrayStorageAdapter;
+use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayStorageAdapter;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class InstancesStorageTest extends TestCase
@@ -29,7 +29,6 @@ class InstancesStorageTest extends TestCase
         $instance1=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             [
               'title:en'=>'Hello World Title!'
               ,"text:en" => "Hello World Text!"
@@ -90,10 +89,10 @@ class InstancesStorageTest extends TestCase
         $structure->addLanguage('en');
         $structure->addClass($class);
         $storage=new ArrayStorageAdapter($structure);
-        $storage->put($instance1);
+        $storage->create($instance1);
         $id=$instance1->ID();
  
-        $instance2=$storage::get($id);
+        $instance2=$storage::read($id);
 
         $this->assertTrue(
             $instance2->getData('es', true)==

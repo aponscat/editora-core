@@ -26,7 +26,6 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             [
               'english-title:en'=>'Hello World Title!'
               ,"english-text:en" => "Hello World Text!"
@@ -95,7 +94,6 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $instance=Instance::create(
             $class,
             'numeric-item-instance',
-            'O',
             [
         'title:en'=>'Numeric Hello World Title!'
         ,"times" => 42
@@ -124,7 +122,6 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $instance=Instance::create(
             $class,
             'numeric-item-instance',
-            'O',
             ['title:en'=>'Numeric Hello World Title!'
         ,"times" => 'aaaa'
       ]
@@ -142,7 +139,6 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             ['english-title-is-strange:en'=>'Hello World Title!'
           ,"english-text-is-strange:en" => "Hello World Text!"
       ]
@@ -195,7 +191,6 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $instance=Instance::create(
             $class,
             'image-instance',
-            'O',
             ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
@@ -211,7 +206,6 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         $secondInstance=Instance::create(
             $class,
             'second-image-instance',
-            'O',
             ['image-with-height:en'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))

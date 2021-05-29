@@ -23,8 +23,7 @@ class Cms
 
     public function putInstance(Instance $instance)
     {
-        $this->storage->put($instance);
-        //return $instance->put($this->storage);
+        $this->storage->create($instance);
     }
 
     public function putArrayInstance($arr)
@@ -38,7 +37,7 @@ class Cms
 
     public function getInstanceByID(string $id): Instance
     {
-        return $this->storage->get($id);
+        return $this->storage->read($id);
     }
 
     public function getAllInstances()

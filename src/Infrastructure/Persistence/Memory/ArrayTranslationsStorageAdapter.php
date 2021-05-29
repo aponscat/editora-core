@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Infrastructure\Persistence;
+namespace Omatech\Editora\Infrastructure\Persistence\Memory;
 
 use Omatech\Editora\Domain\CmsData\TranslatableKey;
 use Omatech\Editora\Domain\CmsData\Contracts\TranslationsStorageInterface;

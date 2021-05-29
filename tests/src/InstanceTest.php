@@ -17,7 +17,7 @@ class InstanceTest extends TestCase
         $class=Clas::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
         $valTitle=new Value($atriTitle, 'Hello World Title!');
         $valText=new Value($atriText, 'Hello World Text!');
-        $instance=Instance::create($class, 'news-item-instance', 'O', $valTitle->toArray()+$valText->toArray());
+        $instance=Instance::create($class, 'news-item-instance', $valTitle->toArray()+$valText->toArray());
 
         $this->assertTrue(
             $instance->getData()==
@@ -51,7 +51,6 @@ class InstanceTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             [
             'english-title:en'=>'Hello World Title!'
             ,"english-text:en" => "Hello World Text!"
@@ -88,7 +87,6 @@ class InstanceTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             ['english-title:en'=>'Hello World Title!']
         );
         $this->assertTrue(
@@ -122,7 +120,7 @@ class InstanceTest extends TestCase
         $valText=new Value($atriText, 'Hello World Text!');
         $valInexistentText=new Value($atriInexistentText, 'Inexistent Text!');
         $this->expectException(\Exception::class);
-        $instance=Instance::create($class, 'news-item-instance', 'O', [$valTitle, $valText, $valInexistentText]);
+        $instance=Instance::create($class, 'news-item-instance', [$valTitle, $valText, $valInexistentText]);
     }
 
     public function testSetDataInNonExistingAttributeFromJSON(): void
@@ -137,7 +135,6 @@ class InstanceTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             [
             ['english-title:en'=>'Hello World Title!']
             ,["english-text:en" => "Hello World Text!"]
@@ -157,7 +154,6 @@ class InstanceTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             ["english-text:en" => "Hello World Text!"]
         );
     }
@@ -177,7 +173,6 @@ class InstanceTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             ['english-title:en'=>'Hello World Title!'
             ,"english-text:en" => "Hello World Text!"
             ,"spanish-title:es" => "Hola Mundo!"
@@ -244,7 +239,6 @@ class InstanceTest extends TestCase
         $instance=Instance::create(
             $class,
             'news-item-instance',
-            'O',
             [
             'title:en'=>'Hello World Title!'
             ,"text:en" => "Hello World Text!"

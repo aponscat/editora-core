@@ -36,7 +36,6 @@ class InstanceWithSubAttributesTest extends TestCase
         $instance=Instance::create(
             $class,
             'image-instance',
-            'O',
             ['image-with-alt-and-title'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))

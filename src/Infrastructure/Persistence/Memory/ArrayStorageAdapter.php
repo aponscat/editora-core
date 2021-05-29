@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Infrastructure\Persistence;
+namespace Omatech\Editora\Infrastructure\Persistence\Memory;
 
 use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
 use Omatech\Editora\Domain\CmsStructure\Clas;
@@ -23,7 +23,7 @@ class ArrayStorageAdapter implements InstanceRepositoryInterface
         return array_key_exists($id, self::$instances);
     }
 
-    public static function put(Instance $instance): void
+    public static function create(Instance $instance): void
     {
         if ($instance->hasID())
         {
@@ -37,7 +37,19 @@ class ArrayStorageAdapter implements InstanceRepositoryInterface
         self::$instances[$id]=$instance->toArray();
     }
 
-    public static function get(string $id): Instance
+    public static function update(Instance $instance): void
+    {
+        assert($instance->hasID());
+        $id=$instance->ID();
+        self::$instances[$id]=$instance->toArray();
+    }    
+
+    public static function delete(string $id): void
+    {
+        unset(self::$instances[$id]);
+    }    
+
+    public static function read(string $id): Instance
     {
         $arr=self::$instances[$id];
         return self::hydrateInstance($arr);
