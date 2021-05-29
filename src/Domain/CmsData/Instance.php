@@ -4,8 +4,6 @@ namespace Omatech\Editora\Domain\CmsData;
 
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Domains\CmsStructure\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsData\RelationInstances;
 
@@ -19,7 +17,7 @@ class Instance
     private $relations;
     private $storageID=null;
 
-    private function __construct(Clas $class, string $key, array $values=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
+    private function __construct(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
         $this->class=$class;
         $this->key=$key;
@@ -54,10 +52,16 @@ class Instance
 
         $publishingInfo=PublishingInfo::fromArray($arr);
 
-        return self::create($class, $key, $arr['values'], $publishingInfo, $externalID, $storageID);
+        $values=(isset($arr['values']))?$arr['values']:null;
+        $relations=(isset($arr['relations']))?$arr['relations']:null;
+
+        return self::create($class, $key
+        , $values
+        , $relations
+        , $publishingInfo, $externalID, $storageID);
     }
 
-    public static function create(Clas $class, string $key, array $values=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
+    public static function create(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
         $valuesArray=[];
         if ($values) {
@@ -71,10 +75,21 @@ class Instance
             }
         }
 
-        $inst=new self($class, $key, null, $publishingInfo, $externalID, $storageID);
+        $inst=new self($class, $key, null, null, $publishingInfo, $externalID, $storageID);
+
         if ($valuesArray) {
             $inst->setValues($valuesArray);
         }
+
+        if ($relations) {
+            foreach ($relations as $relationKey=>$children) {
+                foreach ($children as $id)
+                {
+                    $inst->addToRelationByKeyAndID($relationKey, $id, RelationInstances::BELOW);
+                }
+            }
+        }
+
         return $inst->validate();
     }
 
@@ -82,7 +97,9 @@ class Instance
     {
         return
         $this->getInstanceMetadata()
-        +['values'=>$this->getValuesArray()];
+        +['values'=>$this->getValuesArray()]
+        +['relations'=>$this->getRelationsArray()]
+        ;
     }
 
     public function getValuesArray()
@@ -94,12 +111,36 @@ class Instance
         return $ret;
     }
 
-    public function addToRelation(Relation $relation, Instance $childInstance)
+    public function getRelationsArray()
+    {
+        $ret=[];
+        if ($this->relations)
+        {
+            foreach ($this->relations as $key=>$rel) {
+                $ret[$key]=$rel->toArray();
+            }    
+        }
+        return $ret;
+    }
+
+    public function getChildrenIDsByRelationKey($key): ?array
+    {
+        if ($this->relations)
+        {
+            if (isset($this->relations[$key]))
+            {
+                return $this->relations[$key]->toArray();
+            }
+        }
+        return null;
+    }
+
+    public function addToRelation(Relation $relation, Instance $childInstance, $position=RelationInstances::ABOVE, $otherID=null)
     {
         assert(!empty($relation) && !empty($childInstance));
         if ($relation->isValid($childInstance)) {
             if (isset($this->relations[$relation->getKey()])) {
-                $this->relations[$relation->getKey()]->add($childInstance);
+                $this->relations[$relation->getKey()]->add($childInstance, $position, $otherID);
             } else {
                 throw new \Exception("Trying to add a relation ".$relation->getKey()." to an instance that not have this relation!");
             }
@@ -108,10 +149,20 @@ class Instance
         }
     }
 
-    public function addToRelationByKey(string $key, Instance $child)
+    public function addToRelationByKey(string $key, Instance $child, $position=RelationInstances::ABOVE, $otherID=null)
     {
         $relation=$this->getClass()->getRelationByKey($key);
-        return $this->addToRelation($relation, $child);
+        return $this->addToRelation($relation, $child, $position, $otherID);
+    }
+
+    private function addToRelationByKeyAndID(string $key, string $id, $position=RelationInstances::ABOVE, $otherID=null)
+    {
+        $this->relations[$key]->addID($id, $position, $otherID);
+    }
+
+    public function removeFromRelationByKeyAndID(string $key, string $id, $silent=true)
+    {
+        $this->relations[$key]->removeID($id, $silent);
     }
 
     public function setValues(array $values)
