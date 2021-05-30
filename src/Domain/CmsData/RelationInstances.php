@@ -7,8 +7,9 @@ use Omatech\Editora\Utils\Jsons;
 
 class RelationInstances
 {
-    private $relation;
-    private $children;
+    private Relation $relation;
+    private ?array $children=null;
+    
     const ABOVE=0;
     const BELOW=1; 
 

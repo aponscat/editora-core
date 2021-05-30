@@ -7,11 +7,11 @@ use Omatech\Editora\Adapters\MediaAdapterInterface;
 
 class ImageAttribute extends Attribute
 {
-    protected $width=null;
-    protected $height=null;
-    protected $storagePath='/tmp';
-    protected $publicPath='/uploads/images';
-    protected $folderPattern='Ymd';
+    protected ?int $width=null;
+    protected ?int $height=null;
+    protected string $storagePath='/tmp';
+    protected string $publicPath='/uploads/images';
+    protected string $folderPattern='Ymd';
 
     public function __construct($key, $config, $valueType)
     {

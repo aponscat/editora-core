@@ -4,8 +4,8 @@ namespace Omatech\Editora\Domain\CmsStructure;
 
 class CmsStructure
 {
-    private $classes;
-    private $languages;
+    private ?array $classes;
+    private ?array $languages;
 
     private function __construct($languages, $classes)
     {

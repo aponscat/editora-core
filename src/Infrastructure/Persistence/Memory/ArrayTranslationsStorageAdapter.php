@@ -7,7 +7,7 @@ use Omatech\Editora\Domain\CmsData\Contracts\TranslationsStorageInterface;
 
 class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
 {
-    private static $translations=[];
+    private static array $translations=[];
 
     public static function exists(string $key): bool
     {

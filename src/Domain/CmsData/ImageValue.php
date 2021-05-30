@@ -6,10 +6,10 @@ use Omatech\Editora\Domain\CmsStructure\Attribute;
 
 class ImageValue extends Value
 {
-    private $internalPath;
-    private $externalPath;
-    private $fileName;
-    private $base64Data;
+    private string $internalPath;
+    private string $externalPath;
+    private string $fileName;
+    private string $base64Data;
 
     public function setValue($value)
     {

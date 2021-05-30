@@ -9,25 +9,28 @@ use Omatech\Editora\Domain\CmsData\RelationInstances;
 
 class Instance
 {
-    private $class;
-    private $key;
-    private $publishingInfo;
-    private $externalID;
-    private $values;
-    private $relations;
-    private $storageID=null;
+    private Clas $class;
+    private string $key;
+    private PublishingInfo $publishingInfo;
+    private array $values;
+    private ?array $relations=null;
+    private ?string $externalID=null;
+    private ?string $storageID=null;
 
     private function __construct(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
         $this->class=$class;
         $this->key=$key;
-        $this->publishingInfo=$publishingInfo;
         $this->externalID=$externalID;
         $this->storageID=$storageID;
 
         if (!$publishingInfo) 
         {
             $this->publishingInfo=new PublishingInfo();
+        }
+        else
+        {
+            $this->publishingInfo=$publishingInfo;
         }
 
         if ($class->existRelations()) {

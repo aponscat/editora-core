@@ -4,9 +4,9 @@ namespace Omatech\Editora\Domain\CmsData;
 
 class PublishingInfo
 {
-    private $status;
-    private $startPublishingDate;
-    private $endPublishingDate;
+    private string $status;
+    private ?int $startPublishingDate;
+    private ?int $endPublishingDate;
 
     public function __construct(string $status='O', $startPublishingDate=null, $endPublishingDate=null)
     {

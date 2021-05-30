@@ -6,8 +6,8 @@ use Omatech\Editora\Domain\CmsData\Instance;
 
 class Relation
 {
-    private $key;
-    private $children;
+    private string $key;
+    private array $children;
 
     public function __construct($key, $children)
     {

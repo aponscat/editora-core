@@ -7,9 +7,9 @@ use Omatech\Editora\Utils\Strings;
 
 class Value
 {
-    protected $attribute;
-    protected $value;
-    private $subValues;
+    protected Attribute $attribute;
+    protected string|array $value;
+    private ?array $subValues=null;
 
     public function __construct(Attribute $attribute, $value=null)
     {
@@ -73,7 +73,7 @@ class Value
     }
 
 
-    public function setValue($value)
+    public function setValue(string|array $value)
     {
         $this->value=$value;
     }

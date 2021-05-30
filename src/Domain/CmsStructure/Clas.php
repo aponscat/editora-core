@@ -6,9 +6,9 @@ use Omatech\Editora\Utils\Jsons;
 
 class Clas
 {
-    private $key;
-    private $attributes;
-    private $relations;
+    private string $key;
+    private ?array $attributes=null;
+    private ?array $relations=null;
 
     private function __construct($key)
     {

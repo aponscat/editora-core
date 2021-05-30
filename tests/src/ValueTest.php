@@ -10,7 +10,9 @@ class ValueTest extends TestCase
 {
     public function testGetValueAfterCreate(): void
     {
-        $atri=new Attribute('english-text-attribute', 'en');
+        $key='english-text-attribute';
+        $fullyQualifyedKey="$key:en";
+        $atri=new Attribute($fullyQualifyedKey);
         $val=new Value($atri, 'Hello World!');
         $this->assertTrue($val->getValue()=='Hello World!');
     }
@@ -18,10 +20,12 @@ class ValueTest extends TestCase
     public function testGetEnglishDataAfterCreate(): void
     {
         $key='english-text-attribute';
-        $atri=new Attribute($key, 'en');
+        $fullyQualifyedKey="$key:en";
+        $atri=new Attribute($fullyQualifyedKey);
         $textValue='Hello World!';
         $value=new Value($atri, $textValue);
-        $this->assertTrue($value->getData()==[$key=>$textValue]);
+
+        $this->assertTrue($value->getData('en')==[$key=>$textValue]);
     }
 
     public function testGetMultiLangDataAfterCreate(): void

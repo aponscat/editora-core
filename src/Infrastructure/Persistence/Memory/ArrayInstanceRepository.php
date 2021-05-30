@@ -9,8 +9,8 @@ use Omatech\Editora\Domain\CmsStructure\CmsStructure;
 
 class ArrayInstanceRepository implements InstanceRepositoryInterface
 {
-    private static $instances;
-    private static $structure;
+    private static array $instances;
+    private static CmsStructure $structure;
 
     public function __construct(CmsStructure $structure)
     {

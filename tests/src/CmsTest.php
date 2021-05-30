@@ -24,9 +24,9 @@ class CmsTest extends TestCase
             $countryClass,
             'country-es',
             ['country_code'=>'es'
-                  , 'title:es'=>'España'
-                  , 'title:en'=>'Spain'
-                  ]
+            , 'title:es'=>'España'
+            , 'title:en'=>'Spain'
+            ]
         );
         $this->assertTrue($instance->getData('es')==
             ['country_code' => 'es'

@@ -4,11 +4,13 @@ namespace Omatech\Editora\Domain;
 
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\CmsStructure\CmsStructure;
+use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
 
 class Cms
 {
-    private $structure;
-    private $storage;
+    private CmsStructure $structure;
+    private InstanceRepositoryInterface $storage;
 
     public function __construct($structure, $storage)
     {

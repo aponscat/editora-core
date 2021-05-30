@@ -8,13 +8,13 @@ use Omatech\Editora\Utils\Jsons;
 
 class Attribute
 {
-    protected $key;
-    protected $language='ALL';
-    protected $mandatory=false;
-    protected $valueType='Omatech\Editora\Domain\CmsData\Value';
-    protected $subattributes=null;
-    protected $langSeparator=':';
-    private $config;
+    protected string $key;
+    protected string $language='ALL';
+    protected bool $mandatory=false;
+    protected string $valueType='Omatech\Editora\Domain\CmsData\Value';
+    protected ?array $subattributes=null;
+    protected string $langSeparator=':';
+    private ?array $config=null;
 
     public function __construct($key, $config=null, $valueType=null)
     {

@@ -4,8 +4,8 @@ namespace Omatech\Editora\Domain\CmsData;
 
 class TranslatableKey
 {
-    private $key;
-    private $translations;
+    private string $key;
+    private array $translations;
 
     private function __construct($key, $translations)
     {
