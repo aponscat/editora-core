@@ -135,12 +135,12 @@ class Instance
         return null;
     }
 
-    public function addToRelation(Relation $relation, Instance $childInstance, $position=RelationInstances::ABOVE, $otherID=null)
+    public function addToRelation(Relation $relation, Instance $childInstance, $position=RelationInstances::ABOVE, string $otherID=null, bool $strict=false)
     {
         assert(!empty($relation) && !empty($childInstance));
         if ($relation->isValid($childInstance)) {
             if (isset($this->relations[$relation->getKey()])) {
-                $this->relations[$relation->getKey()]->add($childInstance, $position, $otherID);
+                $this->relations[$relation->getKey()]->add($childInstance, $position, $otherID, $strict);
             } else {
                 throw new \Exception("Trying to add a relation ".$relation->getKey()." to an instance that not have this relation!");
             }
@@ -149,20 +149,20 @@ class Instance
         }
     }
 
-    public function addToRelationByKey(string $key, Instance $child, $position=RelationInstances::ABOVE, $otherID=null)
+    public function addToRelationByKey(string $key, Instance $child, $position=RelationInstances::ABOVE, string $otherID=null, bool $strict=false)
     {
         $relation=$this->getClass()->getRelationByKey($key);
-        return $this->addToRelation($relation, $child, $position, $otherID);
+        return $this->addToRelation($relation, $child, $position, $otherID, $strict);
     }
 
-    private function addToRelationByKeyAndID(string $key, string $id, $position=RelationInstances::ABOVE, $otherID=null)
+    private function addToRelationByKeyAndID(string $key, string $id, $position=RelationInstances::ABOVE, string $otherID=null, bool $strict=false)
     {
-        $this->relations[$key]->addID($id, $position, $otherID);
+        $this->relations[$key]->addID($id, $position, $otherID, $strict);
     }
 
-    public function removeFromRelationByKeyAndID(string $key, string $id, $silent=true)
+    public function removeFromRelationByKeyAndID(string $key, string $id, $strict=false)
     {
-        $this->relations[$key]->removeID($id, $silent);
+        $this->relations[$key]->removeID($id, $strict);
     }
 
     public function setValues(array $values)

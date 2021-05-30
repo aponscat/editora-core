@@ -92,7 +92,7 @@ class InstancesRelationsTest extends TestCase
         $this->assertTrue(in_array($instanceNewsItem2->ID(), $children));
         $this->assertTrue(in_array($instanceNewsItem3->ID(), $children));
 
-        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID(), false);
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID(), true);
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
         $this->assertTrue(in_array($instanceNewsItem1->ID(), $children));
         $this->assertFalse(in_array($instanceNewsItem2->ID(), $children));
@@ -100,7 +100,7 @@ class InstancesRelationsTest extends TestCase
 
         // try to remove the same element
         $this->expectException(\Exception::class);
-        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID(), false);
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID(), true);
     }
 
     public function testRelationOrderOperations(): void
@@ -169,20 +169,72 @@ class InstancesRelationsTest extends TestCase
 
         $children=$instanceCategory1->getChildrenIDsByRelationKey('news');
 
-        echo "\nChildren order\n";
-        foreach ($children as $key=>$childID)
-        {
-            echo "[$key]=>$childID:".$cms->getInstanceByID($childID)->getKey()."\n";
-        }
+        $this->assertTrue($children[0]==$instanceNewsItem3->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem2->ID());
+        $this->assertTrue($children[2]==$instanceNewsItem1->ID());
 
         $cms->putInstance($instanceCategory1);
         $recoveredCategoryInstance=$cms->getInstanceByID($instanceCategory1->ID());
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
-        echo "\nChildren order after recovery\n";
-        foreach ($children as $key=>$childID)
-        {
-            echo "[$key]=>$childID:".$cms->getInstanceByID($childID)->getKey()."\n";
-        }
+
+        $this->assertTrue($children[0]==$instanceNewsItem3->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem2->ID());
+        $this->assertTrue($children[2]==$instanceNewsItem1->ID());
+
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem1->ID());
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children[0]==$instanceNewsItem3->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem2->ID());
+
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID());
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem3->ID());
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children==[]);
+
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::BELOW);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem3, RelationInstances::BELOW);
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children[0]==$instanceNewsItem1->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem2->ID());
+        $this->assertTrue($children[2]==$instanceNewsItem3->ID());
+
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID());
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children[0]==$instanceNewsItem1->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem3->ID());
+
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::BELOW, $instanceNewsItem1->ID());
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+
+        $this->assertTrue($children[0]==$instanceNewsItem1->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem2->ID());
+        $this->assertTrue($children[2]==$instanceNewsItem3->ID());
+
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem1->ID());
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem2->ID());
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem3->ID());
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children==[]);
+
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::BELOW);
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children[0]==$instanceNewsItem1->ID());
+
+        $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem1->ID());
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::ABOVE);
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children[0]==$instanceNewsItem1->ID());
+
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::ABOVE, $instanceNewsItem1->ID());
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem3, RelationInstances::BELOW, $instanceNewsItem2->ID());
+        $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
+        $this->assertTrue($children[0]==$instanceNewsItem2->ID());
+        $this->assertTrue($children[1]==$instanceNewsItem3->ID());
+        $this->assertTrue($children[2]==$instanceNewsItem1->ID());
+
+        $this->expectException(\Exception::class);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::BELOW, 'xxxx', true);
 
     }
 
