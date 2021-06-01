@@ -42,9 +42,7 @@ class InstanceRepositoryInterface
 }
 
 package "Infrastructure" #DDDDDD {
-class ArrayMediaAdapter implements MediaAdapterInterface
 class S3MediaAdapter implements MediaAdapterInterface
-class MySQLMediaAdapter implements MediaAdapterInterface
 class LocalStorageMediaAdapter implements MediaAdapterInterface
 class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
 class MySQLTranslationsStorageManager implements TranslationsStorageAdapterInterface
