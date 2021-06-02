@@ -119,6 +119,8 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 
 TBD:
 *- Guardar relationinstances com IDs addRelation ($child, ABOVE|BELOW, $id)
+- separar en CmsStructureTransformers el codi que ara esta a CmsStructure
+- DSL fitxer input de structure
 - Passar de jsons a classes d'Structure
 - Editora Database amb yaml
 - components a nivell d'attribute i class: edit=xxx list=xxx
