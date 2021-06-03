@@ -260,7 +260,7 @@ class CmsTest extends TestCase
             , ['key'=>'text:en']
             , ['key'=>'title:es']
             , ['key'=>'text:es']
-            , ['key'=>'multilang-attribute']
+            , ['key'=>'nolang-attribute']
             , ['key'=>'image-with-alt-and-title'
             , 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute'
             , 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue'

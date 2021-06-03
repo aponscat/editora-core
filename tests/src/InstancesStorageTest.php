@@ -22,7 +22,7 @@ class InstancesStorageTest extends TestCase
         , ['key'=>'text:en', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
         , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
         , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
-        , ['key'=>'multilang-attribute']
+        , ['key'=>'nolang-attribute']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
@@ -34,7 +34,7 @@ class InstancesStorageTest extends TestCase
               ,"text:en" => "Hello World Text!"
               ,"title:es" => "Hola Mundo!"
               ,"text:es" => "Hola Mundo Text!"
-              ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+              ,"nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
 
@@ -43,7 +43,7 @@ class InstancesStorageTest extends TestCase
         [
           "title" => "!eltiT dlroW olleH"
           ,"text" => "!txeT dlroW olleH"
-          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
 
@@ -56,7 +56,7 @@ class InstancesStorageTest extends TestCase
               ]
             ,"title" => "!eltiT dlroW olleH"
             ,"text" => "!txeT dlroW olleH"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
 
@@ -65,7 +65,7 @@ class InstancesStorageTest extends TestCase
       [
         "title" => "!odnuM aloH"
         ,"text" => "!txeT odnuM aloH"
-        , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
         );
 
@@ -78,7 +78,7 @@ class InstancesStorageTest extends TestCase
             ]
           ,"title" => "!odnuM aloH"
           ,"text" => "!txeT odnuM aloH"
-          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
         );
 
@@ -103,7 +103,7 @@ class InstancesStorageTest extends TestCase
         ]
         ,"title" => "!odnuM aloH"
         ,"text" => "!txeT odnuM aloH"
-        , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
     }

@@ -24,7 +24,7 @@ classes:
         mandatory: true
       title:es:
       text:
-      multilang-attribute: *nolang-attribute
+      nolang-attribute: *nolang-attribute
       image-with-alt-and-title: *image-with-alt-and-title
   news-category:
     attributes:

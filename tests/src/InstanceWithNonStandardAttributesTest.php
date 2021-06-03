@@ -19,7 +19,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         , ['key'=>'english-text:en', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
         , ['key'=>'spanish-title:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
         , ['key'=>'spanish-text:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
-        , ['key'=>'multilang-attribute']
+        , ['key'=>'nolang-attribute']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
@@ -31,7 +31,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
               ,"english-text:en" => "Hello World Text!"
               ,"spanish-title:es" => "Hola Mundo!"
               ,"spanish-text:es" => "Hola Mundo Text!"
-              ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+              ,"nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
 
@@ -42,7 +42,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         [
           "english-title" => "!eltiT dlroW olleH"
           ,"english-text" => "!txeT dlroW olleH"
-          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
 
@@ -55,7 +55,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
           ]
           ,"english-title" => "!eltiT dlroW olleH"
             ,"english-text" => "!txeT dlroW olleH"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
 
@@ -64,7 +64,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
       [
         "spanish-title" => "!odnuM aloH"
         ,"spanish-text" => "!txeT odnuM aloH"
-        , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
         );
 
@@ -77,7 +77,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
             ]
       ,"spanish-title" => "!odnuM aloH"
           ,"spanish-text" => "!txeT odnuM aloH"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
         );
     }

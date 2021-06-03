@@ -166,7 +166,7 @@ class InstanceTest extends TestCase
         , ['key'=>'english-text:en']
         , ['key'=>'spanish-title:es']
         , ['key'=>'spanish-text:es']
-        , ['key'=>'multilang-attribute', 'config'=>[]]
+        , ['key'=>'nolang-attribute', 'config'=>[]]
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
@@ -177,7 +177,7 @@ class InstanceTest extends TestCase
             ,"english-text:en" => "Hello World Text!"
             ,"spanish-title:es" => "Hola Mundo!"
             ,"spanish-text:es" => "Hola Mundo Text!"
-            ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            ,"nolang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
         $this->assertTrue(
@@ -185,7 +185,7 @@ class InstanceTest extends TestCase
         [
           "english-title" => "Hello World Title!"
           ,"english-text" => "Hello World Text!"
-          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
 
@@ -198,7 +198,7 @@ class InstanceTest extends TestCase
               ]
           ,"english-title" => "Hello World Title!"
             ,"english-text" => "Hello World Text!"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
 
@@ -207,7 +207,7 @@ class InstanceTest extends TestCase
       [
         "spanish-title" => "Hola Mundo!"
         ,"spanish-text" => "Hola Mundo Text!"
-        , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+        , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
         );
 
@@ -220,7 +220,7 @@ class InstanceTest extends TestCase
             ]
       ,"spanish-title" => "Hola Mundo!"
           ,"spanish-text" => "Hola Mundo Text!"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
           ]
         );
     }
@@ -232,7 +232,7 @@ class InstanceTest extends TestCase
         , ['key'=>'text:en']
         , ['key'=>'title:es']
         , ['key'=>'text:es']
-        , ['key'=>'multilang-attribute']
+        , ['key'=>'nolang-attribute']
       ]);
         $class=Clas::createFromJSON('news-item', $jsonAttributes);
 
@@ -244,7 +244,7 @@ class InstanceTest extends TestCase
             ,"text:en" => "Hello World Text!"
             ,"title:es" => "Hola Mundo!"
             ,"text:es" => "Hola Mundo Text!"
-            ,"multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            ,"nolang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
         );
         $this->assertTrue(
@@ -254,7 +254,7 @@ class InstanceTest extends TestCase
           ,"text:en" => "Hello World Text!"
           ,"title:es" => "Hola Mundo!"
           ,"text:es" => "Hola Mundo Text!"
-          , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+          , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
 
@@ -269,7 +269,7 @@ class InstanceTest extends TestCase
             ,"text:en" => "Hello World Text!"
             ,"title:es" => "Hola Mundo!"
             ,"text:es" => "Hola Mundo Text!"
-            , "multilang-attribute" => "NOT-TRANSLATABLE-CODE"
+            , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
     }
