@@ -11,11 +11,18 @@ class Value
     protected $value;
     private ?array $subValues=null;
 
-    public function __construct(Attribute $attribute, $value=null)
+    public function __construct(Attribute $attribute, $value=null, $hydrateOnly=false)
     {
         $this->attribute=$attribute;
         $this->setSubValues($value);
-        $this->setValue($value);
+        if ($hydrateOnly)
+        {
+            $this->value=$value;
+        }
+        else
+        {
+            $this->setValue($value);
+        }
         $this->validate();
     }
 
@@ -28,6 +35,11 @@ class Value
         }
         return
         [$this->attribute->getFullyQualifiedKey()=>$this->value];
+    }
+
+    public static function hydrate(Attribute $attribute, $value=null)
+    {
+        return new self($attribute, $value, true);
     }
 
     public function setSubValues($value=null)

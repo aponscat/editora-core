@@ -79,6 +79,11 @@ class CmsStructure
         return new self($languages, $classes);
     }
 
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+
     private static function parseLanguages($structure)
     {
         $languages=[];

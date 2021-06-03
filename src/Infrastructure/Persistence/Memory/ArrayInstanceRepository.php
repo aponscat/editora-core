@@ -70,6 +70,6 @@ class ArrayInstanceRepository implements InstanceRepositoryInterface
     {
         $classKey=$arr['metadata']['class'];
         $class=self::$structure->getClass($classKey);
-        return Instance::fromArray($class, $arr);
+        return Instance::hydrateFromArray($class, $arr);
     }
 }

@@ -7,7 +7,9 @@
       "headless CMS",
       "editora"
   ],  
-  "require": {},
+  "require": {
+    "symfony/yaml": "^5.3"
+  },
   "autoload": {
     "psr-4": {
       "Omatech\\Editora\\": "src"

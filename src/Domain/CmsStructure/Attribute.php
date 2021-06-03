@@ -47,8 +47,8 @@ class Attribute
         }
 
         if (isset($config['subattributes'])) {
-            foreach ($config['subattributes'] as $subattribute) {
-                assert(!empty($subattribute['key']));
+            foreach ($config['subattributes'] as $subattributeKey=>$subattribute) {
+                //assert(!empty($subattribute['key']));
                 $subattributeConfig=null;
                 if (isset($subattribute['config'])) {
                     $subattributeConfig=$subattribute['config'];
@@ -57,7 +57,16 @@ class Attribute
                 if (isset($subattribute['valueType'])) {
                     $subattributeValueType=$subattribute['valueType'];
                 }
-                $this->subattributes[]=new self($subattribute['key'], $subattributeConfig, $subattributeValueType);
+
+                if (!isset($subattribute['key']))
+                {
+                    $this->subattributes[]=new self($subattributeKey, $subattributeConfig, $subattributeValueType);
+                }
+                else
+                {
+                    $this->subattributes[]=new self($subattribute['key'], $subattributeConfig, $subattributeValueType);
+                }
+
             }
         }
     }
@@ -152,6 +161,12 @@ class Attribute
     {
         $class=$this->valueType;
         return new $class($this, $value);
+    }
+
+    public function hydrateValue($value)
+    {
+        $class=$this->valueType;
+        return $class::hydrate($this, $value);
     }
 
     public function isMandatory(): bool

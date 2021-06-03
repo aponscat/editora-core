@@ -93,7 +93,6 @@ class InstancesStorageTest extends TestCase
         $id=$instance1->ID();
  
         $instance2=$storage::read($id);
-
         $this->assertTrue(
             $instance2->getData('es', true)==
         ['metadata' => [

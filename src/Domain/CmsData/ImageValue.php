@@ -2,8 +2,6 @@
 
 namespace Omatech\Editora\Domain\CmsData;
 
-use Omatech\Editora\Domain\CmsStructure\Attribute;
-
 class ImageValue extends Value
 {
     private string $internalPath;
@@ -13,6 +11,7 @@ class ImageValue extends Value
 
     public function setValue($value)
     {
+        assert(isset($value['original-filename']));
         //$mediaAdapter=$this->attribute->getMediaAdapter();
         $storagePath=$this->attribute->getStoragePath();
         $externalPath=$this->attribute->getPublicPath();

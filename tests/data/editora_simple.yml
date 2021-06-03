@@ -1,0 +1,35 @@
+languages:
+  - es
+  - en
+attributes:
+  nolang-attribute: &nolang-attribute
+    multilang: false
+  image-with-alt-and-title: &image-with-alt-and-title
+    type: Omatech\Editora\Domain\CmsStructure\ImageAttribute
+    value-type: Omatech\Editora\Domain\CmsData\ImageValue
+    mandatory: true
+    multilang: false
+    dimensions: 600x600
+    storage-path: /Users/apons/editora-core/tests/src
+    public-path: /images
+    subattributes:
+      alt:
+      title:
+      code:
+        multilang: false
+classes:
+  news-item:
+    attributes:
+      title:en:
+        mandatory: true
+      title:es:
+      text:
+      multilang-attribute: *nolang-attribute
+      image-with-alt-and-title: *image-with-alt-and-title
+  news-category:
+    attributes:
+      title:
+      code:
+    relations:
+      news:
+        news-items

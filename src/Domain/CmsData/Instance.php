@@ -43,7 +43,12 @@ class Instance
         }
     }
 
-    public static function fromArray(Clas $class, array $arr): Instance
+    public static function hydrateFromArray (Clas $class, array $arr)
+    {
+        return self::fromArray($class, $arr, true);
+    }
+
+    public static function fromArray(Clas $class, array $arr, $hydrateOnly=false): Instance
     {
         assert(isset($arr['metadata']['key']));
         $key=$arr['metadata']['key'];
@@ -58,11 +63,50 @@ class Instance
         $values=(isset($arr['values']))?$arr['values']:null;
         $relations=(isset($arr['relations']))?$arr['relations']:null;
 
-        return self::create($class, $key
+        $method='create';
+        if ($hydrateOnly)
+        {
+            $method='hydrate';
+        }
+
+        return self::$method($class, $key
         , $values
         , $relations
         , $publishingInfo, $externalID, $storageID);
     }
+
+    public static function hydrate(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
+    {
+        $valuesArray=[];
+        if ($values) {
+            foreach ($values as $attributeKey=>$value) {
+                if ($class->existsAttribute($attributeKey)) {
+                    $atri=$class->createAttributeFromKey($attributeKey);
+                    $valuesArray[]=$atri->hydrateValue($value);
+                } else {
+                    throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
+                }
+            }
+        }
+
+        $inst=new self($class, $key, null, null, $publishingInfo, $externalID, $storageID);
+
+        if ($valuesArray) {
+            $inst->setValues($valuesArray);
+        }
+
+        if ($relations) {
+            foreach ($relations as $relationKey=>$children) {
+                foreach ($children as $id)
+                {
+                    $inst->addToRelationByKeyAndID($relationKey, $id, RelationInstances::BELOW);
+                }
+            }
+        }
+
+        return $inst->validate();
+    }
+
 
     public static function create(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
@@ -95,6 +139,7 @@ class Instance
 
         return $inst->validate();
     }
+
 
     public function toArray()
     {

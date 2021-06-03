@@ -35,6 +35,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         ]
         );
 
+        //print_r($instance->getData('en'));
 
         $this->assertTrue(
             $instance->getData('en')==
