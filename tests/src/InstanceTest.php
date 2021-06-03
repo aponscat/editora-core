@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Domain\CmsData\Instance;
-use Omatech\Editora\Domain\CmsData\Value;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Data\Instance;
+use Omatech\Editora\Domain\Data\Value;
 
 class InstanceTest extends TestCase
 {
@@ -14,7 +14,7 @@ class InstanceTest extends TestCase
     {
         $atriTitle=new Attribute('english-title:en', ['mandatory'=>true]);
         $atriText=new Attribute('english-text:en');
-        $class=Clas::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
+        $class=Clazz::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
         $valTitle=new Value($atriTitle, 'Hello World Title!');
         $valText=new Value($atriText, 'Hello World Text!');
         $instance=Instance::create($class, 'news-item-instance', $valTitle->toArray()+$valText->toArray());
@@ -44,10 +44,10 @@ class InstanceTest extends TestCase
     public function testGetDataAfterCreateFromJSON(): void
     {
         $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'type'=>'Omatech\Editora\Domain\CmsStructure\Attribute', 'config'=>['mandatory'=>true]]
+        ['key'=>'english-title:en', 'type'=>'Omatech\Editora\Domain\Structure\Attribute', 'config'=>['mandatory'=>true]]
         , ['key'=>'english-text:en']
       ]);
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
         $instance=Instance::create(
             $class,
             'news-item-instance',
@@ -83,7 +83,7 @@ class InstanceTest extends TestCase
         ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
         , ['key'=>'english-text:en']
       ]);
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
         $instance=Instance::create(
             $class,
             'news-item-instance',
@@ -112,7 +112,7 @@ class InstanceTest extends TestCase
     {
         $atriTitle=new Attribute('english-title:en', ['mandatory'=>true]);
         $atriText=new Attribute('english-text:en');
-        $class=Clas::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
+        $class=Clazz::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
 
         $atriInexistentText=new Attribute('english-nonexistent:en');
 
@@ -130,7 +130,7 @@ class InstanceTest extends TestCase
         , ['key'=>'english-text:en']
       ]);
 
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
         $instance=Instance::create(
             $class,
@@ -149,7 +149,7 @@ class InstanceTest extends TestCase
         ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
         , ['key'=>'english-text:en']
       ]);
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
         $this->expectException(\Exception::class);
         $instance=Instance::create(
             $class,
@@ -168,7 +168,7 @@ class InstanceTest extends TestCase
         , ['key'=>'spanish-text:es']
         , ['key'=>'nolang-attribute', 'config'=>[]]
       ]);
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
 
         $instance=Instance::create(
             $class,
@@ -234,7 +234,7 @@ class InstanceTest extends TestCase
         , ['key'=>'text:es']
         , ['key'=>'nolang-attribute']
       ]);
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
 
         $instance=Instance::create(
             $class,

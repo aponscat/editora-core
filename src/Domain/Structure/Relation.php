@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsStructure;
+namespace Omatech\Editora\Domain\Structure;
 
-use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\Data\Instance;
 
 class Relation
 {

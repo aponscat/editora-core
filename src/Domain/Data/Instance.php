@@ -1,51 +1,51 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData;
+namespace Omatech\Editora\Domain\Data;
 
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Domain\CmsStructure\Relation;
-use Omatech\Editora\Domain\CmsData\RelationInstances;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Structure\Relation;
+use Omatech\Editora\Domain\Data\Link;
 
 class Instance
 {
-    private Clas $class;
+    private Clazz $class;
     private string $key;
-    private PublishingInfo $publishingInfo;
+    private Publication $Publication;
     private array $values;
     private ?array $relations=null;
     private ?string $externalID=null;
     private ?string $storageID=null;
 
-    private function __construct(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
+    private function __construct(Clazz $class, string $key, array $values=null, array $relations=null, Publication $Publication=null, $externalID=null, $storageID=null)
     {
         $this->class=$class;
         $this->key=$key;
         $this->externalID=$externalID;
         $this->storageID=$storageID;
 
-        if (!$publishingInfo) {
-            $this->publishingInfo=new PublishingInfo();
+        if (!$Publication) {
+            $this->Publication=new Publication();
         } else {
-            $this->publishingInfo=$publishingInfo;
+            $this->Publication=$Publication;
         }
 
         if ($class->existRelations()) {
             $classRelations=$class->getRelations();
             if ($classRelations) {
                 foreach ($classRelations as $relationKey=>$relation) {
-                    $this->relations[$relationKey]=new RelationInstances($relation);
+                    $this->relations[$relationKey]=new Link($relation);
                 }
             }
         }
     }
 
-    public static function hydrateFromArray(Clas $class, array $arr)
+    public static function hydrateFromArray(Clazz $class, array $arr)
     {
         return self::fromArray($class, $arr, true);
     }
 
-    public static function fromArray(Clas $class, array $arr, $hydrateOnly=false): Instance
+    public static function fromArray(Clazz $class, array $arr, $hydrateOnly=false): Instance
     {
         assert(isset($arr['metadata']['key']));
         $key=$arr['metadata']['key'];
@@ -55,7 +55,7 @@ class Instance
         $externalID=(isset($arr['metadata']['externalID']))?$arr['metadata']['externalID']:null;
         $storageID=(isset($arr['metadata']['ID']))?$arr['metadata']['ID']:null;
 
-        $publishingInfo=PublishingInfo::fromArray($arr);
+        $Publication=Publication::fromArray($arr);
 
         $values=(isset($arr['values']))?$arr['values']:null;
         $relations=(isset($arr['relations']))?$arr['relations']:null;
@@ -65,16 +65,16 @@ class Instance
             $method='hydrate';
         }
 
-        return self::$method($class, $key, $values, $relations, $publishingInfo, $externalID, $storageID);
+        return self::$method($class, $key, $values, $relations, $Publication, $externalID, $storageID);
     }
 
-    public static function hydrate(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
+    public static function hydrate(Clazz $class, string $key, array $values=null, array $relations=null, Publication $Publication=null, $externalID=null, $storageID=null)
     {
-        return self::create($class, $key, $values, $relations, $publishingInfo, $externalID, $storageID, true);
+        return self::create($class, $key, $values, $relations, $Publication, $externalID, $storageID, true);
     }
 
 
-    public static function create(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null, $hydrateOnly=false)
+    public static function create(Clazz $class, string $key, array $values=null, array $relations=null, Publication $Publication=null, $externalID=null, $storageID=null, $hydrateOnly=false)
     {
         $method='createValue';
         if ($hydrateOnly) {
@@ -92,7 +92,7 @@ class Instance
             }
         }
 
-        $inst=new self($class, $key, null, null, $publishingInfo, $externalID, $storageID);
+        $inst=new self($class, $key, null, null, $Publication, $externalID, $storageID);
 
         if ($valuesArray) {
             $inst->setValues($valuesArray);
@@ -101,7 +101,7 @@ class Instance
         if ($relations) {
             foreach ($relations as $relationKey=>$children) {
                 foreach ($children as $id) {
-                    $inst->addToRelationByKeyAndID($relationKey, $id, RelationInstances::BELOW);
+                    $inst->addToRelationByKeyAndID($relationKey, $id, Link::BELOW);
                 }
             }
         }
@@ -149,7 +149,7 @@ class Instance
         return null;
     }
 
-    public function addToRelation(Relation $relation, Instance $childInstance, $position=RelationInstances::ABOVE, string $otherID=null, bool $strict=false)
+    public function addToRelation(Relation $relation, Instance $childInstance, $position=Link::ABOVE, string $otherID=null, bool $strict=false)
     {
         assert(!empty($relation) && !empty($childInstance));
         if ($relation->isValid($childInstance)) {
@@ -163,13 +163,13 @@ class Instance
         }
     }
 
-    public function addToRelationByKey(string $key, Instance $child, $position=RelationInstances::ABOVE, string $otherID=null, bool $strict=false)
+    public function addToRelationByKey(string $key, Instance $child, $position=Link::ABOVE, string $otherID=null, bool $strict=false)
     {
         $relation=$this->getClass()->getRelationByKey($key);
         return $this->addToRelation($relation, $child, $position, $otherID, $strict);
     }
 
-    private function addToRelationByKeyAndID(string $key, string $id, $position=RelationInstances::ABOVE, string $otherID=null, bool $strict=false)
+    private function addToRelationByKeyAndID(string $key, string $id, $position=Link::ABOVE, string $otherID=null, bool $strict=false)
     {
         $this->relations[$key]->addID($id, $position, $otherID, $strict);
     }
@@ -202,7 +202,7 @@ class Instance
         return $this->class->getKey();
     }
 
-    public function getClass(): Clas
+    public function getClass(): Clazz
     {
         return $this->class;
     }
@@ -246,7 +246,7 @@ class Instance
           , 'key'=>$this->key
         ]];
 
-        $ret['metadata']+=$this->publishingInfo->toArray();
+        $ret['metadata']+=$this->Publication->toArray();
 
         if (!empty($this->externalID)) {
             $ret['metadata']['externalID']=$this->externalID;
@@ -291,37 +291,37 @@ class Instance
 
     public function setStatus($status)
     {
-        return $this->publishingInfo->setStatus($status);
+        return $this->Publication->setStatus($status);
     }
 
     public function isPublished($time=null)
     {
-        return $this->publishingInfo->isPublished($time);
+        return $this->Publication->isPublished($time);
     }
 
     public function setStartPublishingDate($time=null)
     {
-        return $this->publishingInfo->setStartPublishingDate($time);
+        return $this->Publication->setStartPublishingDate($time);
     }
 
     public function setEndPublishingDate($time=null)
     {
-        return $this->publishingInfo->setEndPublishingDate($time);
+        return $this->Publication->setEndPublishingDate($time);
     }
 
     public function setPublishingDates($startDate=null, $endDate=null)
     {
-        return $this->publishingInfo->setPublishingDates($startDate, $endDate);
+        return $this->Publication->setPublishingDates($startDate, $endDate);
     }
 
     private function getEndPublishingDateOr3000()
     {
-        return $this->publishingInfo->getEndPublishingDateOr3000();
+        return $this->Publication->getEndPublishingDateOr3000();
     }
 
     private function getStartPublishingDateOr0()
     {
-        return $this->publishingInfo->getStartPublishingDateOr0();
+        return $this->Publication->getStartPublishingDateOr0();
     }
 
     public function hasID()

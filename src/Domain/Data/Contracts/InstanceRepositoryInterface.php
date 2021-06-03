@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData\Contracts;
+namespace Omatech\Editora\Domain\Data\Contracts;
 
-use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Domain\Data\Instance;
 
 interface InstanceRepositoryInterface
 {

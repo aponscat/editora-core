@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsStructure;
+namespace Omatech\Editora\Domain\Structure;
 
-use Omatech\Editora\Domain\CmsData\Value;
+use Omatech\Editora\Domain\Data\Value;
 use Omatech\Editora\Utils\Strings;
 use Omatech\Editora\Utils\Jsons;
 
@@ -11,7 +11,7 @@ class Attribute
     protected string $key;
     protected string $language='ALL';
     protected bool $mandatory=false;
-    protected string $valueType='Omatech\Editora\Domain\CmsData\Value';
+    protected string $valueType='Omatech\Editora\Domain\Data\Value';
     protected ?array $subattributes=null;
     protected string $langSeparator=':';
     private ?array $config=null;
@@ -146,7 +146,7 @@ class Attribute
             $res['config']=$this->config;
         }
 
-        if (!$this->valueType=='Omatech\Editora\Domain\CmsData\Value') {
+        if (!$this->valueType=='Omatech\Editora\Domain\Data\Value') {
             $res['valueType']=$this->valueType;
         }
         return $res;

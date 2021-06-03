@@ -2,21 +2,21 @@
 
 namespace Omatech\Editora\Infrastructure\Persistence\File;
 
-use Omatech\Editora\Domain\CmsStructure\Contracts\StructureRepositoryInterface;
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsStructure\Relation;
+use Omatech\Editora\Domain\Structure\Contracts\StructureRepositoryInterface;
+use Omatech\Editora\Domain\Structure\Structure;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Structure\Relation;
 
 use Symfony\Component\Yaml\Yaml;
 
 class StructureRepository implements StructureRepositoryInterface
 {
-    public static function read($resource): CmsStructure
+    public static function read($resource): Structure
     {
         $yml = Yaml::parseFile($resource);
         //print_r($yml);
 
-        $structure=CmsStructure::createEmptyStructure();
+        $structure=Structure::createEmptyStructure();
         foreach ($yml['languages'] as $language) {
             $structure->addLanguage($language);
         }
@@ -26,7 +26,7 @@ class StructureRepository implements StructureRepositoryInterface
             $attributeArray=[];
             foreach ($class['attributes'] as $attributeKey=>$attributeConfig) {
                 $valueType=null;
-                $attributeType='Omatech\Editora\Domain\CmsStructure\Attribute';
+                $attributeType='Omatech\Editora\Domain\Structure\Attribute';
                 $multiLang=true;
                 if ($attributeConfig) {
                     if (isset($attributeConfig['type'])) {
@@ -47,7 +47,7 @@ class StructureRepository implements StructureRepositoryInterface
                     if (isset($attributeConfig['subattributes'])) {
                         foreach ($attributeConfig['subattributes'] as $subattributeKey=>$subattributeConfig) {
                             $subvalueType=null;
-                            $subattributeType='Omatech\Editora\Domain\CmsStructure\Attribute';
+                            $subattributeType='Omatech\Editora\Domain\Structure\Attribute';
                             //echo "$subattributeKey -> ".print_r($subattributeConfig, true)."\n";
                             $subattributeMultiLang=false;
 
@@ -97,7 +97,7 @@ class StructureRepository implements StructureRepositoryInterface
                 }
             }
 
-            $classInstance=Clas::createFromAttributesArray($classKey, $attributeArray);
+            $classInstance=Clazz::createFromAttributesArray($classKey, $attributeArray);
 
             
             if (isset($class['relations'])) 
@@ -123,7 +123,7 @@ class StructureRepository implements StructureRepositoryInterface
         return $structure;
     }
 
-    public static function write($resource, CmsStructure $structure): void
+    public static function write($resource, Structure $structure): void
     {
     }
 }

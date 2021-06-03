@@ -12,67 +12,68 @@ composer testwindows tests
 @startuml
 title Editora - Class Diagram
 
-
-package "CmsStructure"
+package "Application"
 {
 class Cms
-class Clas
+}
+
+package "Structure"
+{
+class Clazz
 class Attribute
 class Relation
 class ImageAttribute
-class CmsStructure
+class Structure
 }
 
-package "CmsData"
+package "Data"
 {
 class Instance
-class RelationInstances
-class TranslatableKey
+class Link
+class Ztatic
 class Value
 class ImageValue
 class NumberValue
 class ReverseValue
-class PublishingInfo
+class Publication
 }
 
 package "Contracts" {
 class MediaAdapterInterface
-class TranslationsStorageAdapterInterface
 class InstanceRepositoryInterface
 }
 
-package "Infrastructure" #DDDDDD {
+
+package "Infrastructure\Media" #DDDDDD {
 class S3MediaAdapter implements MediaAdapterInterface
 class LocalStorageMediaAdapter implements MediaAdapterInterface
-class ArrayTranslationsStorageManager implements TranslationsStorageAdapterInterface
-class MySQLTranslationsStorageManager implements TranslationsStorageAdapterInterface
-class ArrayInstanceRepository implements InstanceRepositoryInterface
-class EloquentInstanceRepository implements InstanceRepositoryInterface
+}
+
+package "Infrastructure\Memory" #DDDDDD {
+class InstanceRepository implements InstanceRepositoryInterface
 }
 
 
-Cms o-- CmsStructure
+Cms o-- Structure
 Cms o-- InstanceRepositoryInterface
-CmsStructure "1" *-- "*" Clas
+Structure "1" *-- "*" Clazz
 
-Clas -- Instance
-Clas "1" *-- "*" Attribute
-Clas "1" *-- "*"   Relation : children
+Clazz -- Instance
+Clazz "1" *-- "*" Attribute
+Clazz "1" *-- "*"   Relation : children
 Attribute "1" *-- "*subattributes" Attribute
 
-Relation "0..1" -- RelationInstances
+Relation "0..1" -- Link
 
 Attribute <|-- ImageAttribute
 
 Attribute "1" - "*" Value
 Instance "1" *.. "*" Value
-Instance "1" *.. "1" PublishingInfo
+Instance "1" *.. "1" Publication
 
-Instance "1" *-- "*"  RelationInstances : children
+Instance "1" *-- "*"  Link : children
 
 ImageAttribute -- MediaAdapterInterface
-
-TranslationsStorageAdapterInterface "1" *.. "*" TranslatableKey
 
 Value *-- Value
 
@@ -90,7 +91,7 @@ class Instance {
   Json getJson(lang)
 }
 
-class PublishingInfo {
+class Publication {
   Date startPublishingDate
   Date endPublishingDate
   Enum status
@@ -118,11 +119,11 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 4,5 - 5 meses total
 
 TBD:
-*- Guardar relationinstances com IDs addRelation ($child, ABOVE|BELOW, $id)
-- separar en CmsStructureTransformers el codi que ara esta a CmsStructure
-- DSL fitxer input de structure
+*- Guardar Link com IDs addRelation ($child, ABOVE|BELOW, $id)
+*- separar en StructureTransformers el codi que ara esta a Structure
+*- DSL fitxer input de structure
 - Passar de jsons a classes d'Structure
-- Editora Database amb yaml
+*- Editora Database amb yaml
 - components a nivell d'attribute i class: edit=xxx list=xxx
 - Valors unique per class e idioma (com niceurl)
 - Attributs orderables i/o indexables
@@ -132,11 +133,11 @@ src
   - Application
     - use cases
   - Domain
-    - CmsStructure
+    - Structure
       aqui les classes
       - Contracts (Ports)
       - Services (SubCasos d'us)
-    - CmsData
+    - Data
       - aqui les classes
       - Contracts (Ports)
         InstanceRepositoryInterface

@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData;
+namespace Omatech\Editora\Domain\Data;
 
-class PublishingInfo
+class Publication
 {
     private string $status;
     private ?int $startPublishingDate;
@@ -14,12 +14,12 @@ class PublishingInfo
         $this->setPublishingDates($startPublishingDate, $endPublishingDate);
     }
 
-    public static function fromArray(array $arr): PublishingInfo
+    public static function fromArray(array $arr): Publication
     {
         $status=(isset($arr['metadata']['status']))?$arr['metadata']['status']:'O';
         $startPublishingDate=(isset($arr['metadata']['startPublishingDate']))?$arr['metadata']['startPublishingDate']:null;
         $endPublishingDate=(isset($arr['metadata']['endPublishingDate']))?$arr['metadata']['endPublishingDate']:null;
-        return new PublishingInfo($status, $startPublishingDate, $endPublishingDate);
+        return new Publication($status, $startPublishingDate, $endPublishingDate);
     }
 
     public function toArray()

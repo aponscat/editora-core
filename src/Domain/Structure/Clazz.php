@@ -1,10 +1,10 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsStructure;
+namespace Omatech\Editora\Domain\Structure;
 
 use Omatech\Editora\Utils\Jsons;
 
-class Clas
+class Clazz
 {
     private string $key;
     private ?array $attributes=null;
@@ -15,7 +15,7 @@ class Clas
         $this->setKey($key);
     }
 
-    public static function createFromAttributesArray(string $key, array $attributesInstances): Clas
+    public static function createFromAttributesArray(string $key, array $attributesInstances): Clazz
     {
         $class=new self($key);
         $class->setAttributes($attributesInstances);
@@ -23,7 +23,7 @@ class Clas
     }
 
     
-    public static function createFromJSON(string $key, string $jsonAttributes, string $jsonRelations=null): Clas
+    public static function createFromJSON(string $key, string $jsonAttributes, string $jsonRelations=null): Clazz
     {
         $attributes=json_decode($jsonAttributes, true);
         assert(json_last_error() == JSON_ERROR_NONE);
@@ -32,7 +32,7 @@ class Clas
         foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
 
-            $attributeType='Omatech\Editora\Domain\CmsStructure\Attribute';
+            $attributeType='Omatech\Editora\Domain\Structure\Attribute';
             if (isset($attribute['type'])) {
                 if (class_exists($attribute['type'])) {
                     $attributeType=$attribute['type'];
@@ -41,7 +41,7 @@ class Clas
                 }
             }
 
-            $valueType='Omatech\Editora\Domain\CmsData\Value';
+            $valueType='Omatech\Editora\Domain\Data\Value';
             if (isset($attribute['valueType'])) {
                 if (class_exists($attribute['valueType'])) {
                     $valueType=$attribute['valueType'];

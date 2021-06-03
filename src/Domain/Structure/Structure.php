@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsStructure;
+namespace Omatech\Editora\Domain\Structure;
 
-class CmsStructure
+class Structure
 {
     private ?array $classes;
     private ?array $languages;
@@ -28,7 +28,7 @@ class CmsStructure
         return $this->classes;
     }
 
-    public function getClass(string $key): Clas
+    public function getClass(string $key): Clazz
     {
         assert(!empty($key));
         $parsedClassKeys='';
@@ -55,7 +55,7 @@ class CmsStructure
         $this->languages[]=$isoCode;
     }
 
-    public function addClass(Clas $class)
+    public function addClass(Clazz $class)
     {
         $this->classes[]=$class;
         foreach ($class->getAttributes() as $attribute) {
@@ -109,7 +109,7 @@ class CmsStructure
                 $classAttris+=self::getAttributesFromId($attributes, $languages, $attributeId);
             }
 
-            $classInstance=Clas::createFromAttributesArray($className, $classAttris);
+            $classInstance=Clazz::createFromAttributesArray($className, $classAttris);
             $classes[$id]=$classInstance;
         }
 
@@ -146,7 +146,7 @@ class CmsStructure
 
         $classes=[];
         foreach ($structure['classes'] as $key=>$class) {
-            $classInstance=Clas::createFromJSON(
+            $classInstance=Clazz::createFromJSON(
                 $key,
                 json_encode($class['attributes']),
                 (isset($class['relations']))?json_encode($class['relations']):null

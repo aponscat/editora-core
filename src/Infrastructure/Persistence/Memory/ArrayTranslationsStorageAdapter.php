@@ -2,8 +2,8 @@
 
 namespace Omatech\Editora\Infrastructure\Persistence\Memory;
 
-use Omatech\Editora\Domain\CmsData\TranslatableKey;
-use Omatech\Editora\Domain\CmsData\Contracts\TranslationsStorageInterface;
+use Omatech\Editora\Domain\Data\Ztatic;
+use Omatech\Editora\Domain\Data\Contracts\TranslationsStorageInterface;
 
 class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
 {
@@ -15,7 +15,7 @@ class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
         return array_key_exists($key, self::$translations);
     }
 
-    public static function put(TranslatableKey $translation)
+    public static function put(Ztatic $translation)
     {
         $key=$translation->getKey();
         if (self::exists($key)) {
@@ -27,7 +27,7 @@ class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
         }
     }
 
-    public static function get(string $key): ?TranslatableKey
+    public static function get(string $key): ?Ztatic
     {
         assert(stripos($key, ' ')===false);
         if (self::exists($key)) {
@@ -43,7 +43,7 @@ class ArrayTranslationsStorageAdapter implements TranslationsStorageInterface
         if (self::exists($key)) {
             self::$translations[$key][$language]=$value;
         } else {
-            self::$translations[$key]=TranslatableKey::createFromArray($key, [$language=>$value]);
+            self::$translations[$key]=Ztatic::createFromArray($key, [$language=>$value]);
         }
     }
 

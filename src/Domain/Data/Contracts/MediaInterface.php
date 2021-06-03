@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData\Contracts;
+namespace Omatech\Editora\Domain\Data\Contracts;
 
 interface MediaInterface
 {

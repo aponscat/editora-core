@@ -5,8 +5,8 @@ attributes:
   nolang-attribute: &nolang-attribute
     multilang: false
   image-with-alt-and-title: &image-with-alt-and-title
-    type: Omatech\Editora\Domain\CmsStructure\ImageAttribute
-    value-type: Omatech\Editora\Domain\CmsData\ImageValue
+    type: Omatech\Editora\Domain\Structure\ImageAttribute
+    value-type: Omatech\Editora\Domain\Data\ImageValue
     mandatory: true
     multilang: false
     dimensions: 600x600

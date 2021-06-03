@@ -3,18 +3,18 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
+use Omatech\Editora\Domain\Structure\Structure;
+use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
 use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
-use Omatech\Editora\Domain\Cms;
-use Omatech\Editora\Domain\CmsData\Instance;
+use Omatech\Editora\Application\Cms;
+use Omatech\Editora\Domain\Data\Instance;
 
 class YamlStructureTest extends TestCase
 {
     public function testLoadStructureFromYaml(): void
     {
         $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
-        $storage=new ArrayInstanceRepository($structure);
+        $storage=new InstanceRepository($structure);
 
         $publicPath='/images';
         $originalFilename='result.jpg';

@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData;
+namespace Omatech\Editora\Domain\Data;
 
-use Omatech\Editora\Domain\CmsStructure\Attribute;
+use Omatech\Editora\Domain\Structure\Attribute;
 use Omatech\Editora\Utils\Strings;
 
 class Value

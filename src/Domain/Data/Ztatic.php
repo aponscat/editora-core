@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData;
+namespace Omatech\Editora\Domain\Data;
 
-class TranslatableKey
+class Ztatic
 {
     private string $key;
     private array $translations;

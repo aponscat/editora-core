@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Domain\CmsData\Instance;
-use Omatech\Editora\Domain\CmsData\Value;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Data\Instance;
+use Omatech\Editora\Domain\Data\Value;
 
 class InstanceWithSubAttributesTest extends TestCase
 {
@@ -16,8 +16,8 @@ class InstanceWithSubAttributesTest extends TestCase
         $originalFilename='result.jpg';
         $jsonAttributes=json_encode([
         ['key'=>'image-with-alt-and-title'
-        , 'type'=>'Omatech\Editora\Domain\CmsStructure\ImageAttribute'
-        , 'valueType'=>'Omatech\Editora\Domain\CmsData\ImageValue'
+        , 'type'=>'Omatech\Editora\Domain\Structure\ImageAttribute'
+        , 'valueType'=>'Omatech\Editora\Domain\Data\ImageValue'
           , 'config'=>
           ['mandatory'=>true
           , 'dimensions'=>'600x600'
@@ -32,7 +32,7 @@ class InstanceWithSubAttributesTest extends TestCase
             , ['key'=>'code']
           ]
       ]]]);
-        $class=Clas::createFromJSON('image', $jsonAttributes);
+        $class=Clazz::createFromJSON('image', $jsonAttributes);
         $instance=Instance::create(
             $class,
             'image-instance',

@@ -3,15 +3,15 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Domain\CmsData\TranslatableKey;
+use Omatech\Editora\Domain\Data\Ztatic;
 use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayTranslationsStorageAdapter;
 
-class TranslatableKeyTest extends TestCase
+class ZtaticTest extends TestCase
 {
     public function testOkAfterCreate(): void
     {
         $langData=['es'=>'Guardar', 'en'=>'Save', 'fr'=>'Sauvegarder'];
-        $save=TranslatableKey::createFromJson('cms.save', json_encode($langData));
+        $save=Ztatic::createFromJson('cms.save', json_encode($langData));
         $this->assertTrue('Guardar'==$save->get('es'));
         $this->assertTrue('Save'==$save->get('en'));
         $this->assertTrue('Sauvegarder'==$save->get('fr'));
@@ -21,10 +21,10 @@ class TranslatableKeyTest extends TestCase
     public function testMultipleKeys(): void
     {
         $langData=['es'=>'Guardar', 'en'=>'Save', 'fr'=>'Sauvegarder'];
-        $save=TranslatableKey::createFromJson('cms.save', json_encode($langData));
+        $save=Ztatic::createFromJson('cms.save', json_encode($langData));
 
         $langData=['es'=>'Descargar', 'en'=>'Download', 'fr'=>'Telecharger'];
-        $download=TranslatableKey::createFromJson('cms.download', json_encode($langData));
+        $download=Ztatic::createFromJson('cms.download', json_encode($langData));
         
         ArrayTranslationsStorageAdapter::put($save);
         ArrayTranslationsStorageAdapter::put($download);

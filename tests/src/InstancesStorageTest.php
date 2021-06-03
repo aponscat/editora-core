@@ -3,13 +3,13 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Domain\CmsData\Instance;
-use Omatech\Editora\Domain\CmsData\Value;
-use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Data\Instance;
+use Omatech\Editora\Domain\Data\Value;
+use Omatech\Editora\Domain\Data\Contracts\InstanceRepositoryInterface;
+use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
+use Omatech\Editora\Domain\Structure\Structure;
 
 class InstancesStorageTest extends TestCase
 {
@@ -17,14 +17,14 @@ class InstancesStorageTest extends TestCase
     {
         $jsonAttributes=json_encode([
         ['key'=>'title:en'
-        , 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue'
+        , 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue'
         , 'config'=>['mandatory'=>true]]
-        , ['key'=>'text:en', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
-        , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
-        , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Domain\CmsData\ReverseValue']
+        , ['key'=>'text:en', 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue']
+        , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue']
+        , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue']
         , ['key'=>'nolang-attribute']
       ]);
-        $class=Clas::createFromJSON('news-item', $jsonAttributes);
+        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
 
         $instance1=Instance::create(
             $class,
@@ -84,11 +84,11 @@ class InstancesStorageTest extends TestCase
 
 
         $id=uniqid();
-        $structure=CmsStructure::createEmptyStructure();
+        $structure=Structure::createEmptyStructure();
         $structure->addLanguage('es');
         $structure->addLanguage('en');
         $structure->addClass($class);
-        $storage=new ArrayInstanceRepository($structure);
+        $storage=new InstanceRepository($structure);
         $storage->create($instance1);
         $id=$instance1->ID();
  

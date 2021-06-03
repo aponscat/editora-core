@@ -2,17 +2,16 @@
 
 namespace Omatech\Editora\Infrastructure\Persistence\Memory;
 
-use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsData\Instance;
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
+use Omatech\Editora\Domain\Data\Contracts\InstanceRepositoryInterface;
+use Omatech\Editora\Domain\Data\Instance;
+use Omatech\Editora\Domain\Structure\Structure;
 
-class ArrayInstanceRepository implements InstanceRepositoryInterface
+class InstanceRepository implements InstanceRepositoryInterface
 {
     private static array $instances;
-    private static CmsStructure $structure;
+    private static Structure $structure;
 
-    public function __construct(CmsStructure $structure)
+    public function __construct(Structure $structure)
     {
         self::$instances=[];
         self::$structure=$structure;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsData;
+namespace Omatech\Editora\Domain\Data;
 
-use Omatech\Editora\Domain\CmsStructure\Relation;
+use Omatech\Editora\Domain\Structure\Relation;
 use Omatech\Editora\Utils\Jsons;
 
-class RelationInstances
+class Link
 {
     private Relation $relation;
     private ?array $children=null;

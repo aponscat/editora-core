@@ -3,13 +3,13 @@ declare(strict_types=1);
 namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Domain\Cms;
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
-use Omatech\Editora\Domain\CmsData\Instance;
-use Omatech\Editora\Domain\CmsStructure\Relation;
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsData\RelationInstances;
+use Omatech\Editora\Application\Cms;
+use Omatech\Editora\Domain\Structure\Structure;
+use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
+use Omatech\Editora\Domain\Data\Instance;
+use Omatech\Editora\Domain\Structure\Relation;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Data\Link;
 use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
 
 class InstancesRelationsTest extends TestCase
@@ -19,10 +19,10 @@ class InstancesRelationsTest extends TestCase
         $publicPath='/images';
         $originalFilename='result.jpg';
         //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        //$structure=Structure::loadStructureFromJSON($jsonStructure);
         $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         //var_dump($structure);
-        $storage=new ArrayInstanceRepository($structure);
+        $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
 
@@ -111,9 +111,9 @@ class InstancesRelationsTest extends TestCase
         $publicPath='/images';
         $originalFilename='result.jpg';
         //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        //$structure=Structure::loadStructureFromJSON($jsonStructure);
         $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
-        $storage=new ArrayInstanceRepository($structure);
+        $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
 
@@ -168,8 +168,8 @@ class InstancesRelationsTest extends TestCase
         $cms->putInstance($instanceNewsItem3);
 
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem1);
-        $instanceCategory1->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::ABOVE);
-        $instanceCategory1->addToRelationByKey('news', $instanceNewsItem3, RelationInstances::ABOVE);
+        $instanceCategory1->addToRelationByKey('news', $instanceNewsItem2, Link::ABOVE);
+        $instanceCategory1->addToRelationByKey('news', $instanceNewsItem3, Link::ABOVE);
 
         $children=$instanceCategory1->getChildrenIDsByRelationKey('news');
 
@@ -196,8 +196,8 @@ class InstancesRelationsTest extends TestCase
         $this->assertTrue($children==[]);
 
         $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1);
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::BELOW);
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem3, RelationInstances::BELOW);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, Link::BELOW);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem3, Link::BELOW);
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
         $this->assertTrue($children[0]==$instanceNewsItem1->ID());
         $this->assertTrue($children[1]==$instanceNewsItem2->ID());
@@ -208,7 +208,7 @@ class InstancesRelationsTest extends TestCase
         $this->assertTrue($children[0]==$instanceNewsItem1->ID());
         $this->assertTrue($children[1]==$instanceNewsItem3->ID());
 
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::BELOW, $instanceNewsItem1->ID());
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, Link::BELOW, $instanceNewsItem1->ID());
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
 
         $this->assertTrue($children[0]==$instanceNewsItem1->ID());
@@ -221,23 +221,23 @@ class InstancesRelationsTest extends TestCase
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
         $this->assertTrue($children==[]);
 
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::BELOW);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, Link::BELOW);
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
         $this->assertTrue($children[0]==$instanceNewsItem1->ID());
 
         $recoveredCategoryInstance->removeFromRelationByKeyAndID('news', $instanceNewsItem1->ID());
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::ABOVE);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, Link::ABOVE);
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
         $this->assertTrue($children[0]==$instanceNewsItem1->ID());
 
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, RelationInstances::ABOVE, $instanceNewsItem1->ID());
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem3, RelationInstances::BELOW, $instanceNewsItem2->ID());
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem2, Link::ABOVE, $instanceNewsItem1->ID());
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem3, Link::BELOW, $instanceNewsItem2->ID());
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
         $this->assertTrue($children[0]==$instanceNewsItem2->ID());
         $this->assertTrue($children[1]==$instanceNewsItem3->ID());
         $this->assertTrue($children[2]==$instanceNewsItem1->ID());
 
         $this->expectException(\Exception::class);
-        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::BELOW, 'xxxx', true);
+        $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, Link::BELOW, 'xxxx', true);
     }
 }

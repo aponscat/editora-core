@@ -4,16 +4,16 @@ namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
 
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
+use Omatech\Editora\Domain\Structure\Structure;
 
-class CmsStructureTest extends TestCase
+class StructureTest extends TestCase
 {
 
     /*
     public function testLoadStructureFromReverseEngineeredJSON(): void
     {
         $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
-        $cms=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
+        $cms=Structure::loadStructureFromReverseEngineeredJSON($jsonStructure);
 
         $classes=[];
         foreach ($cms->getClasses() as $id=>$class) {
@@ -35,7 +35,7 @@ class CmsStructureTest extends TestCase
     {
         require_once(dirname(__FILE__).'/../data/editoradatabase.php');
         $jsonStructure=\json_encode($data);
-        $cms=CmsStructure::loadStructureFromReverseEngineeredJSON($jsonStructure);
+        $cms=Structure::loadStructureFromReverseEngineeredJSON($jsonStructure);
         $classes=[];
         foreach ($cms->getClasses() as $id=>$class) {
             $classes[$id]['key']=$class->getKey();

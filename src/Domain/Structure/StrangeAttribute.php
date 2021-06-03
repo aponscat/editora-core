@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsStructure;
+namespace Omatech\Editora\Domain\Structure;
 
 class StrangeAttribute extends Attribute
 {

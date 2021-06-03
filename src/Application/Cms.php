@@ -1,15 +1,15 @@
 <?php
 
-namespace Omatech\Editora\Domain;
+namespace Omatech\Editora\Application;
 
-use Omatech\Editora\Domain\CmsStructure\Clas;
-use Omatech\Editora\Domain\CmsData\Instance;
-use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Domain\CmsData\Contracts\InstanceRepositoryInterface;
+use Omatech\Editora\Domain\Structure\Clazz;
+use Omatech\Editora\Domain\Data\Instance;
+use Omatech\Editora\Domain\Structure\Structure;
+use Omatech\Editora\Domain\Data\Contracts\InstanceRepositoryInterface;
 
 class Cms
 {
-    private CmsStructure $structure;
+    private Structure $structure;
     private InstanceRepositoryInterface $storage;
 
     public function __construct($structure, $storage)
@@ -18,7 +18,7 @@ class Cms
         $this->storage=$storage;
     }
 
-    public function getClass(string $key): Clas
+    public function getClass(string $key): Clazz
     {
         return $this->structure->getClass($key);
     }

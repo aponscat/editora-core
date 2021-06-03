@@ -1,8 +1,8 @@
 <?php
 
-namespace Omatech\Editora\Domain\CmsStructure;
+namespace Omatech\Editora\Domain\Structure;
 
-use Omatech\Editora\Domain\CmsData\Value;
+use Omatech\Editora\Domain\Data\Value;
 use Omatech\Editora\Adapters\MediaAdapterInterface;
 
 class ImageAttribute extends Attribute
