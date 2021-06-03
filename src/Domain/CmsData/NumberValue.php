@@ -4,9 +4,9 @@ namespace Omatech\Editora\Domain\CmsData;
 
 class NumberValue extends Value
 {
-    public function getValue()
+    public function setValue($value)
     {
-        return (int)parent::getValue();
+        return parent::setValue((int)$value);
     }
 
     public function validate(): bool

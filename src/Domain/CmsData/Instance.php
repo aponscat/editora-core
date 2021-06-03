@@ -24,12 +24,9 @@ class Instance
         $this->externalID=$externalID;
         $this->storageID=$storageID;
 
-        if (!$publishingInfo) 
-        {
+        if (!$publishingInfo) {
             $this->publishingInfo=new PublishingInfo();
-        }
-        else
-        {
+        } else {
             $this->publishingInfo=$publishingInfo;
         }
 
@@ -43,7 +40,7 @@ class Instance
         }
     }
 
-    public static function hydrateFromArray (Clas $class, array $arr)
+    public static function hydrateFromArray(Clas $class, array $arr)
     {
         return self::fromArray($class, $arr, true);
     }
@@ -64,58 +61,31 @@ class Instance
         $relations=(isset($arr['relations']))?$arr['relations']:null;
 
         $method='create';
-        if ($hydrateOnly)
-        {
+        if ($hydrateOnly) {
             $method='hydrate';
         }
 
-        return self::$method($class, $key
-        , $values
-        , $relations
-        , $publishingInfo, $externalID, $storageID);
+        return self::$method($class, $key, $values, $relations, $publishingInfo, $externalID, $storageID);
     }
 
     public static function hydrate(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
     {
-        $valuesArray=[];
-        if ($values) {
-            foreach ($values as $attributeKey=>$value) {
-                if ($class->existsAttribute($attributeKey)) {
-                    $atri=$class->createAttributeFromKey($attributeKey);
-                    $valuesArray[]=$atri->hydrateValue($value);
-                } else {
-                    throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
-                }
-            }
-        }
-
-        $inst=new self($class, $key, null, null, $publishingInfo, $externalID, $storageID);
-
-        if ($valuesArray) {
-            $inst->setValues($valuesArray);
-        }
-
-        if ($relations) {
-            foreach ($relations as $relationKey=>$children) {
-                foreach ($children as $id)
-                {
-                    $inst->addToRelationByKeyAndID($relationKey, $id, RelationInstances::BELOW);
-                }
-            }
-        }
-
-        return $inst->validate();
+        return self::create($class, $key, $values, $relations, $publishingInfo, $externalID, $storageID, true);
     }
 
 
-    public static function create(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null)
+    public static function create(Clas $class, string $key, array $values=null, array $relations=null, PublishingInfo $publishingInfo=null, $externalID=null, $storageID=null, $hydrateOnly=false)
     {
+        $method='createValue';
+        if ($hydrateOnly) {
+            $method='hydrateValue';
+        }
         $valuesArray=[];
         if ($values) {
             foreach ($values as $attributeKey=>$value) {
                 if ($class->existsAttribute($attributeKey)) {
                     $atri=$class->createAttributeFromKey($attributeKey);
-                    $valuesArray[]=$atri->createValue($value);
+                    $valuesArray[]=$atri->$method($value);
                 } else {
                     throw new \Exception("Invalid attribute $attributeKey in class ".$class->getKey()." creating Instance ".$key);
                 }
@@ -130,8 +100,7 @@ class Instance
 
         if ($relations) {
             foreach ($relations as $relationKey=>$children) {
-                foreach ($children as $id)
-                {
+                foreach ($children as $id) {
                     $inst->addToRelationByKeyAndID($relationKey, $id, RelationInstances::BELOW);
                 }
             }
@@ -162,21 +131,18 @@ class Instance
     public function getRelationsArray()
     {
         $ret=[];
-        if ($this->relations)
-        {
+        if ($this->relations) {
             foreach ($this->relations as $key=>$rel) {
                 $ret[$key]=$rel->toArray();
-            }    
+            }
         }
         return $ret;
     }
 
     public function getChildrenIDsByRelationKey($key): ?array
     {
-        if ($this->relations)
-        {
-            if (isset($this->relations[$key]))
-            {
+        if ($this->relations) {
+            if (isset($this->relations[$key])) {
                 return $this->relations[$key]->toArray();
             }
         }

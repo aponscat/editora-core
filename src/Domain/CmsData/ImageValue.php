@@ -19,7 +19,7 @@ class ImageValue extends Value
         /*while ($mediaAdapter::exists("$storagePath/$fileName")) {
             $fileName=rand(0, 1000).$fileName;
         }*/
-
+ 
         $this->internalPath="$storagePath/$fileName";
         $this->externalPath="$externalPath/$fileName";
         $this->fileName=$fileName;
