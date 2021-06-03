@@ -4,8 +4,6 @@ namespace Omatech\EditoraTest;
 
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\CmsStructure\CmsStructure;
-use Omatech\Editora\Domain\CmsStructure\Attribute;
-use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
 use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
 use Omatech\Editora\Domain\Cms;
@@ -42,87 +40,87 @@ class YamlStructureTest extends TestCase
         $id1=$instance->ID();
         $instance2=$cms->getInstanceById($id1);
         $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
-        /*
-                $categoryClass=$cms->getClass('news-category');
-                $instance=Instance::create(
-                    $categoryClass,
-                    'tech',
-                    ['code'=>'tech'
-                          , 'title:es'=>'Tecnología'
-                          , 'title:en'=>'Technology'
-                          ]
-                );
-                $this->assertTrue($instance->getData('es')['title']=='Tecnología');
-
-                $cms->putInstance($instance);
-                $id2=$instance->ID();
-                $instance3=$cms->getInstanceById($id2);
-                $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
-
-                $instance4Array=['metadata'=>[
-                    'status'=>'O'
-                    ,'class'=>'news-category'
-                    ,'key'=>'society'
-                ]
-                    ,'values'=>[
-                        'code'=>'society'
-                        ,'title:es'=>'Sociedad'
-                        ,'title:en'=>'Society'
+        
+        $categoryClass=$cms->getClass('news-category');
+        $instance=Instance::create(
+            $categoryClass,
+            'tech',
+            ['code'=>'tech'
+                    , 'title:es'=>'Tecnología'
+                    , 'title:en'=>'Technology'
                     ]
-                ];
+        );
+        $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
-                $instance4=$cms->putArrayInstance($instance4Array);
-                $id3=$instance4->ID();
-                $instance5=$cms->getInstanceById($id3);
-                $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
+        $cms->putInstance($instance);
+        $id2=$instance->ID();
+        $instance3=$cms->getInstanceById($id2);
+        $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
 
-                $instancesInStorage=$cms->getAllInstances();
+        $instance4Array=['metadata'=>[
+            'status'=>'O'
+            ,'class'=>'news-category'
+            ,'key'=>'society'
+        ]
+            ,'values'=>[
+                'code'=>'society'
+                ,'title:es'=>'Sociedad'
+                ,'title:en'=>'Society'
+            ]
+        ];
 
-                $this->assertTrue(array_key_exists($id1, $instancesInStorage));
-                $this->assertTrue(array_key_exists($id2, $instancesInStorage));
-                $this->assertTrue(array_key_exists($id3, $instancesInStorage));
+        $instance4=$cms->putArrayInstance($instance4Array);
+        $id3=$instance4->ID();
+        $instance5=$cms->getInstanceById($id3);
+        $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
 
+        $instancesInStorage=$cms->getAllInstances();
 
-                $this->assertTrue(
-                    $instancesInStorage[$id2]->getData('es')==
-                ['code' => 'tech'
-                ,'title' => 'Tecnología'
-                ]
-                );
-
-                $this->assertTrue(
-                    $instancesInStorage[$id3]->getMultilanguageData()==
-              ['code' => 'society'
-              ,'title:es' => 'Sociedad'
-              ,'title:en' => 'Society']
-                );
-
-
-                $this->assertTrue(
-                    $instancesInStorage[$id2]->getMultilanguageData()==
-              ['code' => 'tech'
-              ,'title:es' => 'Tecnología'
-              ,'title:en' => 'Technology']
-                );
-
-                $this->assertTrue(
-                    $instancesInStorage[$id3]->getMultilanguageData()==
-                ['code' => 'society'
-                ,'title:es' => 'Sociedad'
-                ,'title:en' => 'Society']
-                );
+        $this->assertTrue(array_key_exists($id1, $instancesInStorage));
+        $this->assertTrue(array_key_exists($id2, $instancesInStorage));
+        $this->assertTrue(array_key_exists($id3, $instancesInStorage));
 
 
-                $onlyCategoryInstances=$cms->filterInstances($instancesInStorage, function ($instance) {
-                    if ($instance->getClassKey()=='news-category') {
-                        return $instance;
-                    }
-                });
+        $this->assertTrue(
+            $instancesInStorage[$id2]->getData('es')==
+        ['code' => 'tech'
+        ,'title' => 'Tecnología'
+        ]
+        );
 
-                $this->assertFalse(array_key_exists($id1, $onlyCategoryInstances));
-                $this->assertTrue(array_key_exists($id2, $onlyCategoryInstances));
-                $this->assertTrue(array_key_exists($id3, $onlyCategoryInstances));
+        $this->assertTrue(
+            $instancesInStorage[$id3]->getMultilanguageData()==
+        ['code' => 'society'
+        ,'title:es' => 'Sociedad'
+        ,'title:en' => 'Society']
+        );
 
-        */
+
+        $this->assertTrue(
+            $instancesInStorage[$id2]->getMultilanguageData()==
+        ['code' => 'tech'
+        ,'title:es' => 'Tecnología'
+        ,'title:en' => 'Technology']
+        );
+
+        $this->assertTrue(
+            $instancesInStorage[$id3]->getMultilanguageData()==
+        ['code' => 'society'
+        ,'title:es' => 'Sociedad'
+        ,'title:en' => 'Society']
+        );
+
+
+        $onlyCategoryInstances=$cms->filterInstances($instancesInStorage, function ($instance) {
+            if ($instance->getClassKey()=='news-category') {
+                return $instance;
+            }
+        });
+
+        $this->assertFalse(array_key_exists($id1, $onlyCategoryInstances));
+        $this->assertTrue(array_key_exists($id2, $onlyCategoryInstances));
+        $this->assertTrue(array_key_exists($id3, $onlyCategoryInstances));
+
+        
     }
 }
