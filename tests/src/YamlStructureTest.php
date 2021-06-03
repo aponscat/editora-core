@@ -30,25 +30,45 @@ class YamlStructureTest extends TestCase
             ,'image-with-alt-and-title'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
+                , 'image-with-alt-and-title.alt:en'=>'Alternative text of the image'
+                , 'image-with-alt-and-title.alt:es'=>'Texto alternativo de la imágen'
+                , 'image-with-alt-and-title.title:en'=>'Image title'
+                , 'image-with-alt-and-title.title:es'=>'Título de la imágen'
+                , 'image-with-alt-and-title.code' => '0001'
                 ]
             ]
         );
 
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
-
+        
         $cms->putInstance($instance);
         $id1=$instance->ID();
         $instance2=$cms->getInstanceById($id1);
-        $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
+
+        $this->assertTrue($instance2->getData('es')==[
+            'title' => 'Primer titular de la noticia'
+            ,'image-with-alt-and-title' => '/images/20210603/result.jpg'
+            ,'image-with-alt-and-title.alt' => 'Texto alternativo de la imágen'
+            ,'image-with-alt-and-title.title' => 'Título de la imágen'
+            ,'image-with-alt-and-title.code' => '0001'
+        ]);
+
+        $this->assertTrue($instance2->getData('en')==[
+            'title' => 'First title of a news item'
+            ,'image-with-alt-and-title' => '/images/20210603/result.jpg'
+            ,'image-with-alt-and-title.alt' => 'Alternative text of the image'
+            ,'image-with-alt-and-title.title' => 'Image title'
+            ,'image-with-alt-and-title.code' => '0001'
+        ]);
         
         $categoryClass=$cms->getClass('news-category');
         $instance=Instance::create(
             $categoryClass,
             'tech',
             ['code'=>'tech'
-                    , 'title:es'=>'Tecnología'
-                    , 'title:en'=>'Technology'
-                    ]
+            , 'title:es'=>'Tecnología'
+            , 'title:en'=>'Technology'
+            ]
         );
         $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
@@ -58,15 +78,15 @@ class YamlStructureTest extends TestCase
         $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
 
         $instance4Array=['metadata'=>[
-            'status'=>'O'
-            ,'class'=>'news-category'
-            ,'key'=>'society'
+        'status'=>'O'
+        ,'class'=>'news-category'
+        ,'key'=>'society'
         ]
-            ,'values'=>[
-                'code'=>'society'
-                ,'title:es'=>'Sociedad'
-                ,'title:en'=>'Society'
-            ]
+        ,'values'=>[
+            'code'=>'society'
+            ,'title:es'=>'Sociedad'
+            ,'title:en'=>'Society'
+        ]
         ];
 
         $instance4=$cms->putArrayInstance($instance4Array);
@@ -82,14 +102,14 @@ class YamlStructureTest extends TestCase
 
 
         $this->assertTrue(
-            $instancesInStorage[$id2]->getData('es')==
+        $instancesInStorage[$id2]->getData('es')==
         ['code' => 'tech'
         ,'title' => 'Tecnología'
         ]
         );
 
         $this->assertTrue(
-            $instancesInStorage[$id3]->getMultilanguageData()==
+        $instancesInStorage[$id3]->getMultilanguageData()==
         ['code' => 'society'
         ,'title:es' => 'Sociedad'
         ,'title:en' => 'Society']
@@ -97,14 +117,14 @@ class YamlStructureTest extends TestCase
 
 
         $this->assertTrue(
-            $instancesInStorage[$id2]->getMultilanguageData()==
+        $instancesInStorage[$id2]->getMultilanguageData()==
         ['code' => 'tech'
         ,'title:es' => 'Tecnología'
         ,'title:en' => 'Technology']
         );
 
         $this->assertTrue(
-            $instancesInStorage[$id3]->getMultilanguageData()==
+        $instancesInStorage[$id3]->getMultilanguageData()==
         ['code' => 'society'
         ,'title:es' => 'Sociedad'
         ,'title:en' => 'Society']

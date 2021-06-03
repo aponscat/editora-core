@@ -22,6 +22,7 @@ class Clas
         return $class;
     }
 
+    
     public static function createFromJSON(string $key, string $jsonAttributes, string $jsonRelations=null): Clas
     {
         $attributes=json_decode($jsonAttributes, true);

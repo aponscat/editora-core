@@ -68,6 +68,7 @@ class ArrayInstanceRepository implements InstanceRepositoryInterface
 
     private static function hydrateInstance($arr): Instance
     {
+        //print_r($arr);
         $classKey=$arr['metadata']['class'];
         $class=self::$structure->getClass($classKey);
         return Instance::hydrateFromArray($class, $arr);

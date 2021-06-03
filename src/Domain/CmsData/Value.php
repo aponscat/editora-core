@@ -14,13 +14,21 @@ class Value
     public function __construct(Attribute $attribute, $value=null, $hydrateOnly=false)
     {
         $this->attribute=$attribute;
-        $this->setSubValues($value);
         if ($hydrateOnly)
         {
-            $this->value=$value;
+            if (isset($value['value']) && isset($value['subvalues']))
+            {
+                $this->value=$value['value'];
+                $this->subValues=$value['subvalues'];
+            }
+            else
+            {
+                $this->value=$value;
+            }
         }
         else
         {
+            $this->setSubValues($value);
             $this->setValue($value);
         }
         $this->validate();
@@ -30,8 +38,10 @@ class Value
     {
         if ($this->subValues) {
             return
-            [$this->attribute->getFullyQualifiedKey()=>$this->value]
-            +$this->getSubValuesData();
+            [$this->attribute->getFullyQualifiedKey()=>
+            ['value'=>$this->value
+            , 'subvalues'=>$this->subValuesToArray()]
+            ];
         }
         return
         [$this->attribute->getFullyQualifiedKey()=>$this->value];
@@ -83,6 +93,18 @@ class Value
         }
         return null;
     }
+
+    public function subValuesToArray(): ?array
+    {
+        //assert(isset($thuis->subValues) && is_array($this->subValues));
+        $atriKey=$this->attribute->getKey();
+        $res=[];
+        foreach ($this->subValues as $key=>$val) {
+            $res+=["$key"=>$val];
+        }
+        return $res;
+    }
+
 
 
     public function setValue($value)
