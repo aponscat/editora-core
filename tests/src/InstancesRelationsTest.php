@@ -10,6 +10,7 @@ use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsStructure\Clas;
 use Omatech\Editora\Domain\CmsData\RelationInstances;
+use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
 
 class InstancesRelationsTest extends TestCase
 {
@@ -17,8 +18,10 @@ class InstancesRelationsTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
+        //$structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        //var_dump($structure);
         $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
@@ -64,9 +67,9 @@ class InstancesRelationsTest extends TestCase
             $categoryClass,
             'tech',
             ['code'=>'tech'
-                  , 'title:es'=>'Tecnología'
-                  , 'title:en'=>'Technology'
-                  ]
+            , 'title:es'=>'Tecnología'
+            , 'title:en'=>'Technology'
+            ]
         );
 
         $cms->putInstance($instanceNewsItem1);
@@ -107,8 +110,9 @@ class InstancesRelationsTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
+        //$structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
@@ -235,11 +239,5 @@ class InstancesRelationsTest extends TestCase
 
         $this->expectException(\Exception::class);
         $recoveredCategoryInstance->addToRelationByKey('news', $instanceNewsItem1, RelationInstances::BELOW, 'xxxx', true);
-
     }
-
-
-
-
-
 }

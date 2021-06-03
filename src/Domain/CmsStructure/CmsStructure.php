@@ -18,6 +18,52 @@ class CmsStructure
         return new self(null, null);
     }
 
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    public function getClass(string $key): Clas
+    {
+        assert(!empty($key));
+        $parsedClassKeys='';
+        if ($this->classes) {
+            foreach ($this->classes as $class) {
+                $parsedClassKeys.=' '.$class->getKey();
+                if ($class->getKey()==$key) {
+                    return $class;
+                }
+            }
+        }
+        throw new \Exception("$key class not found valid keys are: $parsedClassKeys!");
+    }
+
+    public function toArray()
+    {
+        $res=['classes'=>$this->serializeClasses()
+    , 'languages'=>$this->languages];
+        return $res;
+    }
+
+    public function addLanguage(string $isoCode)
+    {
+        $this->languages[]=$isoCode;
+    }
+
+    public function addClass(Clas $class)
+    {
+        $this->classes[]=$class;
+        foreach ($class->getAttributes() as $attribute) {
+            $this->attributes[]=$attribute;
+        }
+    }
+
+    /*
     public static function loadStructureFromReverseEngineeredJSON($jsonStructure)
     {
         $structure=json_decode($jsonStructure, true);
@@ -75,14 +121,11 @@ class CmsStructure
 
             $classes[$relation['parent']]->addRelation(new Relation($relation['key'], $children));
         }
-        
+
         return new self($languages, $classes);
     }
 
-    public function getLanguages()
-    {
-        return $this->languages;
-    }
+
 
     private static function parseLanguages($structure)
     {
@@ -114,25 +157,7 @@ class CmsStructure
         return new self($languages, $classes);
     }
 
-    public function getClasses()
-    {
-        return $this->classes;
-    }
 
-    public function getClass(string $key): Clas
-    {
-        assert(!empty($key));
-        $parsedClassKeys='';
-        if ($this->classes) {
-            foreach ($this->classes as $class) {
-                $parsedClassKeys.=' '.$class->getKey();
-                if ($class->getKey()==$key) {
-                    return $class;
-                }
-            }
-        }
-        throw new \Exception("$key class not found valid keys are: $parsedClassKeys!");
-    }
 
     public function serializeClasses()
     {
@@ -143,25 +168,6 @@ class CmsStructure
         return $res;
     }
 
-    public function toArray()
-    {
-        $res=['classes'=>$this->serializeClasses()
-    , 'languages'=>$this->languages];
-        return $res;
-    }
-
-    public function addLanguage(string $isoCode)
-    {
-        $this->languages[]=$isoCode;
-    }
-
-    public function addClass(Clas $class)
-    {
-        $this->classes[]=$class;
-        foreach ($class->getAttributes() as $attribute) {
-            $this->attributes[]=$attribute;
-        }
-    }
     private static function getAllAttributesFromStructureArray($structure, $languages)
     {
 
@@ -185,7 +191,7 @@ class CmsStructure
         return $attributes;
     }
 
-    
+
     private static function getAttributesFromId($atris, $languages, $attributeId)
     {
         $res=[];
@@ -221,7 +227,7 @@ class CmsStructure
         return array_keys($res);
     }
 
-    
+
     public function addAttribute(Attribute $attribute)
     {
         $this->attributes[]=$attribute;
@@ -245,4 +251,6 @@ class CmsStructure
         }
         return $atris;
     }
+
+*/
 }

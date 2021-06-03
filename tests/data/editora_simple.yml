@@ -30,6 +30,8 @@ classes:
     attributes:
       title:
       code:
+        multilang: false
     relations:
       news:
-        news-items
+        news-item
+        

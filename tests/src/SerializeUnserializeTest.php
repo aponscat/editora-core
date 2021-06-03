@@ -9,6 +9,7 @@ use Omatech\Editora\Infrastructure\Persistence\Memory\ArrayInstanceRepository;
 use Omatech\Editora\Domain\CmsData\Instance;
 use Omatech\Editora\Domain\CmsStructure\Relation;
 use Omatech\Editora\Domain\CmsStructure\Clas;
+use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
 
 class SerializeUnserializeTest extends TestCase
 {
@@ -16,8 +17,9 @@ class SerializeUnserializeTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        $structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
+        //$structure=CmsStructure::loadStructureFromJSON($jsonStructure);
+        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         $storage=new ArrayInstanceRepository($structure);
         $cms=new Cms($structure, $storage);
 
