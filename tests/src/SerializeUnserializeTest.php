@@ -9,7 +9,7 @@ use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
 use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Domain\Structure\Relation;
 use Omatech\Editora\Domain\Structure\Clazz;
-use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
+use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class SerializeUnserializeTest extends TestCase
 {
@@ -19,7 +19,7 @@ class SerializeUnserializeTest extends TestCase
         $originalFilename='result.jpg';
         //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
 

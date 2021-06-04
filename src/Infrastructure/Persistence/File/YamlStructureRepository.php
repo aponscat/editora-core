@@ -9,11 +9,11 @@ use Omatech\Editora\Domain\Structure\Relation;
 
 use Symfony\Component\Yaml\Yaml;
 
-class StructureRepository implements StructureRepositoryInterface
+class YamlStructureRepository implements StructureRepositoryInterface
 {
-    public static function read($resource): Structure
+    public static function read(string $path): Structure
     {
-        $yml = Yaml::parseFile($resource);
+        $yml = Yaml::parseFile($path);
         //print_r($yml);
 
         $structure=Structure::createEmptyStructure();
@@ -126,7 +126,93 @@ class StructureRepository implements StructureRepositoryInterface
         return $structure;
     }
 
-    public static function write($resource, Structure $structure): void
+    public static function write(Structure $structure, string $path): void
     {
+        $res="languages:\n";
+        foreach ($structure->getLanguages() as $language)
+        {
+            $res.="  - $language\n";
+        }
+
+        $unique_multilang_attributes=[];
+        $unique_attributes=[];
+        foreach ($structure->getClasses() as $class)
+        {
+            foreach ($class->getAttributes() as $attribute)
+            {
+                if($attribute->getLanguage()=='es')
+                {
+                    if (!isset($unique_multilang_attributes[$attribute->getKey()]))
+                    {
+                        $unique_multilang_attributes[$attribute->getKey()]=[];
+                    }
+                }
+                if($attribute->getLanguage()=='ALL')
+                {
+                    if (!isset($unique_attributes[$attribute->getKey()]))
+                    {
+                        $unique_attributes[$attribute->getKey()]=[];
+                    }
+                }
+
+            }
+        }
+
+        $res.="attributes:\n";
+        foreach ($unique_attributes as $key=>$val)
+        {
+            $res.="  $key: &$key\n";
+            $res.="    multilang: false\n";
+        }
+
+        $res.="classes:\n";
+        foreach ($structure->getClasses() as $class)
+        {
+            $keyClass=$class->getKey();
+            $res.="  $keyClass:\n";
+            if ($class->getAttributes())
+            {
+                $res.="    attributes:\n";
+                foreach ($class->getAttributes() as $attribute)
+                {
+                    if($attribute->getLanguage()=='ALL')
+                    {
+                        $res.="      ".$attribute->getKey().": *".$attribute->getKey()."\n";
+                    }
+    
+                    if($attribute->getLanguage()=='es')
+                    {
+                        if ($class->existsAttribute($attribute->getKey()))
+                        {
+                            foreach ($structure->getLanguages() as $language)
+                            {
+                                $res.="      ".$attribute->getKey().":$language:\n";
+                            }
+                        }
+                        else
+                        {
+                            $res.="      ".$attribute->getKey().":\n";
+                        }
+                    }
+                }
+    
+            }
+
+            if ($class->hasRelations())
+            {
+                $res.="    relations:\n";
+                foreach ($class->getRelations() as $relation)
+                {
+                    $res.="      ".$relation->getKey().":\n";
+                    foreach ($relation->getChildrenKeys() as $child)
+                    {
+                        $res.="        - $child\n";
+                    }
+                }    
+            }
+
+        }
+
+        file_put_contents($path, $res);
     }
 }

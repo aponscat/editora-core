@@ -8,7 +8,7 @@ use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
 use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Domain\Structure\Relation;
-use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
+use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class CmsTest extends TestCase
 {
@@ -18,7 +18,7 @@ class CmsTest extends TestCase
         $originalFilename='result.jpg';
         //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
 
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
@@ -44,7 +44,7 @@ class CmsTest extends TestCase
         $originalFilename='result.jpg';
         //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
@@ -157,7 +157,7 @@ class CmsTest extends TestCase
         $originalFilename='result.jpg';
         //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
         //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
@@ -221,83 +221,3 @@ class CmsTest extends TestCase
         }
     }
 }
-
-
-    /*
-    public function testLoadStructureFromReverseEngeeneredJSON(): void
-    {
-        $jsonStructure=file_get_contents(dirname(__FILE__).'/../data/test_structure.json');
-        $structure=Structure::loadStructureFromReverseEngineeredJSON($jsonStructure);
-        $storage=new InstanceRepository($structure);
-        $cms=new Cms($structure, $storage);
-        $countryClass=$cms->getClass('Countries');
-
-        $instance=Instance::create(
-            $countryClass,
-            'country-es',
-            ['country_code'=>'es'
-            , 'title:es'=>'España'
-            , 'title:en'=>'Spain'
-            ]
-        );
-        $this->assertTrue($instance->getData('es')==
-            ['country_code' => 'es'
-            ,'title' => 'España']);
-
-        $cms->putInstance($instance);
-        $instance2=$cms->getInstanceByID($instance->ID());
-        $this->assertTrue($instance2->getData('es')==$instance->getData('es'));
-        $this->assertTrue($instance2->getData('en')==$instance->getData('en'));
-    }
-
-    public function testSaveStructureToSimpleModernJSON(): void
-    {
-        $publicPath='/images';
-        $originalFilename='result.jpg';
-        $jsonAttributes=json_encode([
-            ['key'=>'title:en', 'config'=>['mandatory'=>true]]
-            , ['key'=>'text:en']
-            , ['key'=>'title:es']
-            , ['key'=>'text:es']
-            , ['key'=>'nolang-attribute']
-            , ['key'=>'image-with-alt-and-title'
-            , 'type'=>'Omatech\Editora\Domain\Structure\ImageAttribute'
-            , 'valueType'=>'Omatech\Editora\Domain\Data\ImageValue'
-              , 'config'=>
-              ['mandatory'=>true
-              , 'dimensions'=>'600x600'
-              , 'storage-path'=>dirname(__FILE__)
-              , 'public-path'=>$publicPath
-              , 'adapters'=>['media'=>'Omatech\Editora\Adapters\ArrayMediaAdapter']
-              , 'subattributes'=>[
-                ['key'=>'alt:en']
-                , ['key'=>'alt:es']
-                , ['key'=>'title:en']
-                , ['key'=>'title:es']
-                , ['key'=>'code']
-              ]
-          ]]
-          ]);
-
-        $newsItem=Clazz::createFromJSON('news-item', $jsonAttributes);
-
-        $jsonAttributes=json_encode([
-            ['key'=>'title:en', 'config'=>['mandatory'=>true]]
-            , ['key'=>'title:es']
-            , ['key'=>'code']
-          ]);
-        $category=Clazz::createFromJSON('news-category', $jsonAttributes);
-
-        $structure=Structure::createEmptyStructure();
-        $structure->addLanguage('es');
-        $structure->addLanguage('en');
-
-        $category->addRelation(new Relation('news', ['news-item']));
-        $structure->addClass($category);
-        $structure->addClass($newsItem);
-
-        file_put_contents(dirname(__FILE__).'/../data/simple_modern.json', json_encode($structure->toArray(), JSON_PRETTY_PRINT));
-
-        $this->assertTrue(true);
-    }
-*/

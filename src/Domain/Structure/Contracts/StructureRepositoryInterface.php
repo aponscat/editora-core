@@ -7,6 +7,6 @@ use Omatech\Editora\Domain\Structure\Structure;
 
 interface StructureRepositoryInterface
 {
-    public static function read($resource): Structure;
-    public static function write($resource, Structure $structure): void;
+    public static function read(string $path): Structure;
+    public static function write(Structure $structure, string $path): void;
 }

@@ -5,7 +5,7 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
-use Omatech\Editora\Infrastructure\Persistence\File\StructureRepository;
+use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 use Omatech\Editora\Application\Cms;
 use Omatech\Editora\Domain\Data\Instance;
 
@@ -13,7 +13,7 @@ class IndexableTest extends TestCase
 {
     public function testIndexableValues(): void
     {
-        $structure=StructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $class=$cms->getClass('confidential-class');
