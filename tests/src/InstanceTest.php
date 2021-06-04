@@ -20,7 +20,7 @@ class InstanceTest extends TestCase
         $instance=Instance::create($class, 'news-item-instance', $valTitle->toArray()+$valText->toArray());
 
         $this->assertTrue(
-            $instance->getData()==
+            $instance->getData('en')==
         [
           "english-title" => "Hello World Title!"
           ,"english-text" => "Hello World Text!"
@@ -35,8 +35,8 @@ class InstanceTest extends TestCase
                 ,'class'=>'news-item'
                 ,"key" => "news-item-instance"
                 ]
-            ,"english-title" => "Hello World Title!"
-            ,"english-text" => "Hello World Text!"
+            ,"english-title:en" => "Hello World Title!"
+            ,"english-text:en" => "Hello World Text!"
           ]
         );
     }
@@ -57,7 +57,7 @@ class InstanceTest extends TestCase
       ]
         );
         $this->assertTrue(
-            $instance->getData()==
+            $instance->getData('en')==
         [
           "english-title" => "Hello World Title!"
           ,"english-text" => "Hello World Text!"
@@ -71,8 +71,8 @@ class InstanceTest extends TestCase
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
               ]
-          ,"english-title" => "Hello World Title!"
-            ,"english-text" => "Hello World Text!"
+          ,"english-title:en" => "Hello World Title!"
+            ,"english-text:en" => "Hello World Text!"
           ]
         );
     }
@@ -90,7 +90,7 @@ class InstanceTest extends TestCase
             ['english-title:en'=>'Hello World Title!']
         );
         $this->assertTrue(
-            $instance->getData()==
+            $instance->getData('en')==
         [
           "english-title" => "Hello World Title!"
         ]
@@ -103,7 +103,7 @@ class InstanceTest extends TestCase
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
               ]
-          ,"english-title" => "Hello World Title!"
+          ,"english-title:en" => "Hello World Title!"
           ]
         );
     }

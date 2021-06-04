@@ -11,6 +11,7 @@ class Attribute
     protected string $key;
     protected string $language='ALL';
     protected bool $mandatory=false;
+    protected bool $indexable=true;
     protected string $valueType='Omatech\Editora\Domain\Data\Value';
     protected ?array $subattributes=null;
     protected string $langSeparator=':';
@@ -37,13 +38,14 @@ class Attribute
             }
         }
 
-        if ($config==null) {
-            $mandatory=false;
-        }
-
         if (isset($config['mandatory'])) {
             assert(is_bool($config['mandatory']));
             $this->mandatory=$config['mandatory'];
+        }
+
+        if (isset($config['indexable'])) {
+            assert(is_bool($config['indexable']));
+            $this->indexable=$config['indexable'];
         }
 
         if (isset($config['subattributes'])) {
@@ -83,8 +85,17 @@ class Attribute
         return false;
     }
 
+    public function isIndexable()
+    {
+        return $this->indexable;
+    }
+
     public function availableInLanguage($language='ALL')
     {
+        if ($language=='ALL')
+        {
+            return true;
+        }
         $attributeLanguage=$this->getLanguage();
         if ($attributeLanguage=='ALL') {
             return true;

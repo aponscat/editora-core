@@ -47,7 +47,7 @@ class YamlStructureTest extends TestCase
 
         $this->assertTrue($instance2->getData('es')==[
             'title' => 'Primer titular de la noticia'
-            ,'image-with-alt-and-title' => '/images/20210603/result.jpg'
+            ,'image-with-alt-and-title' => '/images/'.date_format(date_create(), 'Ymd').'/result.jpg'
             ,'image-with-alt-and-title.alt' => 'Texto alternativo de la imágen'
             ,'image-with-alt-and-title.title' => 'Título de la imágen'
             ,'image-with-alt-and-title.code' => '0001'
@@ -55,7 +55,7 @@ class YamlStructureTest extends TestCase
 
         $this->assertTrue($instance2->getData('en')==[
             'title' => 'First title of a news item'
-            ,'image-with-alt-and-title' => '/images/20210603/result.jpg'
+            ,'image-with-alt-and-title' => '/images/'.date_format(date_create(), 'Ymd').'/result.jpg'
             ,'image-with-alt-and-title.alt' => 'Alternative text of the image'
             ,'image-with-alt-and-title.title' => 'Image title'
             ,'image-with-alt-and-title.code' => '0001'

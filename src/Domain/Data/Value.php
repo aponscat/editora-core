@@ -94,6 +94,24 @@ class Value
         return null;
     }
 
+    public function getIndexableSubValuesData($language='ALL'): ?array
+    {
+        if ($this->attribute->hasSubAttributes($language)) {
+            $atriKey=$this->attribute->getKey();
+            $res=[];
+            foreach ($this->attribute->getIndexableSubAttributes($language) as $subattribute) {
+                $subFullKey=$subattribute->getFullyQualifiedKey();
+                $subkey=$subattribute->getKey();
+                if ($this->hasSubValue($subFullKey)) {
+                    $subval=$this->getSubValue($subFullKey);
+                    $res+=[$subkey=>$subval];
+                }
+            }
+            return $res;
+        }
+        return null;
+    }
+
     public function subValuesToArray(): ?array
     {
         //assert(isset($thuis->subValues) && is_array($this->subValues));
@@ -104,8 +122,6 @@ class Value
         }
         return $res;
     }
-
-
 
     public function setValue($value)
     {
@@ -143,9 +159,37 @@ class Value
         return $res;
     }
 
+    public function getIndexableData($language='ALL')
+    {
+        $res=$this->getSingleIndexableData($language);
+        if ($this->getIndexableSubValuesData($language)) {
+            foreach ($this->getIndexableSubValuesData($language) as $key=>$subvalue) {
+                $res+=[$this->attribute->getKey().'.'.$key=>$subvalue];
+            }
+        }
+        return $res;
+    }
+
     public function getSingleData($language='ALL'): ?array
     {
         if ($this->attribute->availableInLanguage($language)) {
+            if ($language=='ALL')
+            {
+                return $this->getMultilanguageData();
+            }
+            return $this->getKeyVal();
+        }
+        return null;
+    }
+
+    public function getSingleIndexableData($language='ALL'): ?array
+    {
+        if ($this->attribute->availableInLanguage($language)
+        && $this->attribute->isIndexable()) {
+            if ($language=='ALL')
+            {
+                return $this->getMultilanguageData();
+            }
             return $this->getKeyVal();
         }
         return null;

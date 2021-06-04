@@ -39,7 +39,7 @@ class StructureRepository implements StructureRepositoryInterface
                         unset($attributeConfig['value-type']);
                     }
 
-                    if (!isset($attributeConfig['multilang']) || $attributeConfig['multilang']==false) {
+                    if (isset($attributeConfig['multilang']) && $attributeConfig['multilang']==false) {
                         $multiLang=false;
                         unset($attributeConfig['multilang']);
                     }

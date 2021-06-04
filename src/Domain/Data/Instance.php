@@ -207,6 +207,18 @@ class Instance
         return $this->class;
     }
 
+    public function getIndexableData($language='ALL')
+    {
+        $ret=[];
+        foreach ($this->values as $value) {
+            $data=$value->getIndexableData($language);
+            if ($data) {
+                $ret+=$data;
+            }
+        }
+        return $ret;        
+    }
+
     public function getData($language='ALL', $withMetadata=false): array
     {
         $ret=[];

@@ -102,7 +102,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         );
 
         $this->assertTrue(
-            $instance->getData()==
+            $instance->getData('en')==
         [
           "title" => "Numeric Hello World Title!"
           ,"times" => 42
@@ -146,7 +146,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         );
 
         $this->assertTrue(
-            $instance->getData()==
+            $instance->getData('en')==
         [
           "english-title-is-strange" => "Hello World Title!"
           ,"english-text-is-strange" => "Hello World Text!"
@@ -201,7 +201,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
 
 
         $this->assertTrue($instance->getData()==
-        ['image-with-height' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
+        ['image-with-height:en' => "$publicPath".'/'.date_format(date_create(), 'Ymd')."/$originalFilename"]);
 
 
         $secondInstance=Instance::create(
@@ -215,7 +215,7 @@ class InstanceWithNonStandardAttributesTest extends TestCase
         );
 
         $this->assertTrue($secondInstance->getMultilanguageData(true)['metadata']['key']=='second-image-instance');
-        $this->assertStringStartsWith("$publicPath".'/'.date_format(date_create(), 'Ymd')."/", $secondInstance->getData()['image-with-height']);
-        $this->assertStringEndsWith($originalFilename, $secondInstance->getData()['image-with-height']);
+        $this->assertStringStartsWith("$publicPath".'/'.date_format(date_create(), 'Ymd')."/", $secondInstance->getData('en')['image-with-height']);
+        $this->assertStringEndsWith($originalFilename, $secondInstance->getData('en')['image-with-height']);
     }
 }

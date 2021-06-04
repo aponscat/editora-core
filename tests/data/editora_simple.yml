@@ -34,4 +34,10 @@ classes:
     relations:
       news:
         news-item
+  confidential-class:
+    attributes:
+      title:
+      text:
+      secret:
+        indexable: false
         

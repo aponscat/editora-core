@@ -21,7 +21,7 @@ class InstancePublicationTest extends TestCase
         , ['english-title:en'=>'Hello World Title!']);
             
         $this->assertTrue(
-            $instance->getData()==
+            $instance->getData('en')==
             [
               "english-title" => "Hello World Title!"
             ]
@@ -35,7 +35,7 @@ class InstancePublicationTest extends TestCase
                   ,'class'=>'news-item'
                   , "key" => "news-item-instance"
               ]
-              ,"english-title" => "Hello World Title!"
+              ,"english-title:en" => "Hello World Title!"
               ]
         );
         $this->assertTrue($instance->isPublished());
