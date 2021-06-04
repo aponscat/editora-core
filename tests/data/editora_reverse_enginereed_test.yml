@@ -1,0 +1,936 @@
+languages:
+  - es
+  - en
+  - it
+attributes:
+  country_code: &country_code
+    multilang: false
+  product_pnk_main_picture: &product_pnk_main_picture
+    multilang: false
+  product_pnk_top_left_picture: &product_pnk_top_left_picture
+    multilang: false
+  product_pnk_top_right_picture: &product_pnk_top_right_picture
+    multilang: false
+  product_pnk_bottom_left_picture: &product_pnk_bottom_left_picture
+    multilang: false
+  product_pnk_bottom_right_picture: &product_pnk_bottom_right_picture
+    multilang: false
+  phone_contact: &phone_contact
+    multilang: false
+  email_contact: &email_contact
+    multilang: false
+  little_page_picture: &little_page_picture
+    multilang: false
+  page_picture: &page_picture
+    multilang: false
+  retina_page_picture: &retina_page_picture
+    multilang: false
+  code: &code
+    multilang: false
+  starttime: &starttime
+    multilang: false
+  endtime: &endtime
+    multilang: false
+  youtube: &youtube
+    multilang: false
+  thumbnail: &thumbnail
+    multilang: false
+  exercise_picture: &exercise_picture
+    multilang: false
+  retina_exercise_picture: &retina_exercise_picture
+    multilang: false
+  num_rep: &num_rep
+    multilang: false
+  num_series: &num_series
+    multilang: false
+  time_exercise: &time_exercise
+    multilang: false
+  icon_time_picture: &icon_time_picture
+    multilang: false
+  icon_picture: &icon_picture
+    multilang: false
+  thumbnail_physical_activity: &thumbnail_physical_activity
+    multilang: false
+  quantity: &quantity
+    multilang: false
+  ingredient_picture: &ingredient_picture
+    multilang: false
+  retina_ingredient_picture: &retina_ingredient_picture
+    multilang: false
+  tip_block_picture: &tip_block_picture
+    multilang: false
+  data_first_login: &data_first_login
+    multilang: false
+  data_begin_method: &data_begin_method
+    multilang: false
+  img_thumb_repository_video: &img_thumb_repository_video
+    multilang: false
+  file: &file
+    multilang: false
+  img_thumb_repository_document: &img_thumb_repository_document
+    multilang: false
+  url: &url
+    multilang: false
+  img_thumb_repository_gallery: &img_thumb_repository_gallery
+    multilang: false
+  img_repository_image: &img_repository_image
+    multilang: false
+  stock_security: &stock_security
+    multilang: false
+  units_kit: &units_kit
+    multilang: false
+  shots_kit: &shots_kit
+    multilang: false
+  grams_unit: &grams_unit
+    multilang: false
+  net_weight_unit: &net_weight_unit
+    multilang: false
+  gross_weight_kit: &gross_weight_kit
+    multilang: false
+  net_weight_kit: &net_weight_kit
+    multilang: false
+  gross_weight_pack: &gross_weight_pack
+    multilang: false
+  net_weight_pack: &net_weight_pack
+    multilang: false
+  KJ_x_100: &KJ_x_100
+    multilang: false
+  Kcalories_x_100: &Kcalories_x_100
+    multilang: false
+  hydrates_x_100: &hydrates_x_100
+    multilang: false
+  sugar_x_100: &sugar_x_100
+    multilang: false
+  protein_x_100: &protein_x_100
+    multilang: false
+  fat_x_100: &fat_x_100
+    multilang: false
+  saturated_fats_x_100: &saturated_fats_x_100
+    multilang: false
+  fiber_x_100: &fiber_x_100
+    multilang: false
+  salt_x_100: &salt_x_100
+    multilang: false
+  DHA_x_100: &DHA_x_100
+    multilang: false
+  KJ_x_unit: &KJ_x_unit
+    multilang: false
+  Kcalories_x_unit: &Kcalories_x_unit
+    multilang: false
+  hydrates_x_unit: &hydrates_x_unit
+    multilang: false
+  sugar_x_unit: &sugar_x_unit
+    multilang: false
+  protein_x_unit: &protein_x_unit
+    multilang: false
+  fat_x_unit: &fat_x_unit
+    multilang: false
+  saturated_fats_x_unit: &saturated_fats_x_unit
+    multilang: false
+  fiber_x_unit: &fiber_x_unit
+    multilang: false
+  salt_x_unit: &salt_x_unit
+    multilang: false
+  DHA_x_unit: &DHA_x_unit
+    multilang: false
+  Polioles_x_unit: &Polioles_x_unit
+    multilang: false
+  product_image_list: &product_image_list
+    multilang: false
+  product_image_detail: &product_image_detail
+    multilang: false
+  product_image_big: &product_image_big
+    multilang: false
+  icon_class: &icon_class
+    multilang: false
+  category_image: &category_image
+    multilang: false
+  question_img: &question_img
+    multilang: false
+  app_code: &app_code
+    multilang: false
+  video_thumbnail: &video_thumbnail
+    multilang: false
+  duration: &duration
+    multilang: false
+  audio: &audio
+    multilang: false
+  only_step: &only_step
+    multilang: false
+  img_icon_1: &img_icon_1
+    multilang: false
+  img_icon_2: &img_icon_2
+    multilang: false
+  img_icon_3: &img_icon_3
+    multilang: false
+  img_icon_4: &img_icon_4
+    multilang: false
+  img_big_icon: &img_big_icon
+    multilang: false
+  img_questionaryquiz: &img_questionaryquiz
+    multilang: false
+  img_graphicapp: &img_graphicapp
+    multilang: false
+  img_actioncard: &img_actioncard
+    multilang: false
+  img_form: &img_form
+    multilang: false
+classes:
+  Global:
+    attributes:
+      title:
+    relations:
+      time_of_day_ecommerce:
+        - TimeOfDay
+      categories_ecommerce:
+        - CategoryProduct
+  Home:
+    attributes:
+      title:
+    relations:
+      faqs:
+        - Faqs
+  Countries:
+    attributes:
+      country_code: *country_code
+      product_pnk_main_picture: *product_pnk_main_picture
+      product_pnk_top_left_picture: *product_pnk_top_left_picture
+      product_pnk_top_right_picture: *product_pnk_top_right_picture
+      product_pnk_bottom_left_picture: *product_pnk_bottom_left_picture
+      product_pnk_bottom_right_picture: *product_pnk_bottom_right_picture
+      phone_contact: *phone_contact
+      email_contact: *email_contact
+      title:
+      text_intro_products_pnk:
+      title_document_products_pnk:
+      file_product_pnk:
+    relations:
+      languages:
+        - Languages
+      terms_and_conditions:
+        - Pages
+      privacy_policy:
+        - Pages
+      methods:
+        - Methods
+      repositories:
+        - RepositoryVideo
+        - RepositoryDocument
+        - RepositoryLink
+        - RepositoryGallery
+      symptoms:
+        - Symptom
+      webviews:
+        - Herculeswebview
+      ecommerce_boxs:
+        - EcommerceBox
+      forms:
+        - Form
+  Languages:
+    attributes:
+      title:
+  Pages:
+    attributes:
+      title:
+      text:
+    relations:
+      blocks:
+        - TextElement
+  MotivationalTips:
+    attributes:
+      title:
+      text:
+    relations:
+      countries:
+        - Countries
+      dailytimeslot:
+        - DailyTimeSlot
+  Tips:
+    attributes:
+      little_page_picture: *little_page_picture
+      page_picture: *page_picture
+      retina_page_picture: *retina_page_picture
+      title:
+      text:
+    relations:
+      link:
+        - Consejos
+        - Coaching
+        - Recipes
+      blocks:
+        - MultimediaBlock
+      typestip:
+        - TypeTip
+      countries:
+        - Countries
+      dailytimeslot:
+        - DailyTimeSlot
+  Consejos:
+    attributes:
+      little_page_picture: *little_page_picture
+      page_picture: *page_picture
+      retina_page_picture: *retina_page_picture
+      title:
+      text:
+    relations:
+      blocks:
+        - MultimediaBlock
+      typestip:
+        - TypeTip
+      countries:
+        - Countries
+      dailytimeslot:
+        - DailyTimeSlot
+  TypeTip:
+    attributes:
+      code: *code
+      title:
+  DailyTimeSlot:
+    attributes:
+      starttime: *starttime
+      endtime: *endtime
+  Coaching:
+    attributes:
+      little_page_picture: *little_page_picture
+      page_picture: *page_picture
+      retina_page_picture: *retina_page_picture
+      youtube: *youtube
+      title:
+      sub_title_intern:
+      text:
+    relations:
+      blocks:
+        - MultimediaBlock
+      typestip:
+        - TypeTip
+      countries:
+        - Countries
+      coachingobjective:
+        - CoachingObjective
+  CoachingObjective:
+    attributes:
+      code: *code
+      title:
+  ExercicesGroup:
+    attributes:
+      thumbnail: *thumbnail
+      title:
+      subtitle:
+      text:
+      total_block_time:
+      number_of_cycles:
+      rest_time_between_exercises:
+      block_recomendation:
+    relations:
+      exercices:
+        - Exercices
+      countries:
+        - Countries
+  Exercices:
+    attributes:
+      little_page_picture: *little_page_picture
+      exercise_picture: *exercise_picture
+      retina_exercise_picture: *retina_exercise_picture
+      num_rep: *num_rep
+      num_series: *num_series
+      youtube: *youtube
+      time_exercise: *time_exercise
+      icon_time_picture: *icon_time_picture
+      title:
+      title_free_series:
+      title_free_repetitions:
+      title_material:
+      material:
+      title_description:
+      description:
+    relations:
+      blocks:
+        - MultimediaBlock
+      typeexercise:
+        - TypeExercise
+      difficulty:
+        - Difficulty
+      filters_muscular_group:
+        - BlockMuscularGroup
+      filters_equipment:
+        - Equipment
+      filters_place:
+        - Place
+  TypeExercise:
+    attributes:
+      icon_picture: *icon_picture
+      title:
+  PlaylistExercices:
+    attributes:
+      little_page_picture: *little_page_picture
+      title:
+    relations:
+      exercices:
+        - Exercices
+  Methods:
+    attributes:
+      title:
+    relations:
+      steps:
+        - Steps
+      repositories:
+        - RepositoryVideo
+        - RepositoryDocument
+        - RepositoryLink
+        - RepositoryGallery
+      notifications:
+        - Notification
+      onboardings:
+        - Onboarding
+      questionnaires:
+        - Questionary
+      action_groups:
+        - ActionGroup
+  Steps:
+    attributes:
+      thumbnail_physical_activity: *thumbnail_physical_activity
+      title:
+      info_general:
+      text_intro_physical_activity:
+      text_intro_coaching_tips:
+      text_intro_recipes:
+      text_intro_coaching:
+    relations:
+      exercices_groups:
+        - ExercicesGroup
+      coaching_and_tips:
+        - Consejos
+        - Coaching
+      recipes:
+        - Recipes
+      faqs:
+        - Faqs
+      blocksstep:
+        - BlockStep
+      tipsmotivational:
+        - MotivationalTips
+      tips:
+        - Tips
+      coaching:
+        - Tips
+        - Coaching
+        - Herculeswebview
+      repositories:
+        - RepositoryVideo
+        - RepositoryDocument
+        - RepositoryLink
+        - RepositoryGallery
+      products:
+        - Products
+      first_question:
+        - Question
+      recurring_question:
+        - Question
+      filters_muscular_group:
+        - BlockMuscularGroup
+      filters_equipment:
+        - Equipment
+      filters_place:
+        - Place
+      webviews_physical_activities:
+        - Herculeswebview
+      playlist_exercices:
+        - PlaylistExercices
+  PageInfoStep:
+    attributes:
+      title:
+      text:
+    relations:
+      blocks:
+        - IngredientsListBlock
+        - TipListBlock
+        - TextsListBlock
+  BlockStep:
+    attributes:
+      title:
+      text:
+    relations:
+      page_info:
+        - PageInfoStep
+  Recipes:
+    attributes:
+      little_page_picture: *little_page_picture
+      page_picture: *page_picture
+      retina_page_picture: *retina_page_picture
+      title:
+      preparation_mode:
+    relations:
+      difficulty:
+        - Difficulty
+      countries:
+        - Countries
+      categoryrecipes:
+        - CatgegoryRecipe
+      flavorrecipes:
+        - FlavorRecipe
+      ingredient_measures:
+        - IngredientMeasures
+      ingredient_pronokal:
+        - IngredientPronokal
+      products:
+        - Products
+  Difficulty:
+    attributes:
+      icon_picture: *icon_picture
+      code: *code
+      title:
+      subtitle:
+      not_found_subtitle:
+  CatgegoryRecipe:
+    attributes:
+      title:
+  FlavorRecipe:
+    attributes:
+      title:
+  IngredientMeasures:
+    relations:
+      quantity:
+        - Quantity
+      units:
+        - Units
+      ingredients:
+        - Ingredient
+  IngredientPronokal:
+    attributes:
+      text:
+  Quantity:
+    attributes:
+      quantity: *quantity
+  Units:
+    attributes:
+      singular_name:
+      plural_name:
+  Ingredient:
+    attributes:
+      singular_name:
+      plural_name:
+      prefix:
+  Faqs:
+    attributes:
+      question:
+      answer:
+      text_calltoaction:
+    relations:
+      countries:
+        - Countries
+  MultimediaBlock:
+    attributes:
+      title:
+      text:
+      quote:
+  IngredientsListBlock:
+    attributes:
+      title:
+    relations:
+      ingredientelement:
+        - IngredientElement
+  IngredientElement:
+    attributes:
+      ingredient_picture: *ingredient_picture
+      retina_ingredient_picture: *retina_ingredient_picture
+      title:
+  TipListBlock:
+    attributes:
+      title:
+    relations:
+      tipelement:
+        - TipElement
+  TipElement:
+    attributes:
+      tip_block_picture: *tip_block_picture
+      title:
+      text:
+  TextsListBlock:
+    attributes:
+      title:
+      text:
+      subtitle:
+    relations:
+      supplements:
+        - TextElement
+      diet:
+        - TextElement
+  TextElement:
+    attributes:
+      title:
+      text:
+  Symptom:
+    attributes:
+      title:
+    relations:
+      tiplistblocks:
+        - TipListBlock
+  Notification:
+    attributes:
+      data_first_login: *data_first_login
+      data_begin_method: *data_begin_method
+      title:
+      text:
+    relations:
+      webviews:
+        - Pages
+        - Exercices
+        - Tips
+        - Consejos
+        - Coaching
+        - Recipes
+        - PageInfoStep
+        - Herculeswebview
+  RepositoryVideo:
+    attributes:
+      youtube: *youtube
+      img_thumb_repository_video: *img_thumb_repository_video
+      title:
+      description:
+  RepositoryDocument:
+    attributes:
+      file: *file
+      img_thumb_repository_document: *img_thumb_repository_document
+      title:
+      description:
+      file:es:
+      file:en:
+      file:it:
+  RepositoryLink:
+    attributes:
+      url: *url
+      title:
+      description:
+  RepositoryGallery:
+    attributes:
+      img_thumb_repository_gallery: *img_thumb_repository_gallery
+      title:
+      description:
+    relations:
+      repositories_images:
+        - RepositoryImage
+  RepositoryImage:
+    attributes:
+      img_repository_image: *img_repository_image
+      title:
+      description:
+      alt_image:
+  Products:
+    attributes:
+      stock_security: *stock_security
+      units_kit: *units_kit
+      shots_kit: *shots_kit
+      grams_unit: *grams_unit
+      net_weight_unit: *net_weight_unit
+      gross_weight_kit: *gross_weight_kit
+      net_weight_kit: *net_weight_kit
+      gross_weight_pack: *gross_weight_pack
+      net_weight_pack: *net_weight_pack
+      KJ_x_100: *KJ_x_100
+      Kcalories_x_100: *Kcalories_x_100
+      hydrates_x_100: *hydrates_x_100
+      sugar_x_100: *sugar_x_100
+      protein_x_100: *protein_x_100
+      fat_x_100: *fat_x_100
+      saturated_fats_x_100: *saturated_fats_x_100
+      fiber_x_100: *fiber_x_100
+      salt_x_100: *salt_x_100
+      DHA_x_100: *DHA_x_100
+      KJ_x_unit: *KJ_x_unit
+      Kcalories_x_unit: *Kcalories_x_unit
+      hydrates_x_unit: *hydrates_x_unit
+      sugar_x_unit: *sugar_x_unit
+      protein_x_unit: *protein_x_unit
+      fat_x_unit: *fat_x_unit
+      saturated_fats_x_unit: *saturated_fats_x_unit
+      fiber_x_unit: *fiber_x_unit
+      salt_x_unit: *salt_x_unit
+      DHA_x_unit: *DHA_x_unit
+      Polioles_x_unit: *Polioles_x_unit
+      product_image_list: *product_image_list
+      product_image_detail: *product_image_detail
+      product_image_big: *product_image_big
+      title:
+      presentation:
+      text_info:
+      description:
+      ingredients:
+      active_ingredient:
+      instructions:
+      funcionality:
+      conservation_recommendations:
+      units_per_day:
+      col_100gr:
+      col_unit:
+      info_extra:
+    relations:
+      brands:
+        - Brands
+      allergens:
+        - Allergens
+      preparation_method:
+        - PreparationMethod
+      texture:
+        - Texture
+      flavor:
+        - Flavor
+      time_of_day:
+        - TimeOfDay
+      category_product:
+        - CategoryProduct
+      type_product:
+        - TypeProduct
+      type_unit:
+        - UnitType
+      protein_origin:
+        - ProteinOrigin
+      similar_products:
+        - Products
+      components_packs:
+        - ComponentPack
+  ComponentPack:
+    attributes:
+      quantity: *quantity
+    relations:
+      products:
+        - Products
+  Brands:
+    attributes:
+      title:
+  Allergens:
+    attributes:
+      icon_class: *icon_class
+      title:
+  PreparationMethod:
+    attributes:
+      icon_class: *icon_class
+      title:
+  Texture:
+    attributes:
+      icon_class: *icon_class
+      title:
+  Flavor:
+    attributes:
+      icon_class: *icon_class
+      title:
+  TimeOfDay:
+    attributes:
+      icon_class: *icon_class
+      title:
+  CategoryProduct:
+    attributes:
+      icon_class: *icon_class
+      category_image: *category_image
+      title:
+    relations:
+      products_category:
+        - Products
+  TypeProduct:
+    attributes:
+      title:
+  UnitType:
+    attributes:
+      title:
+  ProteinOrigin:
+    attributes:
+      code: *code
+      title:
+  Question:
+    attributes:
+      question_img: *question_img
+      title:
+      subtitle:
+      text:
+    relations:
+      answers:
+        - Option
+  Option:
+    attributes:
+      title:
+      subtitle:
+      feedback_title:
+      feedback_subtitle:
+    relations:
+      exercises_level:
+        - Difficulty
+  BlockMuscularGroup:
+    attributes:
+      code: *code
+      title:
+      subtitle:
+  Equipment:
+    attributes:
+      code: *code
+      title:
+      subtitle:
+  Place:
+    attributes:
+      code: *code
+      title:
+      subtitle:
+  Herculeswebview:
+    attributes:
+      app_code: *app_code
+      thumbnail: *thumbnail
+      page_picture: *page_picture
+      retina_page_picture: *retina_page_picture
+      title:
+      subtitle:
+      sub_title_intern:
+      text:
+      alt_image:
+    relations:
+      hercules_blocks:
+        - BlockText
+        - BlockImage
+        - BlockVideo
+        - BlockAudio
+        - BlockFile
+        - BlockButton
+        - BlockOffer
+        - BlockVideoEmbed
+      countries:
+        - Countries
+  BlockText:
+    attributes:
+      title:
+      text:
+  BlockImage:
+    attributes:
+      page_picture: *page_picture
+      retina_page_picture: *retina_page_picture
+      alt_image:
+  BlockVideoEmbed:
+    attributes:
+      youtube: *youtube
+  BlockVideo:
+    attributes:
+      video_thumbnail: *video_thumbnail
+      youtube: *youtube
+      duration: *duration
+      title:
+  BlockAudio:
+    attributes:
+      audio: *audio
+      duration: *duration
+      title:
+      audio:es:
+      audio:en:
+      audio:it:
+  BlockFile:
+    attributes:
+      title:
+      short_description:
+      file:
+  BlockButton:
+    attributes:
+      title:
+  BlockOffer:
+    attributes:
+      title:
+      text:
+  Onboarding:
+    attributes:
+      app_code: *app_code
+    relations:
+      countries:
+        - Countries
+      onboardings_cards:
+        - OnboardingCard
+  OnboardingCard:
+    attributes:
+      only_step: *only_step
+      img_icon_1: *img_icon_1
+      img_icon_2: *img_icon_2
+      img_icon_3: *img_icon_3
+      img_icon_4: *img_icon_4
+      img_big_icon: *img_big_icon
+      title:
+      description:
+      subtitle:
+      subtitle_1:
+      subtitle_2:
+      subtitle_3:
+      subtitle_4:
+    relations:
+      countries:
+        - Countries
+      app_buttons:
+        - AppButton
+  Questionary:
+    attributes:
+      app_code: *app_code
+    relations:
+      questionnaires_quiz:
+        - QuestionaryQuiz
+      countries:
+        - Countries
+  QuestionaryQuiz:
+    attributes:
+      app_code: *app_code
+      img_questionaryquiz: *img_questionaryquiz
+      title:
+      top_title:
+      step_title:
+      subtitle:
+    relations:
+      symptoms:
+        - Symptom
+      app_buttons:
+        - AppButton
+  EcommerceBox:
+    attributes:
+      img_icon_1: *img_icon_1
+      img_icon_2: *img_icon_2
+      img_icon_3: *img_icon_3
+      img_icon_4: *img_icon_4
+      title:
+      tag_title:
+      tag_text:
+  GraphicApp:
+    attributes:
+      app_code: *app_code
+      img_graphicapp: *img_graphicapp
+  ActionGroup:
+    attributes:
+      title:
+    relations:
+      action_cards:
+        - ActionCard
+      countries:
+        - Countries
+  ActionCard:
+    attributes:
+      app_code: *app_code
+      img_actioncard: *img_actioncard
+      title:
+      subtitle:
+      description:
+    relations:
+      app_buttons:
+        - AppButton
+      countries:
+        - Countries
+  AppButton:
+    attributes:
+      title:
+  Form:
+    attributes:
+      img_form: *img_form
+      title:
+      description:
+      message_ok:
+      message_repeated:
+      title_button:
+    relations:
+      questions:
+        - QuestionForm
+  QuestionForm:
+    attributes:
+      title:
+    relations:
+      possible_answers:
+        - AnswerForm
+  AnswerForm:
+    attributes:
+      title:

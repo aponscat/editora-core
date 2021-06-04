@@ -91,6 +91,11 @@ class Clazz
         return $this->toArray();
     }
 
+    public function hasRelations(): bool
+    {
+        return ($this->relations!=null);
+    }
+
     public function addRelation(Relation $relation): void
     {
         $this->relations[$relation->getKey()]=$relation;
@@ -204,9 +209,13 @@ class Clazz
     public function getAttributes(): array
     {
         $res=[];
-        foreach ($this->attributes as $attribute) {
-            $res[]=$attribute;
+        if ($this->attributes)
+        {
+            foreach ($this->attributes as $attribute) {
+                $res[]=$attribute;
+            }
         }
+
         return $res;
     }
 }

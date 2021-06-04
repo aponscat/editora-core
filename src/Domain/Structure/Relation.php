@@ -38,6 +38,11 @@ class Relation
         return $res;
     }
 
+    public function toArray(): array
+    {
+        return [$this->getKey()=>$this->getChildrenKeys()];
+    }
+
     public function isValid(Instance $instance)
     {
         $classKey=$instance->getClassKey();
