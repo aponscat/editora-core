@@ -123,6 +123,7 @@ TBD:
 *- separar en StructureTransformers el codi que ara esta a Structure
 *- DSL fitxer input de structure
 - Passar de jsons a classes d'Structure
+- refactoritzar carrega yaml
 *- Editora Database amb yaml
 - components a nivell d'attribute i class: edit=xxx list=xxx
 - Valors unique per class e idioma (com niceurl)
