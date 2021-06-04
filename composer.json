@@ -2,11 +2,11 @@
   "name": "omatech/editora-core",
   "description": "eCMS core Classes",
   "keywords": [
-      "omatech",
-      "eCMS",
-      "headless CMS",
-      "editora"
-  ],  
+    "omatech",
+    "eCMS",
+    "headless CMS",
+    "editora"
+  ],
   "require": {
     "symfony/yaml": "^5.3"
   },
@@ -16,15 +16,19 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^9"
+    "phpunit/phpunit": "^9",
+    "infection/infection": "^0.23.0"
   },
   "autoload-dev": {
     "psr-4": {
-      "Omatech\\": "tests/src"
+      "Omatech\\": "tests/src",
+      "Omatech\\Tests\\": "tests"
     }
   },
   "scripts": {
     "testwindows": "vendor\\bin\\phpunit.bat",
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+    "infection": "vendor/bin/infection"
   }
 }
