@@ -14,14 +14,20 @@ use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class InstancesRelationsTest extends TestCase
 {
+
+    private Structure $structure;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->structure = YamlStructureRepository::read(__DIR__ .'/../data/editora_simple.yml');
+    }
+    
     public function testRelationSimpleOperations(): void
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
-        //var_dump($structure);
+        $structure=$this->structure;
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
@@ -110,9 +116,7 @@ class InstancesRelationsTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=$this->structure;
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');

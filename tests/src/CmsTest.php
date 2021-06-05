@@ -12,14 +12,21 @@ use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class CmsTest extends TestCase
 {
+
+    private Structure $structure;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->structure = YamlStructureRepository::read(__DIR__ .'/../data/editora_simple.yml');
+    }
+
     public function testLoadStructureFromSimpleModernYaml(): void
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
 
+        $structure=$this->structure;
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $countryClass=$cms->getClass('news-item');
@@ -42,9 +49,7 @@ class CmsTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=$this->structure;
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');
@@ -155,9 +160,7 @@ class CmsTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        //$jsonStructure=file_get_contents(dirname(__FILE__).'/../data/simple_modern.json');
-        //$structure=Structure::loadStructureFromJSON($jsonStructure);
-        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=$this->structure;
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $newsItemClass=$cms->getClass('news-item');

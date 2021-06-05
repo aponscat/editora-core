@@ -11,9 +11,17 @@ use Omatech\Editora\Domain\Data\Instance;
 
 class IndexableTest extends TestCase
 {
+    private Structure $structure;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->structure = YamlStructureRepository::read(__DIR__ .'/../data/editora_simple.yml');
+    }
+    
     public function testIndexableValues(): void
     {
-        $structure=YamlStructureRepository::read(dirname(__FILE__).'/../data/editora_simple.yml');
+        $structure=$this->structure;
         $storage=new InstanceRepository($structure);
         $cms=new Cms($structure, $storage);
         $class=$cms->getClass('confidential-class');
