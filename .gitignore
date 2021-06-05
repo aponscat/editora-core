@@ -8,3 +8,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 /.vscode
+/.history
+/build
+/coverage
+/.idea
