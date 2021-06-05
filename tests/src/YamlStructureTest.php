@@ -50,7 +50,7 @@ class YamlStructureTest extends TestCase
 
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
         
-        $cms->putInstance($instance);
+        $cms->createInstance($instance);
         $id1=$instance->ID();
         $instance2=$cms->getInstanceById($id1);
 
@@ -81,7 +81,7 @@ class YamlStructureTest extends TestCase
         );
         $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
-        $cms->putInstance($instance);
+        $cms->createInstance($instance);
         $id2=$instance->ID();
         $instance3=$cms->getInstanceById($id2);
         $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
@@ -98,7 +98,7 @@ class YamlStructureTest extends TestCase
         ]
         ];
 
-        $instance4=$cms->putArrayInstance($instance4Array);
+        $instance4=$cms->createArrayInstance($instance4Array);
         $id3=$instance4->ID();
         $instance5=$cms->getInstanceById($id3);
         $this->assertTrue($instance5->getData('es')['title']=='Sociedad');

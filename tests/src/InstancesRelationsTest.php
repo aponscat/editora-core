@@ -78,9 +78,9 @@ class InstancesRelationsTest extends TestCase
             ]
         );
 
-        $cms->putInstance($instanceNewsItem1);
-        $cms->putInstance($instanceNewsItem2);
-        $cms->putInstance($instanceNewsItem3);
+        $cms->createInstance($instanceNewsItem1);
+        $cms->createInstance($instanceNewsItem2);
+        $cms->createInstance($instanceNewsItem3);
 
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem1);
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem2);
@@ -88,7 +88,7 @@ class InstancesRelationsTest extends TestCase
 
         //print_r($instanceCategory1->getRelationsArray());
 
-        $cms->putInstance($instanceCategory1);
+        $cms->createInstance($instanceCategory1);
 
         $instancesInStorage=$cms->getAllInstances();
 
@@ -167,9 +167,9 @@ class InstancesRelationsTest extends TestCase
                   ]
         );
 
-        $cms->putInstance($instanceNewsItem1);
-        $cms->putInstance($instanceNewsItem2);
-        $cms->putInstance($instanceNewsItem3);
+        $cms->createInstance($instanceNewsItem1);
+        $cms->createInstance($instanceNewsItem2);
+        $cms->createInstance($instanceNewsItem3);
 
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem1);
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem2, Link::ABOVE);
@@ -181,7 +181,7 @@ class InstancesRelationsTest extends TestCase
         $this->assertTrue($children[1]==$instanceNewsItem2->ID());
         $this->assertTrue($children[2]==$instanceNewsItem1->ID());
 
-        $cms->putInstance($instanceCategory1);
+        $cms->createInstance($instanceCategory1);
         $recoveredCategoryInstance=$cms->getInstanceByID($instanceCategory1->ID());
         $children=$recoveredCategoryInstance->getChildrenIDsByRelationKey('news');
 

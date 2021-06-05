@@ -59,7 +59,7 @@ class IndexableTest extends TestCase
         $this->assertTrue($instance->getData('es')['secret']=='secreto palabranoencontrable');
         $this->assertTrue($instance->getData()['secret:en']=='secret wordnottobefound');
 
-        $cms->putInstance($instance);
+        $cms->createInstance($instance);
 
         $onlyInstancesWithText=$cms->filterInstances($cms->getAllInstances()
         , function ($instance) {

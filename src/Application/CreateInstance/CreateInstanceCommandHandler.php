@@ -6,15 +6,8 @@ use Omatech\Editora\Domain\Data\Contracts\InstanceRepositoryInterface;
 
 final class CreateInstanceCommandHandler
 {
-    private InstanceRepositoryInterface $instanceRepository;
-
-    public function __construct(InstanceRepositoryInterface $instanceRepository)
-    {
-        $this->instanceRepository = $instanceRepository;
-    }
-
     public function __invoke(CreateInstanceCommand $command)
     {
-
+        $command->cms->createInstance($command->instance);
     }
 }

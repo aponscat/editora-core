@@ -23,17 +23,17 @@ class Cms
         return $this->structure->getClass($key);
     }
 
-    public function putInstance(Instance $instance)
+    public function createInstance(Instance $instance)
     {
         $this->storage->create($instance);
     }
 
-    public function putArrayInstance($arr)
+    public function createArrayInstance($arr)
     {
         assert(isset($arr['metadata']['class']));
         $class=$this->getClass($arr['metadata']['class']);
         $instance=Instance::fromArray($class, $arr);
-        $this->putInstance($instance);
+        $this->createInstance($instance);
         return $instance;
     }
 

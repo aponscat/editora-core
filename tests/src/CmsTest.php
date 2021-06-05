@@ -67,7 +67,7 @@ class CmsTest extends TestCase
         );
         $this->assertTrue($instance->getData('es')['title']=='Primer titular de la noticia');
 
-        $cms->putInstance($instance);
+        $cms->createInstance($instance);
         $id1=$instance->ID();
         $instance2=$cms->getInstanceById($id1);
         $this->assertTrue($instance2->getData('es')['title']=='Primer titular de la noticia');
@@ -84,7 +84,7 @@ class CmsTest extends TestCase
         );
         $this->assertTrue($instance->getData('es')['title']=='Tecnología');
 
-        $cms->putInstance($instance);
+        $cms->createInstance($instance);
         $id2=$instance->ID();
         $instance3=$cms->getInstanceById($id2);
         $this->assertTrue($instance3->getData('es')['title']=='Tecnología');
@@ -101,7 +101,7 @@ class CmsTest extends TestCase
             ]
         ];
 
-        $instance4=$cms->putArrayInstance($instance4Array);
+        $instance4=$cms->createArrayInstance($instance4Array);
         $id3=$instance4->ID();
         $instance5=$cms->getInstanceById($id3);
         $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
@@ -188,9 +188,9 @@ class CmsTest extends TestCase
                   ]
         );
 
-        $cms->putInstance($instanceNewsItem);
+        $cms->createInstance($instanceNewsItem);
         $instanceCategory1->addToRelationByKey('news', $instanceNewsItem);
-        $cms->putInstance($instanceCategory1);
+        $cms->createInstance($instanceCategory1);
         $idCategory1=$instanceCategory1->ID();
         
         $instanceCategoryArray2=['metadata'=>[
@@ -206,7 +206,7 @@ class CmsTest extends TestCase
         ];
 
 
-        $instanceCategory2=$cms->putArrayInstance($instanceCategoryArray2);
+        $instanceCategory2=$cms->createArrayInstance($instanceCategoryArray2);
         $idCategory2=$instanceCategory2->ID();
         $instancesInStorage=$cms->getAllInstances();
 
