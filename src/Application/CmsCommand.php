@@ -8,6 +8,7 @@ class CmsCommand
 
     public function __construct(array $data)
     {
+        $this->validate($data);
         $this->data = $data;
     }
 
@@ -15,4 +16,10 @@ class CmsCommand
     {
         return $this->data;
     }
+
+    public function validate($data)
+    {
+        
+    }
+
 }

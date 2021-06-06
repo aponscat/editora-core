@@ -3,7 +3,7 @@
 namespace Omatech\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Omatech\Editora\Application\CmsCommand;
+use Omatech\Editora\Application\CreateInstance\CreateInstanceCommand;
 use Omatech\Editora\Application\CreateInstance\CreateInstanceCommandHandler;
 use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Application\Cms;
@@ -13,18 +13,17 @@ use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class CreateInstanceTest extends TestCase
 {
-    private Structure $structure;
+    private Cms $cms;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->structure = YamlStructureRepository::read(__DIR__ .'/../data/editora_simple.yml');
+        $structure= YamlStructureRepository::read(__DIR__ .'/../data/editora_simple.yml');
+        $this->cms = new Cms($structure, new InstanceRepository($structure));
     }
 
-    /** @test */
-    public function create_instance_successful(): void
+    public function testCreateInstanceSuccessful(): void
     {
-        $cms= new Cms($this->structure, new InstanceRepository($this->structure));
         $instanceSocietyArray=
         ['metadata'=>[
             'status'=>'O'
@@ -38,9 +37,25 @@ class CreateInstanceTest extends TestCase
             ]
         ];
 
-        $command=new CmsCommand($instanceSocietyArray);
-        (new CreateInstanceCommandHandler($cms))->__invoke($command);
+        $command=new CreateInstanceCommand($instanceSocietyArray);
+        (new CreateInstanceCommandHandler($this->cms))->__invoke($command);
 
-        self::assertTrue(true);
+        $instances=$this->cms->getAllInstances();
+        $this->assertTrue(!empty($instances));
+    }
+
+    public function testCreateInstanceWithNoMetadata(): void
+    {
+        $WronginstanceSocietyArray=
+        ['values'=>[
+            'code'=>'society'
+            ,'title:es'=>'Sociedad'
+            ,'title:en'=>'Society'
+            ]
+        ];
+
+        $this->expectException(\Exception::class);
+        $command=new CreateInstanceCommand($WronginstanceSocietyArray);
+
     }
 }
