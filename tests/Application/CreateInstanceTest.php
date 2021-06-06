@@ -56,6 +56,41 @@ class CreateInstanceTest extends TestCase
 
         $this->expectException(\Exception::class);
         $command=new CreateInstanceCommand($WronginstanceSocietyArray);
-
     }
+
+    public function testCreateInstanceWithNoClass(): void
+    {
+        $WronginstanceSocietyArray=
+        ['metadata'=>[
+            'key'=>'society'
+        ]
+        ,['values'=>[
+            'code'=>'society'
+            ,'title:es'=>'Sociedad'
+            ,'title:en'=>'Society'
+            ]
+        ]];
+
+        $this->expectException(\Exception::class);
+        $command=new CreateInstanceCommand($WronginstanceSocietyArray);
+    }
+
+    public function testCreateInstanceWithNoKey(): void
+    {
+        $WronginstanceSocietyArray=
+        ['metadata'=>[
+            'class'=>'news-category'
+        ]
+        ,['values'=>[
+            'code'=>'society'
+            ,'title:es'=>'Sociedad'
+            ,'title:en'=>'Society'
+            ]
+        ]];
+
+        $this->expectException(\Exception::class);
+        $command=new CreateInstanceCommand($WronginstanceSocietyArray);
+    }
+
+
 }
