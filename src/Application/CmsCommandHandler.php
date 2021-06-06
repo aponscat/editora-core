@@ -2,20 +2,20 @@
 
 namespace Omatech\Editora\Application;
 
-use Omatech\Editora\Application\Cms;
+use Omatech\Editora\Application\Contracts\CmsInterface;
 use Omatech\Editora\Application\CmsCommand;
 
 abstract class CmsCommandHandler
 {
 
-    private Cms $cms;
+    private CmsInterface $cms;
 
-    public function __construct (Cms $cms)
+    public function __construct (CmsInterface $cms)
     {
         $this->cms=$cms;
     }
 
-    public function Cms()
+    public function Cms(): CmsInterface
     {
         return $this->cms;
     }

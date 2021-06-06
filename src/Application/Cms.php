@@ -6,8 +6,9 @@ use Omatech\Editora\Domain\Structure\Clazz;
 use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Domain\Data\Contracts\InstanceRepositoryInterface;
+use Omatech\Editora\Application\Contracts\CmsInterface;
 
-class Cms
+class Cms implements CmsInterface
 {
     private Structure $structure;
     private InstanceRepositoryInterface $storage;
@@ -23,12 +24,12 @@ class Cms
         return $this->structure->getClass($key);
     }
 
-    public function createInstance(Instance $instance)
+    public function createInstance(Instance $instance): void
     {
         $this->storage->create($instance);
     }
 
-    public function createArrayInstance($arr)
+    public function createArrayInstance($arr): Instance
     {
         assert(isset($arr['metadata']['class']));
         $class=$this->getClass($arr['metadata']['class']);
@@ -42,7 +43,7 @@ class Cms
         return $this->storage->read($id);
     }
 
-    public function getAllInstances()
+    public function getAllInstances(): ?array
     {
         return $this->storage::all();
     }
@@ -59,7 +60,7 @@ class Cms
         return $res;
     }
 
-    public function getStructure()
+    public function getStructure(): Structure
     {
         return $this->structure;
     }
