@@ -29,7 +29,7 @@ class Cms implements CmsInterface
         $this->storage->create($instance);
     }
 
-    public function createArrayInstance($arr): Instance
+    public function createInstanceFromArray($arr): Instance
     {
         assert(isset($arr['metadata']['class']));
         $class=$this->getClass($arr['metadata']['class']);
@@ -48,7 +48,7 @@ class Cms implements CmsInterface
         return $this->storage::all();
     }
 
-    public function filterInstances(array $instances, $filterFunction): array
+    public function filterInstances(array $instances, $filterFunction): ?array
     {
         $res=[];
         foreach ($instances as $key=>$instance) {

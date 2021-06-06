@@ -9,7 +9,7 @@ final class CreateInstanceCommandHandler extends CommandHandler
 {
     public function __invoke(Command $command)
     {
-        $instance=$this->Cms()->createArrayInstance($command->getData());
+        $instance=$this->Cms()->createInstanceFromArray($command->getData());
         $this->Cms()->createInstance($instance);
     }
 }

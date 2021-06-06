@@ -44,7 +44,7 @@ class SerializeUnserializeTest extends TestCase
             ]
         ];
 
-        $id1=$cms->createArrayInstance($instance1);
+        $id1=$cms->createInstanceFromArray($instance1);
 
         foreach ($storage->all() as $instance) {
             if ($instance->getKey()=='first-news-item') {

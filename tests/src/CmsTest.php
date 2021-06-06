@@ -101,7 +101,7 @@ class CmsTest extends TestCase
             ]
         ];
 
-        $instance4=$cms->createArrayInstance($instance4Array);
+        $instance4=$cms->createInstanceFromArray($instance4Array);
         $id3=$instance4->ID();
         $instance5=$cms->getInstanceById($id3);
         $this->assertTrue($instance5->getData('es')['title']=='Sociedad');
@@ -206,7 +206,7 @@ class CmsTest extends TestCase
         ];
 
 
-        $instanceCategory2=$cms->createArrayInstance($instanceCategoryArray2);
+        $instanceCategory2=$cms->createInstanceFromArray($instanceCategoryArray2);
         $idCategory2=$instanceCategory2->ID();
         $instancesInStorage=$cms->getAllInstances();
 

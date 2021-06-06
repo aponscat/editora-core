@@ -14,7 +14,12 @@ title Editora - Class Diagram
 
 package "Application"
 {
-class Cms
+interface CmsInterface
+class Cms implements CmsInterface
+class Command
+class CommandHandler
+class CreateInstanceCommand
+class CreateInstanceCommandHandler
 }
 
 package "Structure"
@@ -101,12 +106,36 @@ class Publication {
   isPublished()
 }
 
-class Cms {
-getClass($key): Clas
-putJSONInstance(string $json): string
+interface CmsInterface {
+getClass($key): Clazz
+createInstance(Instance $instance):void
+createInstanceFromArray(array $array):Instance
 getInstanceByID(string $id): Instance
-getAllInstances()
+getAllInstances(): ?array
+getStructure(): Structure
+filterInstance(array $instances, function $filterFunction): ?array
 }
+
+class Cms {
+Storage $storage
+InstanceRepositoryInterface $instanceRepository
+}
+
+class Command {
+__construct(?array $array): Command
+getData(): ?array
+validate(?array $array): void
+}
+
+class CommandHandler {
+Cms $cms
+__construct(CmsInterface $cms): CommandHandler
+__invoke(Command $command): void
+Cms(): CmsInterface
+}
+
+Command <|-- CreateInstanceCommand
+CommandHandler <|-- CreateInstanceCommandHandler
 @enduml
 ```
 
