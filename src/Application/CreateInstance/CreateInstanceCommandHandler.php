@@ -2,13 +2,12 @@
 
 namespace Omatech\Editora\Application\CreateInstance;
 
-use Omatech\Editora\Application\Cms;
-use Omatech\Editora\Application\CmsCommandHandler;
-use Omatech\Editora\Application\CmsCommand;
+use Omatech\Editora\Application\CommandHandler;
+use Omatech\Editora\Application\Command;
 
-final class CreateInstanceCommandHandler extends CmsCommandHandler
+final class CreateInstanceCommandHandler extends CommandHandler
 {
-    public function __invoke(CmsCommand $command)
+    public function __invoke(Command $command)
     {
         $instance=$this->Cms()->createArrayInstance($command->getData());
         $this->Cms()->createInstance($instance);

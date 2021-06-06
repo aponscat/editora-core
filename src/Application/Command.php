@@ -2,24 +2,24 @@
 
 namespace Omatech\Editora\Application;
 
-class CmsCommand
+class Command
 {
     private array $data=[];
 
-    public function __construct(array $data)
+    public function __construct(?array $data)
     {
         $this->validate($data);
         $this->data = $data;
     }
 
-    public function getData()
+    public function getData(): ?array
     {
         return $this->data;
     }
 
-    public function validate($data)
+    public function validate(?array $data)
     {
-        
+
     }
 
 }

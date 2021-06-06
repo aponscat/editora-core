@@ -3,10 +3,10 @@
 namespace Omatech\Editora\Application\CreateInstance;
 
 use Omatech\Editora\Application\Cms;
-use Omatech\Editora\Application\CmsCommandHandler;
-use Omatech\Editora\Application\CmsCommand;
+use Omatech\Editora\Application\CommandHandler;
+use Omatech\Editora\Application\Command;
 
-final class CreateInstanceCommand extends CmsCommand
+final class CreateInstanceCommand extends Command
 {
     public function validate($data)
     {

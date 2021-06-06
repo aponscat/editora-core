@@ -3,9 +3,9 @@
 namespace Omatech\Editora\Application;
 
 use Omatech\Editora\Application\Contracts\CmsInterface;
-use Omatech\Editora\Application\CmsCommand;
+use Omatech\Editora\Application\Command;
 
-abstract class CmsCommandHandler
+abstract class CommandHandler
 {
 
     private CmsInterface $cms;
@@ -20,5 +20,5 @@ abstract class CmsCommandHandler
         return $this->cms;
     }
 
-    public abstract function __invoke(CmsCommand $command);
+    public abstract function __invoke(Command $command);
 }
