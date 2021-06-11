@@ -5,8 +5,10 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Structure\Clazz;
 use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Structure\ImageAttribute;
 use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Domain\Data\Value;
+use Omatech\Editora\Domain\Data\ImageValue;
 
 class InstanceWithSubAttributesTest extends TestCase
 {
@@ -14,7 +16,7 @@ class InstanceWithSubAttributesTest extends TestCase
     {
         $publicPath='/images';
         $originalFilename='result.jpg';
-        $jsonAttributes=json_encode([
+        $attributes=[
         ['key'=>'image-with-alt-and-title'
         , 'type'=>'Omatech\Editora\Domain\Structure\ImageAttribute'
         , 'valueType'=>'Omatech\Editora\Domain\Data\ImageValue'
@@ -31,8 +33,8 @@ class InstanceWithSubAttributesTest extends TestCase
             , ['key'=>'title:es']
             , ['key'=>'code']
           ]
-      ]]]);
-        $class=Clazz::createFromJSON('image', $jsonAttributes);
+        ]]];
+        $class=Clazz::createFromSimpleAttributesArray('image', $attributes);
         $instance=Instance::create(
             $class,
             'image-instance',

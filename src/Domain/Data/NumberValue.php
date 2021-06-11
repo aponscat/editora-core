@@ -6,7 +6,7 @@ class NumberValue extends Value
 {
     public function setValue($value)
     {
-        return parent::setValue((int)$value);
+        return parent::setValue($value);
     }
 
     public function validate(): bool

@@ -21,14 +21,10 @@ class Clazz
         $class->setAttributes($attributesInstances);
         return $class;
     }
-
-    
-    public static function createFromJSON(string $key, string $jsonAttributes, string $jsonRelations=null): Clazz
+   
+    public static function createFromSimpleAttributesArray(string $key, array $attributes): Clazz
     {
-        $attributes=json_decode($jsonAttributes, true);
-        assert(json_last_error() == JSON_ERROR_NONE);
         $attributesInstances=[];
-        
         foreach ($attributes as $id=>$attribute) {
             assert(isset($attribute['key']));
 
@@ -57,21 +53,9 @@ class Clazz
             $attributesInstances[$id]=new $attributeType($attribute['key'], $config, $valueType);
         }
         $returnClass=self::createFromAttributesArray($key, $attributesInstances);
-
-        if ($jsonRelations) {
-            $relations=json_decode($jsonRelations, true);
-            assert(json_last_error() == JSON_ERROR_NONE);
-            if ($relations) {
-                assert(is_array($relations));
-                foreach ($relations as $relationKey=>$children) {
-                    $returnClass->addRelation(new Relation($relationKey, $children));
-                }
-            }
-        }
         return $returnClass;
     }
-
-    
+ 
     public function toArray()
     {
         $res[$this->getKey()]=

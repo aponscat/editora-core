@@ -5,18 +5,26 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Structure\Clazz;
 use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Domain\Data\Value;
 use Omatech\Editora\Domain\Data\Publication;
+use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class InstancePublicationTest extends TestCase
 {
+
+  private Structure $structure;
+
+  public function setUp(): void
+  {
+      parent::setUp();
+      $this->structure = YamlStructureRepository::read(__DIR__ .'/../data/editora_ultrasimple.yml');
+  }
+
     public function testIsPublishedAfterCreate(): void
     {
-        $jsonAttributes=json_encode([
-            ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-          ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
+        $class=$this->structure->getClass('news-item');
         $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
             
@@ -43,11 +51,8 @@ class InstancePublicationTest extends TestCase
 
     public function testIsPublishedDifferentStatus(): void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance'
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
         $this->assertTrue($instance->isPublished());
         $instance->setStatus('P');
@@ -63,11 +68,8 @@ class InstancePublicationTest extends TestCase
 
     public function testIsPublishedNow(): void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance'
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
         $this->assertTrue($instance->isPublished());
 
@@ -96,11 +98,8 @@ class InstancePublicationTest extends TestCase
 
     public function testIsPublishedNowAtOnce(): void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance'
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
         $this->assertTrue($instance->isPublished());
 
@@ -124,11 +123,8 @@ class InstancePublicationTest extends TestCase
 
     public function testInvalidPublishingDates1():void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance'
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
 
 
@@ -139,11 +135,8 @@ class InstancePublicationTest extends TestCase
 
     public function testInvalidPublishingDates2():void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance'
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
 
 
@@ -154,11 +147,8 @@ class InstancePublicationTest extends TestCase
 
     public function testInvalidPublishingDates3():void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create($class, 'news-item-instance'
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!']);
 
         $this->expectException(\Exception::class);
@@ -168,33 +158,24 @@ class InstancePublicationTest extends TestCase
 
     public function testInvalidPublishingDates4():void
     {
-        $jsonAttributes=json_encode([
-                ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-              ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!'], null, new Publication('O', strtotime('+1 week'), strtotime('-1 week')));
     }
 
     public function testSetInvalidStatusXInCreation(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!'], null, new Publication('X'));
     }
 
     public function testSetInvalidStatusXAfterCreation(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!'], null, new Publication('P'));
         $this->assertFalse($instance->isPublished());
@@ -204,22 +185,16 @@ class InstancePublicationTest extends TestCase
 
     public function testSetInvalidStatusXXXInCreation(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!'], null, new Publication('XXX'));
     }
 
     public function testSetInvalidStatusXXXAfterCreation(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create($class, 'news-item-instance'
         , ['english-title:en'=>'Hello World Title!'], null, new Publication('P'));
         $this->assertFalse($instance->isPublished());

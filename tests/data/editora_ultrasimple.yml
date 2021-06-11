@@ -1,0 +1,14 @@
+languages:
+  - en
+  - es
+attributes:
+classes:
+  news-item:
+    attributes:
+      english-title:en:
+        mandatory: true
+      english-text:en:
+      spanish-title:es:
+      spanish-text:es:
+      nolang-attribute:
+        multilang: false

@@ -15,7 +15,7 @@ class InstancesStorageTest extends TestCase
 {
     public function testSaveAndRetrieve(): void
     {
-        $jsonAttributes=json_encode([
+        $attributes=[
         ['key'=>'title:en'
         , 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue'
         , 'config'=>['mandatory'=>true]]
@@ -23,8 +23,8 @@ class InstancesStorageTest extends TestCase
         , ['key'=>'title:es', 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue']
         , ['key'=>'text:es', 'valueType'=>'Omatech\Editora\Domain\Data\ReverseValue']
         , ['key'=>'nolang-attribute']
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
+      ];
+        $class=Clazz::createFromSimpleAttributesArray('news-item', $attributes);
 
         $instance1=Instance::create(
             $class,

@@ -5,16 +5,27 @@ namespace Omatech\EditoraTest;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Domain\Structure\Clazz;
 use Omatech\Editora\Domain\Structure\Attribute;
+use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Domain\Data\Value;
+use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
 class InstanceTest extends TestCase
 {
+  private Structure $structure;
+
+  public function setUp(): void
+  {
+      parent::setUp();
+      $this->structure = YamlStructureRepository::read(__DIR__ .'/../data/editora_ultrasimple.yml');
+  }
+
+
     public function testGetDataAfterCreate(): void
     {
         $atriTitle=new Attribute('english-title:en', ['mandatory'=>true]);
         $atriText=new Attribute('english-text:en');
-        $class=Clazz::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
+        $class=$this->structure->getClass('news-item');
         $valTitle=new Value($atriTitle, 'Hello World Title!');
         $valText=new Value($atriText, 'Hello World Text!');
         $instance=Instance::create($class, 'news-item-instance', $valTitle->toArray()+$valText->toArray());
@@ -43,12 +54,8 @@ class InstanceTest extends TestCase
 
     public function testGetDataAfterCreateFromJSON(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'type'=>'Omatech\Editora\Domain\Structure\Attribute', 'config'=>['mandatory'=>true]]
-        , ['key'=>'english-text:en']
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create(
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create(
             $class,
             'news-item-instance',
             [
@@ -79,12 +86,8 @@ class InstanceTest extends TestCase
 
     public function testGetDataAfterCreateFromJSONWithMissingOptionalValue(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-        , ['key'=>'english-text:en']
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $instance=Instance::create(
+      $class=$this->structure->getClass('news-item');
+      $instance=Instance::create(
             $class,
             'news-item-instance',
             ['english-title:en'=>'Hello World Title!']
@@ -110,11 +113,10 @@ class InstanceTest extends TestCase
 
     public function testSetDataInNonExistingAttribute(): void
     {
-        $atriTitle=new Attribute('english-title:en', ['mandatory'=>true]);
-        $atriText=new Attribute('english-text:en');
-        $class=Clazz::createFromAttributesArray('news-item', [$atriTitle, $atriText]);
-
-        $atriInexistentText=new Attribute('english-nonexistent:en');
+      $class=$this->structure->getClass('news-item');
+      $atriInexistentText=new Attribute('english-nonexistent:en');
+      $atriTitle=new Attribute('english-title:en', ['mandatory'=>true]);
+      $atriText=new Attribute('english-text:en');
 
         $valTitle=new Value($atriTitle, 'Hello World Title!');
         $valText=new Value($atriText, 'Hello World Text!');
@@ -125,13 +127,8 @@ class InstanceTest extends TestCase
 
     public function testSetDataInNonExistingAttributeFromJSON(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-        , ['key'=>'english-text:en']
-      ]);
-
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create(
             $class,
             'news-item-instance',
@@ -145,12 +142,8 @@ class InstanceTest extends TestCase
 
     public function testMissingMandatoryAttributeFromJSON(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-        , ['key'=>'english-text:en']
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
-        $this->expectException(\Exception::class);
+      $class=$this->structure->getClass('news-item');
+      $this->expectException(\Exception::class);
         $instance=Instance::create(
             $class,
             'news-item-instance',
@@ -161,14 +154,7 @@ class InstanceTest extends TestCase
 
     public function testGetLanguageDataOnlyAfterCreateFromJSON(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'english-title:en', 'config'=>['mandatory'=>true]]
-        , ['key'=>'english-text:en']
-        , ['key'=>'spanish-title:es']
-        , ['key'=>'spanish-text:es']
-        , ['key'=>'nolang-attribute', 'config'=>[]]
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
+      $class=$this->structure->getClass('news-item');
 
         $instance=Instance::create(
             $class,
@@ -227,33 +213,26 @@ class InstanceTest extends TestCase
 
     public function testGetMultilanguageDataAfterCreateFromJSON(): void
     {
-        $jsonAttributes=json_encode([
-        ['key'=>'title:en', 'config'=>['mandatory'=>true]]
-        , ['key'=>'text:en']
-        , ['key'=>'title:es']
-        , ['key'=>'text:es']
-        , ['key'=>'nolang-attribute']
-      ]);
-        $class=Clazz::createFromJSON('news-item', $jsonAttributes);
+      $class=$this->structure->getClass('news-item');
 
         $instance=Instance::create(
             $class,
             'news-item-instance',
             [
-            'title:en'=>'Hello World Title!'
-            ,"text:en" => "Hello World Text!"
-            ,"title:es" => "Hola Mundo!"
-            ,"text:es" => "Hola Mundo Text!"
+            'english-title:en'=>'Hello World Title!'
+            ,"english-text:en" => "Hello World Text!"
+            ,"spanish-title:es" => "Hola Mundo!"
+            ,"spanish-text:es" => "Hola Mundo Text!"
             ,"nolang-attribute" => "NOT-TRANSLATABLE-CODE"
       ]
         );
         $this->assertTrue(
             $instance->getMultilanguageData()==
         [
-          "title:en" => "Hello World Title!"
-          ,"text:en" => "Hello World Text!"
-          ,"title:es" => "Hola Mundo!"
-          ,"text:es" => "Hola Mundo Text!"
+          "english-title:en" => "Hello World Title!"
+          ,"english-text:en" => "Hello World Text!"
+          ,"spanish-title:es" => "Hola Mundo!"
+          ,"spanish-text:es" => "Hola Mundo Text!"
           , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
         ]
         );
@@ -265,10 +244,10 @@ class InstanceTest extends TestCase
               ,'class'=>'news-item'
               ,"key" => "news-item-instance"
               ]
-          ,"title:en" => "Hello World Title!"
-            ,"text:en" => "Hello World Text!"
-            ,"title:es" => "Hola Mundo!"
-            ,"text:es" => "Hola Mundo Text!"
+          ,"english-title:en" => "Hello World Title!"
+            ,"english-text:en" => "Hello World Text!"
+            ,"spanish-title:es" => "Hola Mundo!"
+            ,"spanish-text:es" => "Hola Mundo Text!"
             , "nolang-attribute" => "NOT-TRANSLATABLE-CODE"
             ]
         );
