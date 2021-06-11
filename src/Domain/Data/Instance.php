@@ -40,7 +40,7 @@ class Instance
         }
     }
 
-    public static function hydrateFromArray(Clazz $class, array $arr)
+    public static function hydrateFromArray(Clazz $class, array $arr): Instance
     {
         return self::fromArray($class, $arr, true);
     }
