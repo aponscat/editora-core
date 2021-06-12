@@ -151,12 +151,14 @@ TBD:
 *- Guardar Link com IDs addRelation ($child, ABOVE|BELOW, $id)
 *- separar en StructureTransformers el codi que ara esta a Structure
 *- DSL fitxer input de structure
-- Passar de jsons a classes d'Structure
+*- Passar de jsons a classes d'Structure
+- max length a nivell d'attribute
 - refactoritzar carrega yaml
 *- Editora Database amb yaml
 - components a nivell d'attribute i class: edit=xxx list=xxx
 - Valors unique per class e idioma (com niceurl)
-- Attributs orderables i/o indexables
+- Attributs orderables i/o 
+*- Attributs indexables
 
 Estructura:
 src

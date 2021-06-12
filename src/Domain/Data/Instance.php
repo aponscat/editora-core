@@ -326,16 +326,6 @@ class Instance
         return $this->Publication->setPublishingDates($startDate, $endDate);
     }
 
-    private function getEndPublishingDateOr3000()
-    {
-        return $this->Publication->getEndPublishingDateOr3000();
-    }
-
-    private function getStartPublishingDateOr0()
-    {
-        return $this->Publication->getStartPublishingDateOr0();
-    }
-
     public function hasID()
     {
         return ($this->storageID!==null);
