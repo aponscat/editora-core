@@ -1,0 +1,31 @@
+languages:
+  - es
+  - en
+attributes:
+  orderable-attribute: &orderable-attribute
+    multilang: false
+    orderable: true
+classes:
+  news-item:
+    attributes:
+      title:en:
+        mandatory: true
+      title:es:
+      text:
+      orderable-attribute: *orderable-attribute
+  news-category:
+    attributes:
+      title:
+      code:
+        multilang: false
+        orderable: true
+    relations:
+      news:
+        news-item
+  confidential-class:
+    attributes:
+      title:
+      text:
+      secret:
+        indexable: false
+        

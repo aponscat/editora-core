@@ -12,6 +12,7 @@ class Attribute
     protected string $language='ALL';
     protected bool $mandatory=false;
     protected bool $indexable=true;
+    protected bool $orderable=false;
     protected string $valueType='Omatech\Editora\Domain\Data\Value';
     protected ?array $subattributes=null;
     protected string $langSeparator=':';
@@ -46,6 +47,11 @@ class Attribute
         if (isset($config['indexable'])) {
             assert(is_bool($config['indexable']));
             $this->indexable=$config['indexable'];
+        }
+
+        if (isset($config['orderable'])) {
+            assert(is_bool($config['orderable']));
+            $this->orderable=$config['orderable'];
         }
 
         if (isset($config['subattributes'])) {
@@ -86,6 +92,11 @@ class Attribute
     }
 
     public function isIndexable()
+    {
+        return $this->indexable;
+    }
+
+    public function isOrderable()
     {
         return $this->indexable;
     }

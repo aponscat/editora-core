@@ -4,6 +4,7 @@ languages:
 attributes:
   nolang-attribute: &nolang-attribute
     multilang: false
+    orderable: true
   image-with-alt-and-title: &image-with-alt-and-title
     type: Omatech\Editora\Domain\Structure\ImageAttribute
     value-type: Omatech\Editora\Domain\Data\ImageValue

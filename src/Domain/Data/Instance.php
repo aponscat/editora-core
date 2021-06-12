@@ -16,6 +16,7 @@ class Instance
     private ?array $relations=null;
     private ?string $externalID=null;
     private ?string $storageID=null;
+    private ?string $order='';
 
     private function __construct(Clazz $class, string $key, array $values=null, array $relations=null, Publication $Publication=null, $externalID=null, $storageID=null)
     {
@@ -73,7 +74,6 @@ class Instance
         return self::create($class, $key, $values, $relations, $Publication, $externalID, $storageID, true);
     }
 
-
     public static function create(Clazz $class, string $key, array $values=null, array $relations=null, Publication $Publication=null, $externalID=null, $storageID=null, $hydrateOnly=false)
     {
         $method='createValue';
@@ -81,6 +81,7 @@ class Instance
             $method='hydrateValue';
         }
         $valuesArray=[];
+        $order='';
         if ($values) {
             foreach ($values as $attributeKey=>$value) {
                 if ($class->existsAttribute($attributeKey)) {
@@ -105,10 +106,13 @@ class Instance
                 }
             }
         }
-
         return $inst->validate();
     }
 
+    public function getOrder(): string
+    {
+        return $this->order;
+    }
 
     public function toArray()
     {
@@ -186,6 +190,11 @@ class Instance
             $attributeKey=$value->getFullyQualifiedKey();
             if ($this->class->existsAttribute($attributeKey)) {
                 $this->values[]=$value;
+                $atri=$this->class->getAttributeByKey($attributeKey);
+                if ($atri->isOrderable())
+                {
+                    $this->order=$value->getValue();
+                }
             } else {
                 throw new \Exception("Invalid attribute $attributeKey in class ".$this->class->getKey()." creating Instance ".$this->getKey());
             }

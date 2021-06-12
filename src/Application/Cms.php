@@ -64,4 +64,19 @@ class Cms implements CmsInterface
     {
         return $this->structure;
     }
+
+    public function orderInstances(array $instances): ?array
+    {
+        $res=[];
+        usort($instances, function ($a, $b)
+        {
+            if ($a->getOrder() == $b->getOrder()) {
+            return 0;
+            }
+            return ($a->getOrder() < $b->getOrder()) ? -1 : 1;
+        });
+
+        
+        return $instances;
+    }
 }
