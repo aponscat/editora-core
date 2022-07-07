@@ -66,7 +66,6 @@ Structure "1" *-- "*" Clazz
 Clazz -- Instance
 Clazz "1" *-- "*" Attribute
 Clazz "1" *-- "*"   Relation : children
-Attribute "1" *-- "*subattributes" Attribute
 
 Relation "0..1" -- Link
 
@@ -79,8 +78,6 @@ Instance "1" *.. "1" Publication
 Instance "1" *-- "*"  Link : children
 
 ImageAttribute -- MediaAdapterInterface
-
-Value *-- Value
 
 Value <|-- ImageValue
 Value <|-- NumberValue
@@ -148,17 +145,11 @@ Agus: 3 meses Core , 3 meses Backoffice (amb alguna millora)
 4,5 - 5 meses total
 
 TBD:
-*- Guardar Link com IDs addRelation ($child, ABOVE|BELOW, $id)
-*- separar en StructureTransformers el codi que ara esta a Structure
-*- DSL fitxer input de structure
-*- Passar de jsons a classes d'Structure
 - max length a nivell d'attribute
 - refactoritzar carrega yaml
-*- Editora Database amb yaml
 - components a nivell d'attribute i class: edit=xxx list=xxx
 - Valors unique per class e idioma (com niceurl)
 - Attributs orderables i/o 
-*- Attributs indexables
 
 Estructura:
 src

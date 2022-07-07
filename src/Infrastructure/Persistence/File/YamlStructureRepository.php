@@ -45,46 +45,6 @@ class YamlStructureRepository implements StructureRepositoryInterface
                             $multiLang=false;
                             unset($attributeConfig['multilang']);
                         }
-                        
-                        if (isset($attributeConfig['subattributes'])) {
-                            foreach ($attributeConfig['subattributes'] as $subattributeKey=>$subattributeConfig) {
-                                $subvalueType=null;
-                                $subattributeType='Omatech\Editora\Domain\Structure\Attribute';
-                                //echo "$subattributeKey -> ".print_r($subattributeConfig, true)."\n";
-                                $subattributeMultiLang=false;
-    
-                                if (isset($subattributeConfig['type'])) {
-                                    $subattributeType=$subattributeConfig['type'];
-                                    unset($subattributeConfig['type']);
-                                }
-    
-                                if (isset($subattributeConfig['value-type'])) {
-                                    $subvalueType=$subattributeConfig['value-type'];
-                                    unset($subattributeConfig['value-type']);
-                                }
-    
-                                if (!isset($subattributeConfig['multilang']) || $subattributeConfig['multilang']==true) {
-                                    $subattributeMultiLang=true;
-                                    unset($subattributeConfig['multilang']);
-                                }
-    
-                                if ($subattributeMultiLang) {
-                                    foreach ($structure->getLanguages() as $language) {
-                                        $attributeConfig['subattributes'][]=
-                                                          ["key"=>"$subattributeKey:$language"
-                                                          , "config"=>$subattributeConfig
-                                                          , "valueType"=>$subvalueType];
-                                    }
-                                } else {
-                                    $attributeConfig['subattributes'][]=
-                                                      ["key"=>"$subattributeKey"
-                                                      , "config"=>$subattributeConfig
-                                                      , "valueType"=>$subvalueType];
-                                }
-    
-                                unset($attributeConfig['subattributes'][$subattributeKey]);
-                            }
-                        }
                     }
     
                     //echo "$attributeKey -> ".print_r($attributeConfig, true).$multiLang."\n";

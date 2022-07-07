@@ -5,10 +5,8 @@ namespace Omatech\Tests\Application;
 use PHPUnit\Framework\TestCase;
 use Omatech\Editora\Application\CreateInstance\CreateInstanceCommand;
 use Omatech\Editora\Application\CreateInstance\CreateInstanceCommandHandler;
-use Omatech\Editora\Domain\Structure\Structure;
 use Omatech\Editora\Application\Contracts\CmsInterface;
 use Omatech\Editora\Application\Cms;
-use Omatech\Editora\Domain\Data\Instance;
 use Omatech\Editora\Infrastructure\Persistence\Memory\InstanceRepository;
 use Omatech\Editora\Infrastructure\Persistence\File\YamlStructureRepository;
 
@@ -92,6 +90,4 @@ class CreateInstanceTest extends TestCase
         $this->expectException(\Exception::class);
         $command=new CreateInstanceCommand($WronginstanceSocietyArray);
     }
-
-
 }

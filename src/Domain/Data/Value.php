@@ -9,26 +9,16 @@ class Value
 {
     protected Attribute $attribute;
     protected $value;
-    private ?array $subValues=null;
 
     public function __construct(Attribute $attribute, $value=null, $hydrateOnly=false)
     {
         $this->attribute=$attribute;
         if ($hydrateOnly)
         {
-            if (isset($value['value']) && isset($value['subvalues']))
-            {
-                $this->value=$value['value'];
-                $this->subValues=$value['subvalues'];
-            }
-            else
-            {
-                $this->value=$value;
-            }
+          $this->value=$value;  
         }
         else
         {
-            $this->setSubValues($value);
             $this->setValue($value);
         }
         $this->validate();
@@ -36,91 +26,12 @@ class Value
 
     public function toArray()
     {
-        if ($this->subValues) {
-            return
-            [$this->attribute->getFullyQualifiedKey()=>
-            ['value'=>$this->value
-            , 'subvalues'=>$this->subValuesToArray()]
-            ];
-        }
-        return
-        [$this->attribute->getFullyQualifiedKey()=>$this->value];
+        return [$this->attribute->getFullyQualifiedKey()=>$this->value];
     }
 
     public static function hydrate(Attribute $attribute, $value=null)
     {
         return new self($attribute, $value, true);
-    }
-
-    public function setSubValues($value=null)
-    {
-        if (isset($value) && is_array($value)) {
-            foreach ($value as $key=>$val) {
-                if ($this->attribute->existsSubAttribute($key)) {
-                    $this->subValues[Strings::substringAfter($key, '.')]=$val;
-                }
-            }
-        }
-    }
-
-    public function getSubValue($key)
-    {
-        if ($this->subValues && isset($this->subValues[$key])) {
-            return $this->subValues[$key];
-        }
-        return null;
-    }
-
-    public function hasSubValue($key): bool
-    {
-        return ($this->subValues && isset($this->subValues[$key]));
-    }
-
-    public function getSubValuesData($language='ALL'): ?array
-    {
-        if ($this->attribute->hasSubAttributes($language)) {
-            $atriKey=$this->attribute->getKey();
-            $res=[];
-            foreach ($this->attribute->getSubAttributes($language) as $subattribute) {
-                $subFullKey=$subattribute->getFullyQualifiedKey();
-                $subkey=$subattribute->getKey();
-                if ($this->hasSubValue($subFullKey)) {
-                    $subval=$this->getSubValue($subFullKey);
-                    $res+=[$subkey=>$subval];
-                }
-            }
-            return $res;
-        }
-        return null;
-    }
-
-    public function getIndexableSubValuesData($language='ALL'): ?array
-    {
-        if ($this->attribute->hasSubAttributes($language)) {
-            $atriKey=$this->attribute->getKey();
-            $res=[];
-            foreach ($this->attribute->getIndexableSubAttributes($language) as $subattribute) {
-                $subFullKey=$subattribute->getFullyQualifiedKey();
-                $subkey=$subattribute->getKey();
-                if ($this->hasSubValue($subFullKey)) {
-                    $subval=$this->getSubValue($subFullKey);
-                    $res+=[$subkey=>$subval];
-                }
-            }
-            return $res;
-        }
-        return null;
-    }
-
-    public function subValuesToArray(): ?array
-    {
-        //assert(isset($thuis->subValues) && is_array($this->subValues));
-        $atriKey=$this->attribute->getKey();
-        $res=[];
-        foreach ($this->subValues as $key=>$val) {
-            $res+=["$key"=>$val];
-        }
-        return $res;
     }
 
     public function setValue($value)
@@ -150,24 +61,12 @@ class Value
 
     public function getData($language='ALL')
     {
-        $res=$this->getSingleData($language);
-        if ($this->getSubValuesData($language)) {
-            foreach ($this->getSubValuesData($language) as $key=>$subvalue) {
-                $res+=[$this->attribute->getKey().'.'.$key=>$subvalue];
-            }
-        }
-        return $res;
+        return $this->getSingleData($language);
     }
 
     public function getIndexableData($language='ALL')
     {
-        $res=$this->getSingleIndexableData($language);
-        if ($this->getIndexableSubValuesData($language)) {
-            foreach ($this->getIndexableSubValuesData($language) as $key=>$subvalue) {
-                $res+=[$this->attribute->getKey().'.'.$key=>$subvalue];
-            }
-        }
-        return $res;
+        return $this->getSingleIndexableData($language);
     }
 
     public function getSingleData($language='ALL'): ?array

@@ -2,8 +2,6 @@
 
 namespace Omatech\Editora\Application\CreateInstance;
 
-use Omatech\Editora\Application\Cms;
-use Omatech\Editora\Application\CommandHandler;
 use Omatech\Editora\Application\Command;
 
 final class CreateInstanceCommand extends Command

@@ -5,7 +5,7 @@ attributes:
   nolang-attribute: &nolang-attribute
     multilang: false
     orderable: true
-  image-with-alt-and-title: &image-with-alt-and-title
+  image: &image
     type: Omatech\Editora\Domain\Structure\ImageAttribute
     value-type: Omatech\Editora\Domain\Data\ImageValue
     mandatory: true
@@ -13,11 +13,6 @@ attributes:
     dimensions: 600x600
     storage-path: /Users/apons/editora-core/tests/src
     public-path: /images
-    subattributes:
-      alt:
-      title:
-      code:
-        multilang: false
 classes:
   news-item:
     attributes:
@@ -26,7 +21,7 @@ classes:
       title:es:
       text:
       nolang-attribute: *nolang-attribute
-      image-with-alt-and-title: *image-with-alt-and-title
+      image: *image
   news-category:
     attributes:
       title:

@@ -37,7 +37,7 @@ class SerializeUnserializeTest extends TestCase
             , 'values'=>[
                     'title:en'=>'First news item title'
                     , 'title:es'=>'Primer titular de la noticia'
-                    , 'image-with-alt-and-title'=>[
+                    , 'image'=>[
                         'original-filename'=>'fff'
                         , 'data'=>'aaaa'
                     ]

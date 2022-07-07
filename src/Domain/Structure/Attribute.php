@@ -14,7 +14,6 @@ class Attribute
     protected bool $indexable=true;
     protected bool $orderable=false;
     protected string $valueType='Omatech\Editora\Domain\Data\Value';
-    protected ?array $subattributes=null;
     protected string $langSeparator=':';
     private ?array $config=null;
 
@@ -53,42 +52,6 @@ class Attribute
             assert(is_bool($config['orderable']));
             $this->orderable=$config['orderable'];
         }
-
-        if (isset($config['subattributes'])) {
-            foreach ($config['subattributes'] as $subattributeKey=>$subattribute) {
-                //assert(!empty($subattribute['key']));
-                $subattributeConfig=null;
-                if (isset($subattribute['config'])) {
-                    $subattributeConfig=$subattribute['config'];
-                }
-                $subattributeValueType=null;
-                if (isset($subattribute['valueType'])) {
-                    $subattributeValueType=$subattribute['valueType'];
-                }
-
-                if (!isset($subattribute['key']))
-                {
-                    $this->subattributes[]=new self($subattributeKey, $subattributeConfig, $subattributeValueType);
-                }
-                else
-                {
-                    $this->subattributes[]=new self($subattribute['key'], $subattributeConfig, $subattributeValueType);
-                }
-
-            }
-        }
-    }
-
-    public function hasSubAttributes($language='ALL')
-    {
-        if ($this->subattributes) {
-            foreach ($this->subattributes as $subattribute) {
-                if ($subattribute->availableInLanguage($language)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public function isIndexable()
@@ -121,45 +84,6 @@ class Attribute
         }
         return false;
     }
-
-    public function getSubAttributes($language='ALL')
-    {
-        if ($this->subattributes) {
-            $res=[];
-            foreach ($this->subattributes as $subattribute) {
-                if ($subattribute->availableInLanguage($language)) {
-                    $res[]=$subattribute;
-                }
-            }
-            return $res;
-        }
-        return null;
-    }
-
-    public function existsSubAttribute($attributeKey): bool
-    {
-        if ($this->subattributes) {
-            foreach ($this->subattributes as $subattribute) {
-                if ($this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()==$attributeKey) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public function getSubAttribute($attributeKey)
-    {
-        if ($this->subattributes) {
-            foreach ($this->subattributes as $subattribute) {
-                if ($this->getFullyQualifiedKey().'.'.$subattribute->getFullyQualifiedKey()==$attributeKey) {
-                    return $subattribute;
-                }
-            }
-        }
-        return null;
-    }
-
     
     public function toArray()
     {

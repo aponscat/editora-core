@@ -37,7 +37,7 @@ class InstancesRelationsTest extends TestCase
             'first-news-item',
             ['title:en'=>'First title of a news item'
                 , 'title:es'=>'Primer titular de la noticia'
-                ,'image-with-alt-and-title'=>
+                ,'image'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
@@ -49,7 +49,7 @@ class InstancesRelationsTest extends TestCase
             'second-news-item',
             ['title:en'=>'Second title of a news item'
                 , 'title:es'=>'Segundo titular de la noticia'
-                ,'image-with-alt-and-title'=>
+                ,'image'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
@@ -61,7 +61,7 @@ class InstancesRelationsTest extends TestCase
             'third-news-item',
             ['title:en'=>'Third title of a news item'
                 , 'title:es'=>'Tercer titular de la noticia'
-                ,'image-with-alt-and-title'=>
+                ,'image'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
@@ -126,7 +126,7 @@ class InstancesRelationsTest extends TestCase
             'first-news-item',
             ['title:en'=>'First title of a news item'
                 , 'title:es'=>'Primer titular de la noticia'
-                ,'image-with-alt-and-title'=>
+                ,'image'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
@@ -138,7 +138,7 @@ class InstancesRelationsTest extends TestCase
             'second-news-item',
             ['title:en'=>'Second title of a news item'
                 , 'title:es'=>'Segundo titular de la noticia'
-                ,'image-with-alt-and-title'=>
+                ,'image'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
@@ -150,7 +150,7 @@ class InstancesRelationsTest extends TestCase
             'third-news-item',
             ['title:en'=>'Third title of a news item'
                 , 'title:es'=>'Tercer titular de la noticia'
-                ,'image-with-alt-and-title'=>
+                ,'image'=>
                 ['original-filename'=>$originalFilename
                 , 'data'=>chunk_split(base64_encode(file_get_contents(dirname(__FILE__).'/../data/sample-image-640x480.jpeg')))
                 ]
