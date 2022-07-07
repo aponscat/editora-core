@@ -30,5 +30,10 @@
     "test": "vendor/bin/phpunit",
     "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
     "infection": "vendor/bin/infection"
+  },
+  "config": {
+    "allow-plugins": {
+      "infection/extension-installer": true
+    }
   }
 }
